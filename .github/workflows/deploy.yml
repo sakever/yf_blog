@@ -2,9 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -20,7 +20,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16'
-        cache: 'npm'
         
     - name: Install dependencies
       run: npm install
