@@ -5,7 +5,7 @@ module.exports = {
   description: '记录学习到的知识',
   // 站点部署的基础路径，GitHub Pages 部署时需要修改为仓库名，如 '/yf_blog/'
   // 如果使用自定义域名，可以设置为 '/'
-  base: process.env.DEPLOY_ENV === 'gh-pages' ? '/yf_blog/' : '/',
+  base: '/yf_blog/',
   // 使用自定义主题
   theme: require.resolve('./theme'),
   // 需要注入到 HTML <head> 标签中的元素

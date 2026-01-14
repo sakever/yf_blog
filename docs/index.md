@@ -8,9 +8,7 @@
 
 ## 在线阅读
 
-本文档在线阅读地址为：[易凡的博客](https://yfblog-omega.vercel.app)
-网站由 Vercel 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站，并推送至 CDN，提供访问加速。
-你也可以访问[易凡的 CSDN 博客](https://blog.csdn.net/sekever)在 CSDN 中进行阅读。
+本文档在线阅读地址为：[易凡的博客](https://sakever.github.io/yf_blog/)，你也可以访问[易凡的 CSDN 博客](https://blog.csdn.net/sekever)在 CSDN 中进行阅读。本项目在部署前调研过各种方法，比如使用 vercel 部署，不过国内无法访问，需要买个域名，比较麻烦，所以使用了 github pages 部署。
 
 ## 二次演绎、传播和发行
 
