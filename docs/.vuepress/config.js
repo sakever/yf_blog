@@ -30,7 +30,7 @@ module.exports = {
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    // 左侧总目录（不按标题自动展开）
+    // 左侧总目录
     sidebar: {
       '/_posts/': [
         {
