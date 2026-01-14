@@ -1,3 +1,5 @@
+const sidebar = require('./sidebar')
+
 module.exports = {
   title: '易凡的博客',
   description: '记录学习到的知识',
@@ -12,18 +14,32 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '博客', link: '/_posts/' }
+      { text: '博客', link: '/_posts/' },
+      { text: '分类', link: '/categories/' },
+      { text: '标签', link: '/tags/' }
     ],
-    sidebar: 'auto',
-    sidebarDepth: 2,
+    sidebar: sidebar,
+    sidebarDepth: 3,
     lastUpdated: '最后更新',
     repo: '',
     repoLabel: 'GitHub',
     editLinks: false,
-    editLinkText: ''
+    editLinkText: '',
+    search: true,
+    searchMaxSuggestions: 10
   },
   markdown: {
     lineNumbers: true,
-    extractHeaders: ['h2', 'h3', 'h4']
-  }
+    extractHeaders: ['h2', 'h3', 'h4', 'h5']
+  },
+  plugins: [
+    ['@vuepress/search', {
+      searchMaxSuggestions: 10
+    }],
+    ['vuepress-plugin-category', {
+      categoryText: '分类',
+      tagText: '标签',
+      pages: ['/_posts/']
+    }]
+  ]
 }
