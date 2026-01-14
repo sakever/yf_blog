@@ -30,7 +30,7 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     // 侧边栏配置（使用自动侧边栏插件）
-    sidebar: 'auto',
+    // sidebar: 'auto',
     // 侧边栏自动提取的标题深度（h2、h3、h4）
     sidebarDepth: 3,
     // 页面底部"最后更新"文案
