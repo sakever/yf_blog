@@ -1,0 +1,19 @@
+{
+  "name": "yifan_blog",
+  "version": "1.0.0",
+  "description": "易凡的个人博客",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "keywords": [
+    "blog",
+    "vuepress"
+  ],
+  "author": "易凡",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  }
+}
