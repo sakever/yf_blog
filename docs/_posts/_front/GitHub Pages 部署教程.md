@@ -1,3 +1,14 @@
+---
+title: GitHub Pages 部署教程
+date: 2024-01-01
+categories:
+  - 前端
+  - 部署
+tags:
+  - GitHub
+  - Pages
+  - 部署
+---
 # GitHub Pages 部署教程
 
 ## 什么是 GitHub Pages

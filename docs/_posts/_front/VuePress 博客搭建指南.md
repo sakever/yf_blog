@@ -1,3 +1,14 @@
+---
+title: VuePress 博客搭建指南
+date: 2024-01-03
+categories:
+  - 前端
+  - 博客
+tags:
+  - VuePress
+  - 搭建
+  - 博客
+---
 # VuePress 博客搭建指南
 
 ## 什么是 VuePress？
