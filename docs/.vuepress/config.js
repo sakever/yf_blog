@@ -3,8 +3,9 @@ module.exports = {
   title: '易凡的博客',
   // 站点描述，用于 SEO 与 meta 标签
   description: '记录学习到的知识',
-  // 站点部署的基础路径，根目录部署时保持为 "/"
-  base: '/',
+  // 站点部署的基础路径，GitHub Pages 部署时需要修改为仓库名，如 '/yf_blog/'
+  // 如果使用自定义域名，可以设置为 '/'
+  base: '/yf_blog/',
   // 使用自定义主题
   theme: require.resolve('./theme'),
   // 需要注入到 HTML <head> 标签中的元素
@@ -30,7 +31,7 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     // 侧边栏配置（使用自动侧边栏插件）
-    // sidebar: 'auto',
+    sidebar: 'auto',
     // 侧边栏自动提取的标题深度（h2、h3、h4）
     sidebarDepth: 3,
     // 页面底部"最后更新"文案
