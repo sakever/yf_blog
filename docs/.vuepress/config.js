@@ -5,6 +5,8 @@ module.exports = {
   description: '记录学习到的知识',
   // 站点部署的基础路径，根目录部署时保持为 "/"
   base: '/',
+  // 使用自定义主题
+  theme: require.resolve('./theme'),
   // 需要注入到 HTML <head> 标签中的元素
   head: [
     // 网站图标
@@ -75,27 +77,6 @@ module.exports = {
       tagText: '标签',
       // 需要生成分类/标签的页面路径
       pages: ['/_posts/']
-    }],
-    // 自动目录插件配置
-    ['vuepress-plugin-auto-catalog',
-      {
-        // 指定要扫描的目录，比如你的 _posts 目录
-        scanPath: './_posts',
-        // 目录的标题，比如 "文章列表"
-        title: '文章列表',
-        // 是否按目录结构分类（推荐）
-        level: 2,
-        // 是否显示文件修改时间
-        showTime: true,
-        // 是否显示文件大小
-        showSize: false,
-        // 是否显示文件路径
-        showPath: false,
-        // 排序方式，比如按修改时间倒序
-        sort: 'time',
-        // 是否只显示 Markdown 文件
-        onlyMd: true,
-      }
-    ]
+    }]
   ]
 }

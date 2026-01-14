@@ -1,5 +1,4 @@
 # Vercel 部署教程
-@[TOC](Vercel 部署教程)
 
 ## 什么是 Vercel？
 

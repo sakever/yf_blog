@@ -1,7 +1,5 @@
 # VuePress 博客搭建指南
 
-@[TOC](VuePress 博客搭建指南)
-
 ## 什么是 VuePress？
 
 VuePress 是一个基于 Vue 的静态网站生成器，专为技术文档和博客设计。它具有以下特点：
