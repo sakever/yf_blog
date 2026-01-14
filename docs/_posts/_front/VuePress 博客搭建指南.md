@@ -1,6 +1,6 @@
 # VuePress 博客搭建指南
 
-@[TOC](Vercel 部署教程)
+@[TOC](VuePress 博客搭建指南)
 
 ## 什么是 VuePress？
 
