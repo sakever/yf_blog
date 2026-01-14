@@ -6,8 +6,8 @@ module.exports = {
   // 站点部署的基础路径，GitHub Pages 部署时需要修改为仓库名，如 '/yf_blog/'
   // 如果使用自定义域名，可以设置为 '/'
   base: '/yf_blog/',
-  // 使用默认主题
-  theme: '@vuepress/default',
+  // 使用 vdoing 主题
+  theme: 'vdoing',
   // 需要注入到 HTML <head> 标签中的元素
   head: [
     // 网站图标
@@ -23,19 +23,49 @@ module.exports = {
   ],
   // 主题相关配置
   themeConfig: {
+    // 顶部导航
     nav: [
       { text: '首页', link: '/' },
       { text: '博客', link: '/_posts/' },
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    sidebar: 'auto',
+    // 左侧总目录（不按标题自动展开）
+    sidebar: {
+      '/_posts/': [
+        {
+          title: '前端',
+          collapsable: false,
+          children: [
+            '_front/GitHub Pages 部署教程',
+            '_front/Vercel 部署教程',
+            '_front/VuePress 博客搭建指南'
+          ]
+        },
+        {
+          title: '数据结构与算法',
+          collapsable: false,
+          children: [
+            '_data_structures_and_algorithms/集合与数据结构学习笔记'
+          ]
+        },
+        {
+          title: '多线程',
+          collapsable: false,
+          children: [
+            '_multithreading/多线程基础学习笔记'
+          ]
+        }
+      ]
+    },
+    // 右侧目录深度
     sidebarDepth: 3,
+    // 分类 / 标签页
+    category: true,
+    tag: true,
+    archive: true,
+    // 其它默认设置
     lastUpdated: '最后更新',
-    repo: '',
-    repoLabel: 'GitHub',
-    editLinks: false,
-    editLinkText: '',
     search: true,
     searchMaxSuggestions: 10
   },
