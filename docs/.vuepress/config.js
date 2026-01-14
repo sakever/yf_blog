@@ -56,21 +56,9 @@ module.exports = {
   // 插件列表
   plugins: [
     // 自动侧边栏插件配置
-    ['vuepress-plugin-auto-sidebar', {
+    ['vuepress-plugin-sidebar-auto', {
       // 扫描的目录
       scanPath: './_posts',
-      // 标题
-      title: '文章目录',
-      // 是否折叠
-      collapsable: true,
-      // 侧边栏深度
-      sidebarDepth: 3,
-      // 是否显示文件名
-      filename: true,
-      // 是否显示文件路径
-      showPath: false,
-      // 排序方式：按文件名排序
-      sort: 'filename',
       // 是否只显示 Markdown 文件
       onlyMd: true
     }],
