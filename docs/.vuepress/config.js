@@ -1,5 +1,3 @@
-const sidebar = require('./sidebar')
-
 module.exports = {
   // 站点标题，显示在浏览器标签页和页面左上角
   title: '易凡的博客',
@@ -29,8 +27,8 @@ module.exports = {
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    // 侧边栏配置
-    sidebar: sidebar,
+    // 侧边栏配置（使用自动侧边栏插件）
+    sidebar: 'auto',
     // 侧边栏自动提取的标题深度（h2、h3、h4）
     sidebarDepth: 3,
     // 页面底部"最后更新"文案
@@ -57,6 +55,25 @@ module.exports = {
   },
   // 插件列表
   plugins: [
+    // 自动侧边栏插件配置
+    ['vuepress-plugin-auto-sidebar', {
+      // 扫描的目录
+      scanPath: './_posts',
+      // 标题
+      title: '文章目录',
+      // 是否折叠
+      collapsable: true,
+      // 侧边栏深度
+      sidebarDepth: 3,
+      // 是否显示文件名
+      filename: true,
+      // 是否显示文件路径
+      showPath: false,
+      // 排序方式：按文件名排序
+      sort: 'filename',
+      // 是否只显示 Markdown 文件
+      onlyMd: true
+    }],
     // 官方搜索插件配置
     ['@vuepress/search', {
       // 搜索建议最大条数
