@@ -30,7 +30,6 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     sidebar: 'auto',
-    rightMenuBar: false,
     sidebarDepth: 3,
     category: true,
     tag: true,
