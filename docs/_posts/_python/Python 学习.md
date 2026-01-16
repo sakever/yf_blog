@@ -3,7 +3,7 @@ title: Python 学习
 date: 2023-03-22
 sidebar: ture
 categories:
-  - 计算机基础
+  - Python
 tags:
   - Python
 ---

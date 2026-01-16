@@ -35,7 +35,6 @@ module.exports = {
     category: true,
     tag: true,
     archive: true,
-    categoryText: '随笔',
     lastUpdated: '最后更新',
     search: true,
     searchMaxSuggestions: 10,
