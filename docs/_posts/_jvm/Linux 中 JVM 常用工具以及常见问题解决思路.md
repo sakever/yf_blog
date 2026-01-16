@@ -1,7 +1,6 @@
 ---
 title: Linux 中 JVM 常用工具以及常见问题解决思路
 date: 2023-08-17
-sidebar: ture
 categories:
   - JVM
 tags:

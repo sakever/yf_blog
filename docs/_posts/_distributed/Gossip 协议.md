@@ -1,7 +1,6 @@
 ---
 title: Gossip 协议
 date: 2024-02-03
-sidebar: ture
 categories:
   - 分布式
 tags:

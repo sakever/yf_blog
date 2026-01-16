@@ -2,7 +2,6 @@
 title: JVM 自动内存管理
 date: 2021-06-16
 
-sidebar: ture
 categories:
   - JVM
 tags:

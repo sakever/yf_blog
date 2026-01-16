@@ -1,7 +1,6 @@
 ---
 title: Shell 脚本
 date: 2022-10-13
-sidebar: ture
 categories:
   - 开发工具
 tags:

@@ -1,7 +1,6 @@
 ---
 title: 从 ACID 到 BASE 事务处理的实现
 date: 2025-03-15
-sidebar: ture
 categories:
   - 架构设计
 tags:

@@ -1,7 +1,6 @@
 ---
 title: Server-Sent Events (SSE)
 date: 2024-10-16
-sidebar: ture
 categories:
   - 计算机网络
 tags:

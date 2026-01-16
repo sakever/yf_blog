@@ -2,7 +2,6 @@
 title: 如何使用 lambda 表达式实现排序
 date: 2021-09-05
 
-sidebar: ture
 categories:
   - Java
 tags:

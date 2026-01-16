@@ -1,7 +1,6 @@
 ---
 title: Jackson 的各种使用
 date: 2022-12-27
-sidebar: ture
 categories:
   - Java
 tags:
