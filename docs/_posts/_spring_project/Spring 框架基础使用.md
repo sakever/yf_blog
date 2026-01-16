@@ -8,7 +8,7 @@ tags:
   - Spring
 ---
 
-# IOC
+## IOC
 1，使用Maven构造项目，在pom.xml中导入依赖
 ```xml
         <dependency>
@@ -124,7 +124,7 @@ public class Student {
         System.out.println(s);
     }
 ```
-# AOP
+## AOP
 首先，所有的类都需要交给IOC容器，才可以使用SpringAOP，推荐直接用aspectJ
 
 使用注解定义哪个类为增强类，增强类当作切面
@@ -161,7 +161,7 @@ Pointcut来设置增强全限定名，这样遇到相同的方法可以直接调
     }
 ```
 
-# 事务
+## 事务
 声明式事务管理（编程式事务是自己编写代码实现事务）
 
 @Transactional作用于类上时，该类的所有 public 方法将都具有该类型的事务属性
@@ -172,7 +172,7 @@ Pointcut来设置增强全限定名，这样遇到相同的方法可以直接调
 
 此注解后面可以加参数，用来声明事务传播行为、事务隔离级别等
 
-# WebFlux
+## WebFlux
 异步非阻塞，使用netty容器，可以处理更多请求，响应式编程，使用了观察者模式
 
 主要使用两个类来实现，Mono（返回一个或者零个数据的数据流），Flux（返回多个数据）

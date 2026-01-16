@@ -1,3 +1,80 @@
+const fs = require('fs')
+const path = require('path')
+
+// 分类名称映射（将目录名转换为中文显示名）
+const categoryNameMap = {
+  '_front': '前端',
+  '_Java': 'Java',
+  '_multithreading': '多线程',
+  '_data_structures_and_algorithms': '数据结构与算法',
+  '_computer': '计算机基础',
+  '_jvm': 'JVM',
+  '_relational_db': '关系型数据库',
+  '_non_relational_db': '非关系型数据库',
+  '_spring_project': 'Spring 项目',
+  '_distributed': '分布式',
+  '_development': '开发工具',
+  '_linux': 'Linux',
+  '_finance': '金融',
+  '_other': '其他',
+  '_network': '网络',
+  '_middleware': '中间件',
+  '_architecture': '架构设计',
+  '_ai': 'AI',
+  '_python': 'Python',
+  '_question': '问题记录'
+}
+
+/**
+ * 自动生成侧边栏配置
+ * @param {string} postsDir - _posts 目录路径
+ * @returns {Object} sidebar 配置对象
+ */
+function generateSidebar(postsDir) {
+  const sidebar = {
+    '/_posts/': []
+  }
+
+  // 读取 _posts 目录
+  if (!fs.existsSync(postsDir)) {
+    console.warn(`目录不存在: ${postsDir}`)
+    return sidebar
+  }
+
+  const items = fs.readdirSync(postsDir, { withFileTypes: true })
+  
+  // 按目录分组
+  const dirs = items
+    .filter(item => item.isDirectory() && item.name.startsWith('_'))
+    .map(item => item.name)
+    .sort()
+
+  dirs.forEach(dirName => {
+    const dirPath = path.join(postsDir, dirName)
+    const files = fs.readdirSync(dirPath)
+      .filter(file => file.endsWith('.md') && file !== 'index.md')
+      .map(file => file.replace('.md', ''))
+      .sort()
+
+    if (files.length > 0) {
+      // 获取分类显示名
+      const categoryName = categoryNameMap[dirName] || dirName.replace(/^_/, '')
+      
+      sidebar['/_posts/'].push({
+        title: categoryName,
+        collapsable: false,
+        children: files.map(file => `${dirName}/${file}`)
+      })
+    }
+  })
+
+  return sidebar
+}
+
+// 自动生成侧边栏
+const postsDir = path.join(__dirname, '../_posts')
+const sidebar = generateSidebar(postsDir)
+
 module.exports = {
   // 站点标题，显示在浏览器标签页和页面左上角
   title: 'sakever 的博客',
@@ -29,8 +106,11 @@ module.exports = {
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    sidebar: 'auto',
+    // 自动生成的左侧总目录（整体目录，不随页面展开）
+    sidebar: sidebar,
+    // 右侧目录深度（显示当前页面的目录）
     sidebarDepth: 3,
+    // 分类 / 标签页
     category: true,
     tag: true,
     archive: true,

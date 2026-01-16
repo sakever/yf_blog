@@ -8,8 +8,8 @@ tags:
   - Hadoop
 ---
 Hadoop 是一个由 Apache 基金会开发的分布式系统基础架构，主要解决海量数据的存储和计算问题，广义上 Hadoop 指的是 Hadoop 生态圈，包含 HDFS、Hive、MapReduce、HBase 多种组件
-# 基本介绍
-## Hadoop 的必要性
+## 基本介绍
+### Hadoop 的必要性
 Hadoop 主要解决了海量数据的存储问题
 
 - 高可用性：底层会维护多个数据副本，所以即使 Hadoop 某个计算元素或存储出现故障，也不会导致数据的丢失
@@ -22,12 +22,12 @@ Hadoop 主要解决了海量数据的存储问题
 不支持并发写和随机写
 一个文件只能有一个写，不允许多线程同时写
 
-## Hadoop 核心组件
+### Hadoop 核心组件
 Hadoop 核心组件包含以下两种
 
 - HDFS：是 Hadoop 的分布式文件系统，主要负责海量数据的存储
 - MapReduce：是 Hadoop 的计算框架，负责对数据进行分布式计算处理。处理流程分为 Map 阶段（并行处理输入数据，将数据转换为键值对）和 Reduce 阶段（对 Map 阶段的结果进行汇总和进一步处理）
-## Hadoop 生态系统中的附加组件
+### Hadoop 生态系统中的附加组件
 我们后端开发接触的比较多的是Hadoop 生态系统中的附加组件，Sqoop 以及 Hive，分别用来同步数据和查询数据
 
 - Sqoop：Hadoop（Hive）与传统数据库（Mysql）之间传输数据的工具，支持批量导入和导出数据
@@ -36,7 +36,7 @@ Hadoop 核心组件包含以下两种
 - HBase：HBase 是一个分布式的、面向列的 NoSQL 数据库，建立在 HDFS 之上。它提供了实时读写访问，适合处理大规模数据集
 - Hive：是基于 Hadoop 的数据仓库工具，它提供了一种 SQL-like 的查询语言（HiveQL），使用户可以方便地进行数据查询和分析。它可以将 HiveQL 转换为 MapReduce 任务执行
 
-## 基础特性
+### 基础特性
 hive 表可以通过 Hive/Spark/Impala 等计算引擎生成
 
 - Hive：将 SQL 翻译成 MapReduce 任务，适合高延迟、高吞吐的批处理
@@ -44,9 +44,9 @@ hive 表可以通过 Hive/Spark/Impala 等计算引擎生成
 - Impala：专为低延迟交互式 SQL 查询而生
 
 HDFS 存放目录文件的格式是层级（树状）结构的，这是 HDFS 为了实现数据分布、并行处理和高效查询而设计的分区化层级结构。
-# HDFS
+## HDFS
 HDFS 是 Hadoop 的分布式文件系统，解决了海量数据的存储问题
-## HDFS 集群架构
+### HDFS 集群架构
 HDFS 使用 Master/Slave 架构，架构逻辑比较类似 Kafka、ES 等 Apache 的其他项目
 
 一般一个集群有一个 NameNode 和一定数目 DataNode 组成，Namenode 是 HDFS 集群主节点，Datanode 是 HDFS 集群从节点，两种角色各司其职，共同协调完成分布式的文件存储服务
@@ -54,8 +54,8 @@ HDFS 使用 Master/Slave 架构，架构逻辑比较类似 Kafka、ES 等 Apache
 HDFS 中文件在物理上是分块存储，通过 dfs.blocksize 配置，2.x之后的版本默认128M
 
 HDFS 中文件在逻辑上是连续的，提供一个文件目录树
-## HDFS 读写流程
-### HDFS 写流程
+### HDFS 读写流程
+#### HDFS 写流程
 1，客户端向 NameNode 发送写数据请求（包含待上传文件名和将要上传的路径）
 2，NameNode 检查路径是否存在，文件是否重名等（假设满足上传条件）
 3，NameNode 向客户端响应数据，可以上传文件，并且创建文件元数据
@@ -76,7 +76,7 @@ HDFS 中文件在逻辑上是连续的，提供一个文件目录树
 1，带宽高效利用，数据沿管道顺序流动：客户端 → DN1 → DN2 → DN3。**每个节点同时进行接收和发送**，相比客户端分别上传到各 DN，节省约2/3的上传时间。由于管道的存在缓冲区可以占用较少的内存空间
 2，降低客户端负载，客户端只需连接第一个 DataNode，不直接与所有副本节点通信（减少连接数和带宽占用），特别有利于大文件上传（避免客户端成为瓶颈）
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eee55eec262646568d79f628eaeca3ca.png)
-### HDFS 读流程
+#### HDFS 读流程
 1，客户端向 NameNode 请求下载文件
 2，NameNode 返回目标文件的元数据
 3，客户端根据元数据请求 DataNode 读取数据 block
@@ -85,7 +85,7 @@ HDFS 中文件在逻辑上是连续的，提供一个文件目录树
 6，客户端根据元数据组装 block 块完成读取数据
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/61ae829495be444eac95623764e29275.png)
 
-## NameNode 和 DataNode
+### NameNode 和 DataNode
 NameNode 是名称节点，核心职责是管理文件系统的元数据（文件名、记录每个 block 所在的 DataNode 位置、block 列表等），并且协调客户端访问
 
 NameNode 不存储实际数据，所有元数据存储在内存中（因此限制集群规模）
@@ -102,7 +102,7 @@ NameNode 在早期是单点架构的，很容易出问题，因此 HDFS 2.0 后�
 DataNode（数据节点），核心职责为实际存储数据 block，定期向 NameNode 汇报存储情况，也就是心跳检测，默认每个 block 有3个副本（可配置）
 
 HDFS 会定期校验数据完整性
-## NameNode 持久化机制
+### NameNode 持久化机制
 NameNode 元数据的存储位置是在内存中，但是内存一旦断电元数据将丢失，因此必须将内存中的元数据存储在磁盘中用于备份，这里引入额外一个概念叫 Fsimagem
 
 Fsimagem 为内存元数据的备份。若内存的元数据发生改变，如果同时更新 Fsimage 会降低效率，如果不更新会发生数据不一致问题
@@ -113,7 +113,7 @@ Fsimagem 为内存元数据的备份。若内存的元数据发生改变，如�
 
 其行为类似 redis 的 RDB 和 AOF 机制，MySQL 中的 binlog 和 redolog，这些数据存储的软件持久化实现都差不多
 
-## hdfs 数据倾斜怎么处理
+### hdfs 数据倾斜怎么处理
 一般业务研发不用处理这个问题，还是简单聊一下吧，数据倾斜通常指 DataNode 负载不均，原因可能是：
 
 - 写入模式问题：若客户端总往同一 DataNode 写数据（比如日志集中写入），会导致该节点数据过多
@@ -124,7 +124,7 @@ Fsimagem 为内存元数据的备份。若内存的元数据发生改变，如�
 
 - 先计算所有 DataNode 的存储利用率，对比各节点利用率，找出超过平均阈值（默认 10%）的节点
 - 将高负载节点的数据块（Block）复制到低负载节点，完成后删除原副本
-# MapReduce
+## MapReduce
 MapReduce 是一种编程模型和分布式计算框架，是开发基于 Hadoop 的数据分析应用的核心框架。MapReduce 的主要用途包括：
 
 - 大数据处理：处理和分析 PB 级别的数据，如日志分析、数据挖掘、统计分析等
@@ -133,7 +133,7 @@ MapReduce 是一种编程模型和分布式计算框架，是开发基于 Hadoop
 - 机器学习：处理大规模的训练数据，进行模型训练和预测
 
 总之，只要是统计或者计算 Hadoop 中的数据，都会用到 MapReduce。Hive（基于 Hadoop 的数据仓库工具，它提供了一种 SQL-like 的查询语言，使得用户可以方便地进行数据查询和分析）底层对接 MapReduce 来执行查询和数据处理任务。Hive 的查询最终会被转换成一个或多个 MapReduce 作业来执行
-## 底层原理
+### 底层原理
 **MapReduce 实现分布式计算分成3个阶段，Map（映射）、Shuffle（洗牌）、Reduce（归约）**
 
 先从 HDFS 中找到要处理的数据作为输入数据，输入数据被 HDFS 切成多个小块（一般是 128MB 一块），每个小块称为一个切片（split），每个块由一个 Map 任务处理，准确的说是 MapTask 并发实例，他们完全并行运行，互不干扰
@@ -149,7 +149,7 @@ MapReduce 是一种编程模型和分布式计算框架，是开发基于 Hadoop
 这些操作被称为 Shuffle（洗牌），Shuffle 完毕将多个结果合并，就是 reduce 操作，reduce 操作完成后就是最终结果了
 
 MapReduce 编程模型只能包含一个 Map 阶段一个 Reduce 阶段，但可以实现多个 MapReduce 串行运行
-## 示例
+### 示例
 上面的描述可能有些抽象，让大家有很多问题，比如为啥 ReduceTask 也可以并行执行？如果 MapTask 的产物是键值对的话，那么存放在 HDFS 的关系型表会怎么转换成键值对然后暴露给我们？接下来举个例子让大家更加深入的了解问题：
 
 假设我们有一个关系型表 users，其结构如下：

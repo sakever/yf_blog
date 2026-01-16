@@ -8,7 +8,7 @@ tags:
 ---
 
 基于阿里编程规范，遵从开发规范可以避免错误
-# 基础模板
+## 基础模板
 ```sql
 CREATE TABLE user
 (
@@ -29,7 +29,7 @@ alter table user
     add index idx_user_name (user_name);
 ```
 当 AUTO_INCREMENT 达到最大值时，后续的 INSERT 会失败，报主键重复错误，你的应用会崩溃
-# 命名规范
+## 命名规范
 - 库名、表名、字段名必须使用小写字母,并采用下划线分割
 - 库名、表名、字段名禁止使用MySQL保留字
 - 临时库、表名必须以tmp为前缀,并以日期为后缀。例如 tmp_test01_20130704
@@ -37,7 +37,7 @@ alter table user
 - 非唯一索引按照“idx_字段名称_字段名称”进用行命名。例如 idx_age_name，一般命名为表名加列名加 uindex，比如 user_user_id_uindex
 - 唯一索引按照“uniq_字段名称_字段名称”进用行命名。例如 uniq_age_name，一般命名为表名加列名，比如 user_user_name
 - 主键索引一般为自动生成，使用 primary key 即可生成类似 user_id_pkey 的索引
-# 设计规范
+## 设计规范
 - 表必须显示定义使用 innodb 存储引擎、utf8mb4 字符集，并且添加注释
 - 表必须有主键，推荐使用 unsigned 自增列的 int 类型非业务数据作为主键（其他类型不能设置为自增）
 - 除主键外的其他字段都需要增加注释
@@ -48,7 +48,7 @@ alter table user
 - 表必须要有修改时间与创建时间
 - text 可以使用 varchar(10240) 代替。原因：varchar 类型也更容易进行数据验证和清理，因为它有一个明确的最大长度；text 类型无法使用索引、需要额外的处理和存储空间
 
-# 字段设计
+## 字段设计
 - 所有 int 类型在 java 中用 integer 表示，这样不会出现 null 与0混淆的情况
 - 使用 tinyint 来代替 enum 类型以及 boolean 类型
 - 尽可能不使用 TEXT、BLOB 类型
@@ -62,16 +62,16 @@ select current_timestamp();
 #当前时间戳（毫秒级）：2020-08-08 12:09:42.192
 select current_timestamp(3);
 
-# 秒级时间戳：1606371113 （自19700101 00:00:00以来按秒算）
+## 秒级时间戳：1606371113 （自19700101 00:00:00以来按秒算）
 UNIX_TIMESTAMP(NOW())
 
-# 毫秒级时间戳：1606371209.293
+## 毫秒级时间戳：1606371209.293
 select unix_timestamp(current_timestamp(3))
 
-# 毫秒级时间戳：1606371209293
+## 毫秒级时间戳：1606371209293
 REPLACE(unix_timestamp(current_timestamp(3)),'.','')
 ```
-# SQL 规范
+## SQL 规范
 - 尽量使用覆盖索引以避免回表操作
 - 避免使用*
 - 联合索引遵从最左前缀原则
@@ -82,7 +82,7 @@ REPLACE(unix_timestamp(current_timestamp(3)),'.','')
 - limit 语句注意配合 where 优化
 - 避免在字段上使用函数，会使索引失效
 - 避免内查询
-# 数据库字段类型和 Java 的对应关系
+## 数据库字段类型和 Java 的对应关系
 左边是数据库的类型，右边是java中的类型
 
 - 普通字符串
@@ -104,7 +104,7 @@ TIMESTAMP、DATETIME ---> LocalDateTime
 - 枚举类
 TINYINT ---> 自己定义的枚举类
 
-# 外键
+## 外键
 物理外键：数据库帮你管关系（自动），依赖数据库约束，但性能差、不灵活
 逻辑外键：程序自己管关系（手动），但性能好、灵活
 
@@ -129,7 +129,7 @@ CREATE TABLE orders (
 
 因此一般都使用逻辑外键
 
-# 范式
+## 范式
 我们很早之前在大学中学过 BC 范式、第一范式、第二范式啥的
 
 1，1NF：遵循原子性。即表中字段的数据，不可以再拆分，下面是一个 bad case

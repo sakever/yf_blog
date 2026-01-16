@@ -6,9 +6,9 @@ categories:
 tags:
   - swagger
 --- 
-# swagger是什么
+## swagger是什么
 通过这套规范，只需要按照它的规范去定义接口及接口相关的信息。再通过Swagger衍生出来的一系列项目和工具，就可以做到生成各种格式的接口文档，生成多种语言的客户端和服务端的代码，以及在线接口调试页面等等。这样，如果按照新的开发模式，在开发新版本或者迭代版本的时候，只需要更新Swagger描述文件，就可以自动生成接口文档和客户端服务端代码，做到调用端代码、服务端代码以及接口文档的一致性。
-# 基本使用
+## 基本使用
 导入依赖
 ```xml
         <dependency>
@@ -52,7 +52,7 @@ public class SwaggerConfig {
 启动项目然后访问http://localhost:8080/swagger-ui.html即可
 
 可以自由测试后端的接口
-# 统一返回结果
+## 统一返回结果
 前后端分离开发时需要用一个同一的结果集来进行沟通，使用json来封装数据进行返回，但是这还不够，我们需要返回一个特定的类
 ```java
 /**
@@ -112,7 +112,7 @@ public interface StatusCode {
     public static Integer ERROR = 400;
 }
 ```
-# 带分页的多条件查询
+## 带分页的多条件查询
 以下是大体思路，具体问题要具体分析
 ```java
 public class TeacherQuery implements Serializable {

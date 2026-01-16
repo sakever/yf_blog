@@ -9,11 +9,11 @@ tags:
 AQS 是一个 JUC 下构造同步器的框架，用来构造同步器，如 ReentrantLock、倒计时器、以及自定义同步器，他封装了线程间沟通方式
 
 JUC 是指 Java.util.concurrent 包，它是 Java 平台提供的并发编程工具集。提供如线程池、并发容器、原子变量、锁等工具，旨在简化多线程编程并提高程序的并发性能
-# 使用方法（模板模式）
+## 使用方法（模板模式）
 继承 AbstractQueuedSynchronizer 并重写指定的方法，定义获取与释放 state 的流程
 
 有关等待队列的步骤不能也不用重写（因为被 final 定义，而且进队列出队列的方式已经被 AQS 写好了）
-# 源码分析以及原理
+## 源码分析以及原理
 AQS 的核心原理可以简化为三个部分：
 
 1，状态变量 State：一个 volatile int 类型的变量，用于表示同步状态（如锁是否被持有）
@@ -50,7 +50,7 @@ AQS 的核心原理可以简化为三个部分：
 - 入队等待：如果被请求的共享资源被占用（tryAcquire 失败），线程会被封装成 Node 节点加入 CLH 队列尾部
 - 阻塞线程：我们需要一套线程阻塞等待以及被唤醒时锁分配的机制，以独占锁为例，节点入队后，线程会被 LockSupport.park 阻塞
 - 释放锁：持有锁的线程释放锁时会调用 release 方法，修改 State 并唤醒队列中的后继节点
-# 公平锁和非公平锁
+## 公平锁和非公平锁
 ReentrantLock 默认采用非公平锁，因为考虑获得更好的性能，通过 boolean 来决定是否用公平锁（传入 true 则使用公平锁）
 
 对公平锁而言，首先判断 state 是否为0，如果为0，直接判断 CLH 队列中有没有在等待的线程，如果有，它会在后面排队；如果没有则 CAS 拿锁；如果 state 不为0，后面排队
@@ -128,12 +128,12 @@ final boolean nonfairTryAcquire(int acquires) {
 }
 ```
 如果一个非公平线程进入 CLH 队列了，那它还是会乖乖排队的，但是在排队之前会进行抢锁流程
-# 对资源共享的方式
-## 独占
+## 对资源共享的方式
+### 独占
 只有一个线程可以获取状态，如 ReentrantLock
 
 在独占状态下可以实现两种模式，公平锁（排队获取锁）与非公平锁（抢锁）
-### ReentrantLock
+#### ReentrantLock
 锁的使用非常简单，但是需要注意一点，lock 方法下必须使用 try 环绕
 ```java
 // 方式一：Oracle 官方推荐的写法
@@ -285,7 +285,7 @@ public class ConditionExample {
     }
 }
 ```
-### ReadWriteLock
+#### ReadWriteLock
 读写锁
 
 和数据库的读写锁定义一样
@@ -294,9 +294,9 @@ public class ConditionExample {
         Lock lock1 = lock.readLock();
         Lock lock2 = lock.writeLock();
 ```
-## 共享
+### 共享
 多个资源都可以访问状态，如信号量、倒计时器、循环栏列等，一般来说有一个上限
-### CountDownLatch（倒计时器）
+#### CountDownLatch（倒计时器）
 计算减少锁，中文翻译为倒计时器，基于 AQS
 
 **作用是调用 await 方法让一个或者多个线程阻塞，直至一些线程调用 countDown 方法将减少计数内部的 state 减少为0**，被阻塞的方法才会继续执行
@@ -330,7 +330,7 @@ countDown();//对计数器进行递减1操作，当计数器递减至0时，当�
         }
 ```
 
-### CyclicBarrier（循环栅栏）
+#### CyclicBarrier（循环栅栏）
 **它的作用是调用 await 方法让线程等待并且将栅栏中的 state 加1，直到屏障满了才会让它们继续执行并且调用栅栏中的方法，和人满发车一个道理**，以下是它的使用方法：
 ```java
 //循环屏障的定义
@@ -339,7 +339,7 @@ CyclicBarrier cyclicBarrier = new CyclicBarrier(20, () -> {System.out.println("r
 cyclicBarrier.await();
 ```
 它与 CountDownLatch 的最大区别在倒计时器计数到0就打开，无法重置。可重复栅栏凑够人就放行，然后重置继续用
-### Semphore（信号量）
+#### Semphore（信号量）
 信号量在 Linux 中也是一个比较重要的进程间通信方式
 
 **它定义最多有几个线程同时执行，只有抢到 state 的线程才会运行，抢到 state 的线程可能有多个，其他的线程会在 CLH 队列中等待，如果其中某一个线程运行完毕调用 release 方法，信号量会自动唤醒等待队列中的线程**
@@ -356,7 +356,7 @@ semaphore.release();
 
 除了以上这些之外，还有 BlockingQueue 族（用来解决生产者消费者问题）等一些其他 API，都在 JUC 包中
 
-# 自定义示例
+## 自定义示例
 我们可以继承 AQS 来实现自己的锁，下面是一个 lock 的示例
 
 注意在实现中，tryAcquire 和 acquire 是两个核心方法，它们的关系可以概括为：acquire 是框架提供的模板方法，实现完整的锁获取逻辑（包括尝试、入队、阻塞等），而 tryAcquire 是需要子类实现的钩子方法，即定义是否可以获取锁的具体判断逻辑

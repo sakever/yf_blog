@@ -7,13 +7,13 @@ tags:
   - Jackson
 ---
 总结一下 java 中 json 的相互转换，以及 jackson 的部分底层原理
-# JSON 转换为 Java 对象
+## JSON 转换为 Java 对象
 有以下特点：
 
 - 大多数情况下我们只要使用ObjectMapper 这个类就能完成大部分 JSON 相关的工作
 - JSON 转换时，JSON 的来源在对应的 POJO 中一定要有，否则塞入的时候会报异常，但是 POJO 中的其他属性可以在 JSON 中没有
 - 如果 POJO 的属性是另外一个对象、链表、数组，jackson 也会自动嵌套的使用反射将对应的属性塞进去，非常的方便
-## JSON 转换为对象
+### JSON 转换为对象
 从JSON字符串读取Java对象非常容易。 JSON字符串作为第一个参数传递给 ObjectMapper 的 readValue() 方法
 ```java
 ObjectMapper objectMapper = new ObjectMapper();
@@ -33,7 +33,7 @@ Reader reader = new StringReader(carJson);
 
 Car car = objectMapper.readValue(reader, Car.class);
 ```
-## JSON 转换为对象数组
+### JSON 转换为对象数组
 ```java
 String jsonArray = "[{\"brand\":\"ford\"}, {\"brand\":\"Fiat\"}]";
 
@@ -44,7 +44,7 @@ Car[] cars2 = objectMapper.readValue(jsonArray, Car[].class);
 需要将Car数组类作为第二个参数传递给readValue()方法
 
 读取对象数组还可以与字符串以外的其他 JSON 源一起使用。 例如，文件，URL，InputStream，Reader等
-## JSON 转换为 list
+### JSON 转换为 list
 我们也可以将 JSON 字符串转换为 list，这需要借助 TypeReference，注意一个项目中可能有多个 TypeReference，需要使用 jackson 中的
 ```java
  String jsonArray = "[{\"brand\":\"ford\"}, {\"brand\":\"Fiat\"}]";
@@ -68,7 +68,7 @@ protected TypeReference()
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c40788e896ff18f573e58327086cc05d.png)
 
-## JSON 转换为 map
+### JSON 转换为 map
 如果事先不知道将要解析的确切JSON结构，这种方法是很有用的。 通常，会将JSON对象读入Java Map。 JSON对象中的每个字段都将成为Java Map中的键，值对
 ```java
 String jsonObject = "{\"brand\":\"ford\", \"doors\":5}";
@@ -77,7 +77,7 @@ ObjectMapper objectMapper = new ObjectMapper();
 Map<String, Object> jsonMap = objectMapper.readValue(jsonObject,
     new TypeReference<Map<String,Object>>(){});
 ```
-# Java 对象转换为 JSON
+## Java 对象转换为 JSON
 Jackson ObjectMapper也可以用于从对象生成JSON。 可以使用以下方法之一进行操作：
 
 - writeValue()
@@ -106,13 +106,13 @@ ObjectMapper objectMapper = new ObjectMapper();
         }
 ```
 
-# JSON 树模型
+## JSON 树模型
 Jackson 具有内置的树模型，可用于表示 JSON 对象。 如果不知道接收到的 JSON 的格式，或者由于某种原因而不能（或者只是不想）创建一个类来表示它，那么就要用到 Jackson 的树模型
 
 Jackson 树模型由 JsonNode 类表示
 
 这种方式在解析 JSON 字符串时，会构建一个内存中的树形结构，允许你以更灵活的方式访问和操作 JSON 数据。虽然 JsonNode 提供了更多的灵活性，**但在某些情况下可能会比直接反序列化为对象稍微慢一些，因为需要维护整个 JSON 树的结构**
-## 生成 JsonNode
+### 生成 JsonNode
 可以用 JSON 生成 JsonNode，只需将 JsonNode.class 作为第二个参数传递给 readValue() 方法即可
 ```java
   String carJson =
@@ -154,7 +154,7 @@ car.doors = 4;
 
 JsonNode carJsonNode = objectMapper.valueToTree(car);
 ```
-## JsonNode 的使用
+### JsonNode 的使用
 无论访问的是字段，数组还是嵌套对象，都可以使用 JsonNode 类的 get() 方法，该方法会返回一个 JsonNode。 通过将字符串作为参数提供给 get() 方法，可以访问 JsonNode 的字段。 如果 JsonNode 表示数组，则需要将索引传递给 get() 方法。 索引指定要获取的数组元素
 ```java
 String carJson =
@@ -190,7 +190,7 @@ try {
     e.printStackTrace();
 }
 ```
-## JsonNode 的转换
+### JsonNode 的转换
 可以使用 Jackson ObjectMapper treeToValue() 方法将 JsonNode 转换为 Java 对象。 这类似于使用 Jackson Jackson 的 ObjectMapper 将 JSON 字符串（或其他来源）解析为 Java 对象
 ```java
 ObjectMapper objectMapper = new ObjectMapper();
@@ -201,7 +201,7 @@ JsonNode carJsonNode = objectMapper.readTree(carJson);
 
 Car car = objectMapper.treeToValue(carJsonNode);
 ```
-## ObjectNode
+### ObjectNode
 ObjectNode 是 JsonNode 的子类，因为 JsonNode 类是不可变的。 要创建 JsonNode 对象图，必须能够更改图中的 JsonNode 实例，例如设置属性值和子 JsonNode 实例等。由于是不可变的，因此无法直接使用JsonNode来实现
 ```java
 ObjectMapper objectMapper = new ObjectMapper();
@@ -223,14 +223,14 @@ objectNode.put("field1", "value1");
 objectNode.remove("fieldName");
 ```
 
-# 注解
+## 注解
 这么好用的框架提供了一些注解，可以使用这些注解来设置将 JSON 读入对象的方式或从对象生成什么 JSON 的方式
 
 jackson 提供的注解大部分用来重新定义从其他对象转换为 JSON 以及从 JSON 转换为其他对象的过程
 
 以下是几个常用注解
 
-## @JsonProperty
+### @JsonProperty
 作用于属性，这个注解泛用性非常强，功能是可以把属性的名称序列化与反序列化时转换为另外一个名称，同时在 json 转换为这个类的时候也会自动映射。示例：
 ```java 
 @JsonProperty("birth_date")
@@ -244,7 +244,7 @@ private Date birthDate;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String mobile;
 ```
-## @JsonFormat
+### @JsonFormat
 这个注解也非常泛用，大体作用接受将一些数据按特定的方式进行格式化，一般用于属性或者方法或者枚举，把属性的格式序列化时转换成指定的格式，一般向前端传参的时候会用到这个注解。示例：  
 ```java
 @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")  
@@ -272,14 +272,14 @@ public class Dto {
     TemplateStateEnum templateStateEnum;
 }
 ```
-## @JsonPropertyOrder
+### @JsonPropertyOrder
 @JsonPropertyOrder：用于类， 指定属性在序列化时 json 中的顺序 ， 示例： 
 ```java
 @JsonPropertyOrder({"birth_Date", "name" })  
 public class Person;
 ```
 
-# JsonMapperUtil
+## JsonMapperUtil
 一个很简单的工具类，在工程里可以直接导入
 ```java
 public class CoZeJsonMapperUtil {
@@ -335,8 +335,8 @@ public class CoZeJsonMapperUtil {
     }
 }
 ```
-# Jackson 原理
-## 反射获取方法
+## Jackson 原理
+### 反射获取方法
 jackson 的序列化原理可能与其他的序列化工具不一定是相同的原理，不可套用
 
 jackson 在序列化的时候如何定义 key 呢？
@@ -353,7 +353,7 @@ SerializationFeature.FAIL_ON_EMPTY_BEANS)
 
 拿到了这些重要的数据，我们就可以使用底层的工具做文章了
 
-## JsonGenerator 生成器
+### JsonGenerator 生成器
 jackson-core 模块提供了两种处理 JSON 的方式（纵缆整个 Jackson 共三种）：
 
 1，流式 API：读取并将 JSON 内容写入作为离散事件 -> JsonParser 读取数据，而 JsonGenerator 负责写入数据
@@ -401,7 +401,7 @@ generator.close();
         }
     }
 ```
-## JsonParser 分析器
+### JsonParser 分析器
 这个分析器只用于将 JSON 转换为对象、map 等东西，JsonParser 的抽象层级低于 Jackson ObjectMapper。 这使得 JsonParser 比 ObjectMapper 更快，但使用起来也比较麻烦
 ```java
 tring carJson =

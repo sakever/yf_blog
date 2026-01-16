@@ -7,8 +7,8 @@ categories:
 tags:
   - 字符串
 ---
-# String
-## 特点
+## String
+### 特点
 java9 之后 String 中存储字符的数组已经变成了 byte 数组，不再是 char，这么做的原因是为了节省空间
 
 因为 char 是2字节，byte 是1字节（8位，如果 byte 使用 ASCII/Latin-1 字符是单字节，UTF-16 编码是双字节）。同时实际应用中的字符串分布（根据大量应用统计）：
@@ -18,7 +18,7 @@ java9 之后 String 中存储字符的数组已经变成了 byte 数组，不再
 此时使用 byte 更加节省空间
 
 String 中储存的字符串不能改变，每次对 String 的操作都会生成新的 String 对象，因为内部的 char 数组用 final 修饰
-## 创建了几个对象
+### 创建了几个对象
 字符串有一个常量池，这个池叫字符串池，不是常量池也不是运行时常量池，而是字符串常量池。这个常量池在堆中，**存放的是字符串常量的引用**，它的所在位置和存放的东西都与运行时常量池不一样
 
 所有的字符串都是 String 对象，由于字符串文字的大量使用，java 中为了节省时间，在编译阶段，会把字符串文字放在字符串池中，字符串池的一个好处就是可以把相同的字符串合并，占用一个空间
@@ -62,7 +62,7 @@ String a1 = "ab";
 String a4 = a1 + "c";
 ```
 4，在拼接操作中，只要出现变量，编译器就不能直接获得变量的值，因此无法直接拼接，只有在运行时才会调用 StringBuilder 的 append 方法来进行拼接，所以也会 new 一个 StringBuilder 的对象。因此，这两条语句生成了三个字符串对象，一个 StringBuilder 对象
-### 问题分析
+#### 问题分析
 1，String 对象的有两种创建方式
 
 一种是 new 一个对象出来，这种方式一定会在堆内存中生成一个新字符串对象，如果这个字符串对象在字符串常量池中没有，也会在常量池中创建一个指向该对象的引用
@@ -78,7 +78,7 @@ String a4 = a1 + "c";
 在编译时遇到对象编译器会 new 出一个 StringBuilder 对象，然后进行 append 操作，最后通过 toString 方法返回 String 对象，这个对象就和 new 出来的字符串对象一样
 
 4，intern 方法，如果字符串常量池中已经存在相同内容的字符串，则返回池中的字符串引用；如果池中不存在该字符串，则将其放入池中并返回引用
-## 部分源码
+### 部分源码
 ```java
 \\最主要的是重写比较方法
 \\优先判断地址，然后判断是ASCII还是ctf-8编码，并分别进入两个方法进行比较
@@ -162,14 +162,14 @@ final class StringUTF16 {
 
 ```
 
-# StringBuffer
-## 特点
+## StringBuffer
+### 特点
 线程安全
 
 可变类，和线程安全的字符串操作类，任何对它指向的字符串的操作都不会产生新的对象
 
 每个 StringBuffer 对象都有一定的缓冲区容量（内部是 char[] 实现的，调用 append 方法时不会像 string 一样创建新数组，而是在老数组上做更改），当字符串大小没有超过容量时，不会分配新的容量，当字符串大小超过容量时，会自动增加容量 
-## 部分源码
+### 部分源码
 实现父类 AbstractStringBuilder，除了多了一个 synchronized 来修饰大部分方法，基本和 StringBuider 类一模一样
 ```java
 
@@ -181,10 +181,10 @@ public synchronized StringBuffer append(String str) {
 } 
 
 ```
-# StringBuilder
-## 特点
+## StringBuilder
+### 特点
 线程不安全
-## 部分源码
+### 部分源码
 AbstractStringBuilder 的源码，StringBuilder 大多重写了方法，几乎所有的重写都是：
 
 方法名（）{return super.方法名（）}
@@ -250,12 +250,12 @@ AbstractStringBuilder 的源码，StringBuilder 大多重写了方法，几乎�
     }
 ```
 
-# AbstractStringBuilder
-## 特点
+## AbstractStringBuilder
+### 特点
 实现了 StringBuilder 与 StringBuffer
 
 AbstractStringBuilder 类具体实现了可变字符序列的一系列操作，比如：append()、insert()、delete()、replace()、charAt() 方法
-## 部分源码
+### 部分源码
 ```java
 abstract class AbstractStringBuilder implements Appendable, CharSequence {
  

@@ -7,7 +7,7 @@ categories:
 tags:
   - Guava
 --- 
-# Strings
+## Strings
 关于String的工具类，主要提供静态的工具方法。该类提供空与null对象处理，返回共同前后缀，字符串加入或者重复等操作
 ```java
 static boolean isNullOrEmpty(@Nullable String string)：判断该字符串是否为空
@@ -23,7 +23,7 @@ static String padEnd(...)：在string之后加
 
 static String repeat(String string, int count)：返回重复count次的string
 ```
-#  原语工具
+##  原语工具
 Guava提供大量包装工具类来处理原始类型的对象
 我们以Ints为例，这个类补充java中关于Integer相关操作
 ```java
@@ -38,13 +38,13 @@ static boolean contains(int[] array, int target)：返回array数组中是否有
 ```
 
 除了这些还有Floats、Longs等一个8个辅助类，方法基本一致
-# Objects
+## Objects
 ```java
 static boolean equals(Object a, Object b)：比较两个对象，比起jdk中的优点在于它不会出现空指针异常
 static int hash(Object... values)：计算一群对象的hash码
 MoreObjects.firstNonNull（T，T）：返回第一个不为null的数据
 ```
-# Joiner 与 Splitter
+## Joiner 与 Splitter
 Joiner 用来将集合中各个元素用一定方式连接起来，其中大部分返回值为 Joiner 方法都返回一个新的 Joiner 对象
 
 Splitter 则用于拆分字符串，底层使用 subString 方法
@@ -73,7 +73,7 @@ Joiner 使用示例
 ```java
 Joiner.on("||").skipNulls().join(iterable)
 ```
-# CharMatcher
+## CharMatcher
 该类有一些静态变量，用于表示一些字符，比如CharMatcher.ANY匹配所有字符；CharMatcher.WHITESPACE匹配空白字符等
 
 该类可以用于匹配字符
@@ -85,7 +85,7 @@ isNot、and等
 String trimFrom(CharSequence sequence)：从sequence中保留调用该方法的CharMatch的字段
 ```
 
-# Function 以及 Predicate
+## Function 以及 Predicate
 这两个都可以使用函数式编程，Function 一般用来将输入转化为输出，第一个值为输入类型，第二个为输出：
 ```java
         Function<Integer, String> l = new Function<Integer, String>() {
@@ -120,7 +120,7 @@ static <F, T> List<T> transform(List<F> fromList, Function<? super F, ? extends 
         });
 ```
 static <T> Optional<T> tryFind(Iterable<T> iterable, Predicate<? super T> predicate)：Iterables类中的tryFind方法，用于找出集合中满足条件的元素，其中传入的第二个参数就是Predicate方法
-# Optional
+## Optional
 该类名为可选择的，意图就是该类可以选择为null或者指定对象，一般有两个用法：
 1，知道返回值是否存在
 ```java
@@ -136,7 +136,7 @@ static <T> Optional<T> tryFind(Iterable<T> iterable, Predicate<? super T> predic
 Optional.fromNullable(null).or(0)：fromNullable方法里写的是可能为null的对象，or后面跟的就是默认值
 ```
 
-# Ordering
+## Ordering
 ```java
 static <C extends Comparable> Ordering<C> natural()：返回使用值的自然顺序排序序列化，可以用于排序，eg：
 
@@ -146,18 +146,18 @@ Ordering<S> reverse()，返回相反顺序
 
 Collections.sort(list, Ordering.natural().reverse());
 ```
-# 新容器
-## ImmutableXXX
+## 新容器
+### ImmutableXXX
 不可变类容器，这些容器不可以使用add、set方法更改容器内容，会直接抛出异常；该容器线程安全，不会被调用者修改，对原容器的修改也不会影响到它
 
 Collections.unmodifiableXXX方法是视图映射，用该方法生成的集合虽然不能更改，但是用集合更改之后这些集合也会对应的更改
 
-## Multimap
+### Multimap
 https://blog.csdn.net/sekever/article/details/125788899
 
 除此之外还有Multiset，也是1对n关系的集合
 
-## BiMap
+### BiMap
 该集合的KV可以相互转换，不过不止key需要保证唯一，value也需要保证唯一
 ```java
 BiMap<V,K> inverse()：将map的KV颠倒
@@ -165,14 +165,14 @@ V put(K key, V value)：放入
 V get(K key)：查询
 ```
 
-## RangeSet 与 RangeMap
+### RangeSet 与 RangeMap
 看名字就知道这是提供区间功能方面的容器
 
 RangeSet 提供诸如区间合并、区间分裂等功能
 
 RangeMap 则提供区间到 value 的映射关系，但是不能进行区间合并操作
 
-# 缓存
+## 缓存
 guava 通过接口 LoadingCache 提供了基于内存的缓存
 ```java
 		//用builder创建一个缓存

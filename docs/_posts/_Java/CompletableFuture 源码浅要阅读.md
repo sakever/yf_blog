@@ -8,7 +8,7 @@ tags:
   - CompletableFuture
 ---
 completablefuture 的使用相当便捷，不过它的方法初次学习起来也相当困难，简单的阅读一下它的实现原理可能会让我们更好的掌握这个类的使用。不过它的源码读起来也和它的使用一样，相当抽象。。。异常抽象
-# 注释
+## 注释
 进入代码发现它的注释就有老长一段，以下是比较有用的部分：
 
 - CompletableFuture 是一个在完成时可以触发相关方法和操作的 Future，并且它可以视作为 CompletableStage
@@ -20,7 +20,7 @@ completablefuture 的使用相当便捷，不过它的方法初次学习起来�
 public class CompletableFuture<T> implements Future<T>, CompletionStage<T>
 ```
 
-# 创建一个 CompletableFuture
+## 创建一个 CompletableFuture
 众所周知，创建一个 CompletableFuture 可以使用 run 组和 supply 组的方法，那么这两者创建的 CompletableFuture 有什么不同呢
 
 supplyAsync 的源码：
@@ -57,7 +57,7 @@ runAsync 的源码：
 看到两者没什么不同，都是条件判断加丢进线程池。区别在于这次丢进去的是 AsyncRun
 
 事实上其他的几个创建 CompletableFuture 的方法都类似这样，也可以猜测 AsyncRun 的实现与 AsyncSupply 大差不差
-# AsyncSupply类
+## AsyncSupply类
 AsyncSupply 是 CompletableFuture 的内部类，这是它的所有源码：
 ```java
     static final class AsyncSupply<T> extends ForkJoinTask<Void>
@@ -89,7 +89,7 @@ AsyncSupply 是 CompletableFuture 的内部类，这是它的所有源码：
     }
 ```
 
-## 奇怪的地方
+### 奇怪的地方
 等等等等，你们发现了一个奇怪的地方吗
 ```java
         CompletableFuture<T> dep; Supplier<T> fn;
@@ -109,7 +109,7 @@ run 方法中的判断 (d = dep) != null && (f = fn) != null 是为了确保在�
 这里还可以减少不必要的检查，在 run 方法中，直接使用局部变量 d 和 f 而不是多次访问 dep 和 fn，可以减少不必要的内存访问，提高性能
 
 它还可以防止空指针异常，如果 dep 或 fn 在任务执行前被其他线程设置为 null，那么在调用 f.get() 时会抛出 NullPointerException。通过这个判断，可以提前检查并避免这种情况
-## d.completeValue(f.get()) 语句
+### d.completeValue(f.get()) 语句
 该方法使用 UNSAFE 类的 CAS 操作，将 supplier 结果设置给 CompletableFuture 的 RESULT
 ```java
     final boolean completeValue(T t) {
@@ -153,7 +153,7 @@ run 方法中的判断 (d = dep) != null && (f = fn) != null 是为了确保在�
 postComplete 方法的主要目的是在 CompletableFuture 完成后，递归地触发所有依赖于它的 Completion 任务，确保整个依赖链上的所有任务都能正确地完成。通过使用 CAS 操作和栈来管理依赖关系，确保了线程安全和高效的处理
 
 压进栈中的是 CompletionStage，那 CompletionStage 是什么
-# CompletionStage
+## CompletionStage
 官方定义中，一个 Function，Comsumer 或者 Runnable 都可以被描述为一个 CompletionStage
 
 CompletionStage 是一个可能执行异步计算的**阶段**，这个阶段会在另一个 CompletionStage 完成时调用去执行动作或者计算，一个 CompletionStage 会以正常完成或者中断的形式完成，并且它的完成会触发其他依赖的CompletionStage。CompletionStage 接口的方法一般都返回新的 CompletionStage，因此构成了链式的调用
@@ -195,7 +195,7 @@ public interface CompletionStage<T> {
 此方法就是判断当前 CompletableFuture 是否已经运行，如果没运行，将新创建的 CompletableFuture、执行该方法的 CompletableFuture、线程池、我们重写的 Function 打包成一个 UniApply，并且放入这个 CompletableFuture 的栈中
 
 那么这个栈是个什么东西，这个 UniAccept 又是什么？
-# UniAccept
+## UniAccept
 该类的构造方法就是简单的赋值
 ```java
     static final class UniApply<T,V> extends UniCompletion<T,V> {
@@ -220,7 +220,7 @@ public interface CompletionStage<T> {
 ```
 
 可以看到它的构造方法调用了它的父类方法，那它的父类是什么？
-# Completion
+## Completion
 ```java
 abstract static class Completion extends ForkJoinTask<Void>
         implements Runnable, AsynchronousCompletionTask {
@@ -241,7 +241,7 @@ Completion 是一个抽象类，分别实现了 Runnable、AsynchronousCompletio
 而之前那个问题，栈是什么，栈就是 CompletableFuture 中的一个属性 stack，而这个 stack 就是 Completion 类的
 
 这里面的一个方法 tryFire，就是尝试启动下一个 Completion 的意思
-# 总结
+## 总结
 以上，我们简单过了一遍 CompletableFuture 的创建以及后续操作的实现
 
 - CompletableFuture 的创建是使用 CAS 操作将我们的传入的方法以及最后的实现参数赋值给 CompletableFuture 中的属性

@@ -6,7 +6,7 @@ categories:
 tags:
   - 枚举
 ---
-# 基础
+## 基础
 在 JDK 1.5 之前没有枚举类型，那时候一般用接口常量来替代。我们现在常常使用枚举类来代替一系列类似属性的常量，这么做有什么好处呢？将这个问题扩张一下，枚举类到底有什么用呢？
 
 以这种方式定义的常量使代码更具可读性，预先记录可接受值的列表，并避免由于传入无效值而引起的意外行为；
@@ -95,7 +95,7 @@ public class SecondKillBatch implements Serializable {
 
 }
 ```
-# EnumMap 与 EnumSet
+## EnumMap 与 EnumSet
 EnumMap 是专门为枚举类型量身定做的 Map 实现。虽然使用其他的 Map（如 HashMap）实现也能完成枚举类型实例到值的映射，但是使用 EnumMap 会更加高效
 
 HashMap 只能接收同一枚举类型的实例作为键值，并且由于枚举类型实例的数量相对固定并且有限，所以 EnumMap 使用数组来存放与枚举类型对应的值，使得 EnumMap 的效率非常高
@@ -124,7 +124,7 @@ EnumSet 是抽象类，其有两个实现：RegularEnumSet 、JumboEnumSet，选
 
 在很多场景中的枚举常量集合操作（如：取子集、增加、删除、containsAll 和 removeAll 批操作）使用 EnumSet 非常合适；如果需要迭代所有可能的常量则使用 Enum.values()
 
-# 原理
+## 原理
 下面来说说枚举的原理
 
 像 Java 在1.5中引入的很多特性，为了向后兼容，编译器会帮我们写的源代码做很多事情，比如泛型为什么会擦除类型，为什么会生成桥接方法，foreach迭代，自动装箱/拆箱等，这有个术语叫“语法糖”，而编译器的特殊处理叫“解语法糖”，这么做主要是为了为我们省去许多重复操作。那么像枚举也是在JDK1.5中才引入的，又是怎么实现的呢？
@@ -164,7 +164,7 @@ public abstract class com.mikan.Operator extends java.lang.Enum<com.mikan.Operat
 java 为每个枚举都定义了两个属性，name 和 ordinal，name 表示我们定义的枚举常量的名称，如 ADD、SUBTRACT 等，而 ordinal 是一个顺序号，根据定义的顺序分别赋予一个整形值，从0开始，因此该枚举对象可以调用 name 与 ordinal 方法
 
 
-# 枚举生成
+## 枚举生成
 一般省时的枚举生成有两种方式，一个是复制之前的枚举，然后改吧改吧，我们还可以让 gpt 生成枚举，以下是我个人经常使用的生成枚举的话术，在需要生成大量枚举的时候非常省时间
 
 ```

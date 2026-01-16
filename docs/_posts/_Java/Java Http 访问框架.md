@@ -6,12 +6,12 @@ categories:
 tags:
   - Http
 ---
-# 介绍
+## 介绍
 在项目中，当我们需要远程调用一个 HTTP 接口时，我们经常会用到 RestTemplate 这个类。这个类是 Spring 框架提供的一个工具类，异常好用。所备选的 http 访问组件有 OkHttp（性能优秀、易于使用）、HttpClient（内置于 JDK，无需额外依赖），WebClient（支持异步和非阻塞操作） 其他的访问框架不考虑
 
 本篇文章对比这些框架的优缺点
 
-# RestTemplate
+## RestTemplate
 该类提供三组接口
 
 - getForObject --- 这类方法是常规的 Rest API（GET、POST、DELETE 等）方法调用
@@ -19,7 +19,7 @@ tags:
 - execute：通过 callback 接口，可以对请求和返回做更加全面的自定义控制
 
 该工具关注请求数据的构建，以及返回数据的处理
-## 简单接口调用（getForObject）
+### 简单接口调用（getForObject）
 我们只需要一行代码即可实现 get 与 post 的请求
 ```java
         // get 请求的构建
@@ -40,7 +40,7 @@ tags:
         HttpHeaders headers = responseEntity.getHeaders();
         JSONObject body = responseEntity.getBody();
 ```
-## 添加 Header 和 Cookie（exchange）
+### 添加 Header 和 Cookie（exchange）
 有时候，我们需要在请求中的 Head 中添加值或者将某些值通过 cookie 传给服务端
 
 ```java
@@ -61,7 +61,7 @@ tags:
         ResponseEntity<JSONObject> responseEntity = restTemplate.exchange(requestEntity, JSONObject.class);
 ```
 
-## post 请求
+### post 请求
 ```java
     public static String post(String url, Map<String, String> headers, Map<String, String> body) {
         HttpHeaders requestHeaders = new HttpHeaders();

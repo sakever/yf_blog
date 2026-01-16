@@ -7,7 +7,7 @@ tags:
   - Python
 ---
 在后台项目中涉及到了 python 模块，再次被迫无奈学习了 python 相关知识
-# Conda 环境搭建
+## Conda 环境搭建
 如果要接手一个 py 工程，首先要搭建一个 python 环境，因为工程中使用的三方依赖太多了，就不能直接下载 python 或者使用 pip 来管理依赖包，推荐使用 Anaconda。Anaconda 是一个开源的 Python 发行版本，其包含了 conda、Python 等180多个科学包及其依赖项。它可以用于在同一个机器上安装不同版本的软件包及其依赖，并能够在不同的环境之间切换
 
 它允许我们创建一个虚拟环境，在虚拟环境下搭建安装 python 的环境，比直接安装 python 简单
@@ -19,7 +19,7 @@ tags:
 Conda 创建环境相当于创建一个虚拟的空间将这些包都装在这个位置，我不需要了可以直接打包放入垃圾箱，同时也可以针对不同程序的运行环境选择不同的 conda 虚拟环境进行运行。这里的不需要的工具，指的就是 python 包
 
 在执行 py 项目时，我们需要先切换到对应的环境，然后下载依赖，为项目配置对应的 py 解释器，最后才可以运行项目
-## conda 基础命令
+### conda 基础命令
 ```linux
 -- 查看 conda 版本，也可以用于查看是否安装好了 conda
 conda --version
@@ -57,7 +57,7 @@ conda config --show-sources
 -- 删除旧镜像
 conda config --remove channels 源名称或链接 
 ```
-## 项目结构
+### 项目结构
 本文介绍的 python 项目结构适合于中小型项目，应用非常广泛，初学者应该养成好习惯，一开始就用这种方式来组织自己的代码。
 
 假设新建项目的名称为 myproject，可以在 windows 或 linux终端，创建如下项目结构
@@ -78,9 +78,9 @@ conda config --remove channels 源名称或链接
             test_main.py
 ```
 
-# pip 环境搭建
+## pip 环境搭建
 使用 pip 管理依赖包，这种方式比较适合写简单的 py 脚本，在 mac 下的控制台直接输入 python3，系统会自动下载，并且也不需要配置 py 环境，非常方便
-## python 基础命令
+### python 基础命令
 Pip 是 Python 官方的包管理工具，安装和使用都非常简单。Pip 支持从 PyPI（Python Package Index）安装几乎所有的 Python 包，并且结合虚拟环境工具（如 virtualenv 或 venv）可以很好地管理不同项目的依赖关系。接下来我们使用 pip 下载所需要的包
 ```linux
 -- 查看 py 版本
@@ -142,18 +142,18 @@ https://mirrors.aliyun.com/pypi/simple/
 
 py 找不到身边的包的时候，可以将上层包定义为模块或者资源，让相对路径去找
 
-# if __name__ == '__main__':
+## if __name__ == '__main__':
 一个python文件通常有两种使用方法，第一是作为脚本直接执行，第二是 import 到其他的 python 脚本中被调用（模块重用）执行。因此 if __name__ == 'main': 的作用就是控制这两种情况执行代码的过程，在 if __name__ == 'main': 下的代码只有在第一种情况下（即文件作为脚本直接执行）才会被执行，而 import 到其他脚本中是不会被执行的
 
 每个python模块（python文件，也就是此处的 test.py 和 import_test.py）都包含内置的变量 __name__，当该模块被直接执行的时候，__name__ 等于文件名（包含后缀 .py ）；如果该模块 import 到其他模块中，则该模块的 __name__ 等于模块名称（不包含后缀.py）。
 
 而 “__main__” 始终指当前执行模块的名称（包含后缀.py）。进而当模块被直接执行时，__name__ == 'main' 结果为真
 
-# argparse 模块
+## argparse 模块
 argparse 是一个 Python 模块：命令行选项、参数和子命令解析器。
 
 argparse 模块可以让人轻松编写用户友好的命令行接口。程序定义它需要的参数，然后 argparse 将弄清如何从 sys.argv 解析出那些参数。 argparse 模块还会自动生成帮助和使用手册，并在用户给程序传入无效参数时报出错误信息
-## 创建解析器
+### 创建解析器
 ```python
 parser = argparse.ArgumentParser(description='Process some integers.')
 ```
@@ -165,29 +165,29 @@ ArgumentParser 对象包含将命令行解析成 Python 数据类型所需的全
 - description - 在参数帮助文档之前显示的文本（默认值：无）
 - add_help - 为解析器添加一个 -h/--help 选项（默认值： True）
 
-## 添加参数
+### 添加参数
 ```python
 parser.add_argument('-integers', type=int, default=1)
 ```
 给一个 ArgumentParser 添加程序参数信息是通过调用 add_argument() 方法完成的
 
-## 获取数据
+### 获取数据
 ```python
 args = parser.parse_args()
 print(args.integers)
 ```
 ArgumentParser 通过 parse_args() 方法解析参数。它将检查命令行，把每个参数转换为适当的类型然后调用相应的操作.在脚本中，通常 parse_args() 会被不带参数调用，而 ArgumentParser 将自动从 sys.argv 中确定命令行参数
 
-## 子命令
+### 子命令
 ArgumentParser 可以通过 add_subparsers 的方式去创建子命令，用该方法获取的子构造器可以获取更多的子 parser，子 parser 的使用方式和 ArgumentParser 类似
 ```python 
 subparsers = parser.add_subparsers(help='sub-command help')
-# 添加子命令 add
+## 添加子命令 add
 parser_a = subparsers.add_parser('add', help='add help')
 parser_a.add_argument('-x', type=int, help='x value')
 parser_a.add_argument('-y', type=int, help='y value')
 
-# 获取 x 并且使用
+## 获取 x 并且使用
 args = parser.parse_args()
 print(args.x)
 ```
@@ -204,7 +204,7 @@ print(args.x)
     if args_info.command == 'order':
     	print("order")
 ```
-# Cannot recover from stack overflow
+## Cannot recover from stack overflow
 python 的栈溢出问题，如果是由于递归调用导致栈溢出，可通过尾递归优化（python 不支持）
 
 尾递归是指，在函数返回的时候，调用自身本身，并且，return 语句不能包含表达式。这样，编译器或者解释器就可以把尾递归做优化，使递归本身无论调用多少次，都只占用一个栈帧，不会出现栈溢出的情况
@@ -226,7 +226,7 @@ sys.setrecursionlimit(10000)
 ```
 不过还是有可能报错，因为该值修改的上限是 int 的上限，还是个带符号数，因此可能会报 return 一个负数
 
-# 读取与写入
+## 读取与写入
 推荐用 readline（）方法读数据，该方法每次读出一行内容，所以，读取时占用内存小，比较适合大文件，该方法返回一个字符串对象。
 ```python
 f = open("sxl.txt", encoding='utf-8')

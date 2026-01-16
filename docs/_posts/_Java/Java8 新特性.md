@@ -7,7 +7,7 @@ categories:
 tags:
   - Java
 ---
-# 函数式编程
+## 函数式编程
 在函数式编程中，输入一旦确定了，输出都确定了，函数调用的结果只依赖于传入的输入变量和内部逻辑，不依赖于外部，这样的写出的函数没有副作用。 在函数式编程中，函数也是一等公民，可以被当做参数传递，可以被赋值，被引用，可以把它当做一种数据类型来对待
 
 java 中的函数式编程允许我们定义一个接口，其实现类作为参数传入，由于实现类的内部方法不一样，赋予了该函数极大的可塑性，比如下面这个例子，定义一个过滤器接口
@@ -89,7 +89,7 @@ Function 接口中有一个默认的 andThen 方法，用来进行组合操作�
     }
 ```
 但是注意，这么写
-# 方法引用
+## 方法引用
 在学会函数式接口以及 lambda 表达式之后，java 为我们提供了更加便捷的写法，那就是方法和构造函数引用，它简便的原因是将方法的入参忽略了。一般有以下几种：
 用法     | 表达意思 |  对应的 lambda
 -------- | ------------- | -----
@@ -116,7 +116,7 @@ public class Test {
     
 }
 ```
-# Optional
+## Optional
 java8 中的 Optional 灵感八成来自 guava 中的 Optional，它是一个用于防止空指针异常的工具
 
 你可以把它视为一个容器，里面可以存放 null 以及你想放进去的东西
@@ -152,7 +152,7 @@ optional.orElseThrow(() -> new IllegalArgumentException("不存在")));
                     Optional.of(idNameMap.get(id)).ifPresent(ret::add);
                 }
 ```
-# java.time
+## java.time
 主要提供了 LocalDateTime、LocalDate、LocalTime，分别代表具体时间、日期、时间，使用起来相当方便。而且使用的频率还非常高
 
 先来说一下为什么不使用 Date 这个比较老的表示时间的类以及负责转换它的 SimpleDateFormat 。Java 的 java.util.Date 和 java.util.Calendar 类易用性差，不支持时区，而且都不是线程安全的，并且大部分方法都被弃用了
@@ -162,7 +162,7 @@ Date 如果不格式化，打印出的日期可读性差，可以使用 SimpleDa
 原因是因为 SimpleDateFormat 中的 calendar 是共享变量，并且这个共享变量没有做线程安全控制。当多个线程同时使用相同的 SimpleDateFormat 对象调用 format 方法时，多个线程会同时调用 calendar.setTime 方法，可能一个线程刚设置好 time 值另外的一个线程马上把设置的 time 值给修改了，导致返回的格式化时间可能是错误的
 
 Java 8 提供了新的时间 API 的使用方式，主要包括创建、格式化、解析、计算、修改。我们可以看到重点在于这些表示时间的类与其他类相互转换以及对它们表示时间的修改
-## 时间类与字符串的转换
+### 时间类与字符串的转换
 相互转换的功能由 DateTimeFormatter 这个格式化工具提供，而创建与修改的功能则由它自己提供
 
 **format 方法用来将时间转换为字符串**，可以指定转换形式
@@ -185,7 +185,7 @@ LocalTime time = LocalTime.of(2015, 1, 11);
 LocalDate.parse("2015-01-11");
 ```
 
-## 时间类与 long 时间戳的转换
+### 时间类与 long 时间戳的转换
 由于 time 包下都带有时区的概念，因此时间类与时间戳的转换非常麻烦，都需要设置时区
 
 **将 LocalDate 等类转换为 long 类型时间戳**
@@ -227,7 +227,7 @@ LocalDate localDate = Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.ofHours(
 ZoneId zone = ZoneId.systemDefault();
 ZoneOffset zoneOffset = ZoneOffset.ofHours(8);
 ```
-## 时间类与时间戳的转换
+### 时间类与时间戳的转换
 Timestamp 一般指的是 java.sql 包下提供的，因为数据库经常性的时间相关的转换而用的比较多
 
 **以下是 LocalDateTime 与 Timestamp 的相互转换**，sql 很友善的提供了对 time 包下类型的支持，可以直接使用 from 方法或者 valueOf 方法来进行转换
@@ -236,7 +236,7 @@ LocalDateTime localDateTime = timestamp.toLocalDateTime();
 
 Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 ```
-## 日期相关的获取、修改以及比较
+### 日期相关的获取、修改以及比较
 **它还提供了 minus 或者 plus 等等方法修改日期**，分别代表将当前代表的日期减少几周或者将当前日期增加几周
 ```java
 plusYears(i) 增加几年，正负数都可。正数，增加几年。负数，后退几年  

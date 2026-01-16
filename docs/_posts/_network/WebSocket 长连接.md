@@ -6,7 +6,7 @@ categories:
 tags:
   - WebSocket
 ---
-# 介绍
+## 介绍
 WebSocket 是一种网络传输协议，可在单个 TCP 连接上进行全双工通信（允许数据同时在两个方向上传输），位于 OSI 模型的应用层
 
 早期，很多网站为了实现推送技术，所用的技术都是轮询（也叫短轮询）。轮询是指由浏览器每隔一段时间向服务器发出 HTTP 请求，然后服务器返回最新的数据给客户端。常见的轮询方式分为**轮询**与**长轮询**
@@ -15,7 +15,7 @@ WebSocket 是一种网络传输协议，可在单个 TCP 连接上进行全双�
 
 WS 协议和 WSS 协议两个均是 WebSocket 协议，两者一个是非安全的，一个是安全的。就好比 HTTP 协议和 HTTPS 协议的差别，非安全的没有证书，安全的如同 HTTPS 一样需要 SSL 证书，证书当然是配置在 ng 上的
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9f2db7832c31b8e25fd2be3d35a12244.png)
-## 创建过程
+### 创建过程
 WebSocket 是先通过 http 创建的，随后才使用 WebSocket 的包来传输数据，创建过程如下：
 
 - 首先建立 TCP 链接，三次握手，构建传输层的链接
@@ -31,13 +31,13 @@ Sec-WebSocket-Protocol: chat
 - 客户端收到连接成功的消息后，开始借助于 TCP 传输信道进行全双工通信。通信阶段使用独立的 WebSocket 协议
 
 我们在进行信息传输的过程中可能会走 ng 做网关，如果 ng 不支持我们的信息的话会导致长连接连不上，常见的 ng 问题见下文
-## 优点
+### 优点
 普遍认为，WebSocket 的优点有如下几点：
 
 - 较少的控制开销：在连接创建后，服务器和客户端之间交换数据时，用于协议控制的数据包头部相对较小
 - 更强的实时性：由于协议是全双工的，所以服务器可以随时主动给客户端下发数据。相对于 HTTP 请求需要等待客户端发起请求服务端才能响应，延迟明显更少
 - 更好的二进制支持：WebSocket 定义了二进制帧，相对 HTTP，可以更轻松地处理二进制内容
-# Java 中实现 webSocket
+## Java 中实现 webSocket
 java 中实现 webSocket 一般有两种方法，一种是使用 WebSocket 的一个子协议 stomp，另外一个是使用 Socket.IO 协议实现。我们先介绍 stomp 实现方法
 
 WebSocket 协议是一种相当低级的协议。它定义了如何将字节流转换为帧。帧可以包含文本或二进制消息。由于消息本身不提供有关如何路由或处理它的任何其他信息，因此很难在不编写其他代码的情况下实现更复杂的应用程序。幸运的是，WebSocket 规范允许在更高的应用程序级别上使用子协议。STOMP 是其中之一
@@ -45,7 +45,7 @@ WebSocket 协议是一种相当低级的协议。它定义了如何将字节流�
 STOMP：Simple (or Streaming) Text Orientated Messaging Protocol，即简单文本定向消息协议。它被用于定义常用消息传递的格式，STOMP 可以用于任何可靠的双向流网络协议，如 TCP 和 WebSocket，虽然 STOMP 是一个面向文本的协议，但消息可以是文本或二进制
 
 使用 stomp 模式实现的 webSocket 更加简单便捷，在低链接数的情况下，比 Socket.IO 消耗更少的资源
-## 依赖以及配置类
+### 依赖以及配置类
 ```xml
         <dependency>
             <groupId>org.springframework</groupId>
@@ -75,7 +75,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     }
 }
 ```
-## 实现
+### 实现
 继承 AbstractWebSocketHandler，实现方法，即可自定义在连接、传入、中断等时候分别可以执行的操作。这里我们选择继承其子类 TextWebSocketHandler 来处理文本消息
 ```java
 @Component
@@ -142,7 +142,7 @@ public class MyWsHandler extends TextWebSocketHandler {
 在 afterConnectionEstablished 方法中，WebSocketSession 对象被创建并存储在内存中。此时，WebSocketSession 对象的属性可以通过调用 WebSocketSession 的 setAttribute 方法进行设置。setAttribute 方法接受两个参数，第一个参数是属性的名称，第二个参数是属性的值
 
 我们在处理的时候需要解决心跳检测机制，用户关闭浏览器后我们应该关闭链接，如果是后端实现后端可以不停的写空数据（比如空的中括号大括号什么的）。浏览器关闭后再写数据会触发异常，死循环就会中断，websocket 会关闭
-# 使用 Socket.IO 实现
+## 使用 Socket.IO 实现
 Socket.IO 在 WebSocket 上封装了一些东西，让 WebSocket 的使用更加便捷，因此 Socket.IO 是 WebSocket 的升级版，包含：
 
 - 每个数据包添加了额外的元数据。这就是为什么 WebSocket 客户端将无法成功连接到 Socket.IO 服务器，而 Socket.IO 客户端也将无法连接到普通 WebSocket 服务器
@@ -151,7 +151,7 @@ Socket.IO 在 WebSocket 上封装了一些东西，让 WebSocket 的使用更加
 - 包含一个内置的**心跳机制**，它会定期检查连接的状态。如果校验失败会告知前后端，让业务去做后续处理，比如重新连接等等
 
 在大量用户连接到服务器时，使用 Socket.IO 是个不错的选择，比如手机端的操作以及公共聊天室的实现
-## 消息事件处理器
+### 消息事件处理器
 ```java
 @Component
 public class MessageEventHandler {
@@ -226,7 +226,7 @@ public class ServerRunner implements CommandLineRunner {
     }
 }
 ```
-## Socket.IO 原理
+### Socket.IO 原理
 简单聊一下 Socket.IO 的底层原理，它是使用了 netty 框架来实现 NIO 的，因此核心原理就是选择器。和 WebSocket 不一样，不是一个连接对应一个线程，我们在这直接加一层选择器来让多个连接映射少量线程，大大减少了线程资源，NIO Socket 工作流程：
 
 - 将 Channel 注册到 Selector 上；Channel 是操作系统内核数据在虚拟机中映射的对象，指的是已经从缓冲区读到操作系统内核区的数据（这个过程是由操作系统 poll、epoll 等方法完成的）。Selector 就是选择器
@@ -237,14 +237,14 @@ PollArrayWrapper 是 Selector 内部维护的连续内存数组，用来动态�
 events 指的是 socketChannel 中注册的操作类型，比如数据读、数据写等等操作
 
 revents 是指 events 的就绪情况。在调用 selector.select 时，会触发本地方法调用获取注册的 socket 的操作就绪情况，并且将结果会更新到 revents 中。然后选择器会调用 selectedKeys，根据 events（注册的操作）和 revents（就绪操作）通过一定的算法判断是否匹配被选中的。如果被选中说明数据已经准备好了，指定线程来处理数据
-# nginx 配置的各种问题
-## 请求 400
+## nginx 配置的各种问题
+### 请求 400
 如果使用 webSocket 并且使用 nginx 做转发的话，会报以下错误：
 ```
 failed: Error during WebSocket handshake: Unexpected response code: 400
 ```
 这个问题其实是由于客户端错误或不存在的域名导致的，如果代码没有错误的话，可能是 ng 的配置不对
-## 在 https下使用 ws，提示不安全
+### 在 https下使用 ws，提示不安全
 ```
 Mixed Content: The page at 'https://www.joshua317.com/1.html' was loaded over HTTPS, but attempted to connect to the insecure WebSocket endpoint 'ws://im.joshua317.com/'. This request has been blocked; this endpoint must be available over WSS.
 
@@ -288,7 +288,7 @@ proxy_set_header Connection "upgrade";
 
 **第二行和第三行告诉 nginx，当它想要使用 WebSocket 时，响应 http 升级请求**
 
-## 在不支持 ssl 的情况下，直接用 wss 链接
+### 在不支持 ssl 的情况下，直接用 wss 链接
 ```
 index.ts:8 WebSocket connection to 'ws://im.joshua317.com/' failed: Error in connection establishment: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH
 或者
@@ -310,7 +310,7 @@ server {
     ssl_ciphers xxxxxxxxxxxxx;
 ```
 
-## 如果我们设置 location 不正确的时候
+### 如果我们设置 location 不正确的时候
 ```
 failed: Error during WebSocket handshake: Unexpected response code: 404
 ```

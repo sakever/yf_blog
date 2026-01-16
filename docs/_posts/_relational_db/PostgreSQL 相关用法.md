@@ -7,9 +7,9 @@ categories:
 tags:
   - PostgreSQL
 ---
-# 常见语法
+## 常见语法
 PG 大部分语法与 MySQL 一致，只有略微的区别。其中包含很多非常有用并且有趣的功能
-## NUMERIC
+### NUMERIC
 NUMERIC 类型的语法：
 ```sql
 NUMERIC(precision, scale)
@@ -25,7 +25,7 @@ NUMERIC(precision)
 我们可以使用，更精确的计算结果。浮点数存在精度问题，可能会出现计算误差，而使用 numeric(5,2) 可以保证计算结果的精度
 
 该类型在 java 中直接对应 BigDecimal 类型。在 PostgreSQL中 NUMERIC 和 DECIMAL 是等价的
-## SERIAL
+### SERIAL
 postgresql 序列号（SERIAL）类型包括 smallserial（smallint,short）,serial(int) 和 bigserial(bigint,long long int)，不管是 smallserial，serial 还是 bigserial，其范围都是(1,9223372036854775807)，但是序列号类型其实不是真正的类型，当声明一个字段为序列号类型时其实是创建了一个序列，INSERT 时如果没有给该字段赋值会默认获取对应序列的下一个值，因此我们常常用它来作为主键
 
 在创建表时输入这个值，事实上是为主键的默认值设置为 nextval，比如
@@ -36,7 +36,7 @@ SELECT nextval('crm_user_info_v_id_seq'::regclass);
 alter sequence if exists crm_user_info_v_id_seq restart with 50 cache 1;
 select setval('crm_allocation_model_id_seq', max(id)) from crm_allocation_model;
 ```
-## LIMIT
+### LIMIT
 带有 LIMIT 子句的 SELECT 语句的基本语法如下：
 ```sql
 SELECT column1, column2, columnN
@@ -57,7 +57,7 @@ LIMIT 10 OFFSET 2
 
 mysql 是在 limit 后跟两个数字，以表示每页多少数据以及偏移量
 
-## WITH
+### WITH
 pg 带有 with 语句，可以定义一个子查询，然后再其他的查询中复用这个子查询，比如
 
 ```sql
@@ -66,7 +66,7 @@ select user_name from aaa;
 ```
 注意 with 语句不要带分号
 
-## 连接
+### 连接
 PostgreSQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段
 
 在 PostgreSQL 中，JOIN 有五种连接类型：
@@ -79,7 +79,7 @@ FULL OUTER JOIN：全外连接
 
 pg 的连接做的比 MySQL 好，因此可以尽情使用联表了
 
-## UNION 联表
+### UNION 联表
 用于将两个表的查询结果连接在一起，这里的连接不是联表的连接，而是纵向的连接，将两个查询结果合起来返回给用户
 
 ```sql
@@ -111,20 +111,20 @@ SELECT column1 [, column2 ]
 FROM table1 [, table2 ]
 [WHERE condition]
 ```
-## :: 强制转换
+### :: 强制转换
 使用两个冒号来表示强制类型转换，下面的 sql，虽然 user_id 是 int 类型，不过查询出来的是 char 类型数据
 ```sql
 select user_id::char
             from user
 ```
 
-## 正则匹配
+### 正则匹配
 pg 在使用正则表达式的时候需要使用关键字~，表示关键字之前的内容要和之后的内容进行匹配，不匹配则在关键字之前加！可以直接使用飘号进行首字符匹配
 ```sql
 select user_name from user where user_name ~ 'timo'
 ```
 
-## ON CONFLICT
+### ON CONFLICT
 该语句用于实现当记录不存在时，执行插入；否则，进行更新这种操作
 
 在关系数据库中，术语 upsert 被称为合并(merge)。意思是，当执行 INSERT 操作时，如果数据表中不存在对应的记录，PostgreSQL 执行插入操作；如果数据表中存在对应的记录，则执行更新操作。这就是将其称为 upsert（update or insert）的原因
@@ -184,7 +184,7 @@ on conflict(date, city) do update set temp_lo = tos.temp_lo+excluded.temp_lo; --
 ```
 这里额外说明一下 CONFLICT 的性能，ON CONFLICT 需要检查唯一约束或索引来确定冲突，冲突解决过程可能需要获取行锁
 
-## 建立索引
+### 建立索引
 建立索引时并行建立，不会影响数据库查询
 ```sql
 create index concurrently on user_info (user_name)
@@ -198,14 +198,14 @@ create index concurrently on user_info using hash (user_name)
 ```sql
 create extension if not exists btree_gin;
 ```
-## gin 索引原理
+### gin 索引原理
 GIN 是 Generalized Inverted Index 的缩写。就是所谓的**倒排索引**，它用于处理类似数组、ltree 等字段。它处理的数据类型的值不是原子的，而是由元素构成。我们称之为复合类型。如(‘hank’, ‘15:3 21:4’)中，表示hank在15:3和21:4这两个位置出现过
 
 GIN 的主要应用领域是加速全文搜索，所以，这里我们使用全文搜索的例子介绍一下GIN索引。如下，建一张表：
 ```
-postgres=# create table ts(doc text, doc_tsv tsvector);
+postgres=## create table ts(doc text, doc_tsv tsvector);
 
-postgres=# insert into ts(doc) values
+postgres=## insert into ts(doc) values
   ('Can a sheet slitter slit sheets?'), 
   ('How many sheets could a sheet slitter slit?'),
   ('I slit a sheet, a sheet I slit.'),
@@ -216,7 +216,7 @@ postgres=# insert into ts(doc) values
   ('I am the sleekest sheet slitter that ever slit sheets.'),
   ('She slits the sheet she sits on.');
 
-postgres=# create index on ts using gin(doc_tsv);
+postgres=## create index on ts using gin(doc_tsv);
 ```
 
 该 GIN 索引结构如下，黑色方块是 TID 编号，比如0-2代表该单词在第0行的第2个元素中出现过，白色为单词
@@ -225,7 +225,7 @@ postgres=# create index on ts using gin(doc_tsv);
 由上可见，sheet、slit、slitter 出现在多行之中，会有多个 TID，这样就会生成一个 TID 列表，并为之生成一棵单独的B-tree，以此增加搜索速度
 
 总结来说，gin 就是将数组字段中的每一个元素都取出来，对每个元素都建立一个 b+ 索引。而索引最终存放的值也是一个 b+ 树，这个 b+ 树存放的是该元素出现的行以及编号
-## pg_stat_activity 查询正在执行的语句和杀掉卡住的语句
+### pg_stat_activity 查询正在执行的语句和杀掉卡住的语句
 有些更新语句非常耗时间卡住了其他的 sql 执行，我们可以通过以下语句查询正在执行的语句并且查询是否有 lock 的语句
 ```sql
 select pg_blocking_pids(pid), pid, now() - xact_start, wait_event, wait_event_type, substr(query, 1, 100)
@@ -238,32 +238,32 @@ order by 3 代表按第三列排序。我们查出 pid 后可以杀掉 pid
 select pg_terminate_backend(21829);
 ```
 
-## 设置东8区
+### 设置东8区
 ```sql
 set time zone 'PRC'
 ```
 
-# 常见函数
-## to_char 日期转字符串
+## 常见函数
+### to_char 日期转字符串
 ```sql
 to_char(cjsj, 'yyyy-mm-dd hh24:MI:SS')
 ```
-## to_timestamp 字符串转日期
+### to_timestamp 字符串转日期
 ```sql
 to_timestamp(cjsj, 'yyyy-mm-dd hh24:MI:SS')
 ```
-## date_part 
+### date_part 
 date_part('day', TIMESTAMP '2018-03-01 08：00：00') 结果是 1，如果用 hour 就可以求出小时数为 8
 ```sql
 select date_part('day', biztime), sum(qty) from datatable where date_part('day',biztime) >= 1
 ```
-## extract (epoch | year... from timestamp)
+### extract (epoch | year... from timestamp)
 extract 用来提取时间类型的某个数据，比如年月日时分秒，以及从 linux 数据戳开始到现在的 long 类型时间
 ```sql
 select extract(epoch from '2023-03-03'::timestamp);
 select extract(month from '2023-03-03'::timestamp);
 ```
-## string_agg
+### string_agg
 该函数用于将多个数据链接在一起成为一个字符串
 ```sql
 select string_agg(id, '|') from wechat_kf_info group by open_kfid;
@@ -273,19 +273,19 @@ select string_agg(id, '|') from wechat_kf_info group by open_kfid;
 select string_agg(id, '|' order by id) from wechat_kf_info group by open_kfid;
 ```
 
-# JSON 与 JSONB
+## JSON 与 JSONB
 pg 有很多自己的数据结构，比如 json。json 数据类型可以用来存储 JSON（JavaScript Object Notation）数据， 这样的数据也可以存储为 text，但是 json 数据类型更有利于检查每个存储的数值是可用的 JSON 值
 
 一个 JSON 数值可以是一个简单值（数字、字符串、true/null/false），数组，对象
 
 JSON 和 **JSONB** 类型在使用上几乎完全一致，两者的区别主要在存储上，json数据类型直接存储输入文本的完全的拷贝，JSONB 数据类型以二进制格式进行存储。同时 JSONB 相较于 JSON 更高效，处理速度提升非常大，且支持索引
-## 查询操作符
+### 查询操作符
 我们可以对 JSON 类型做一些很有趣的操作，比如可以用箭头来取 json 中的值，比如 user 有很 home，我们可以直接查询他在北京的房子：
 ```sql
 select user_home -> 'beijing' as aaa
 from user
 ```
-### 通过 json 的键获取 json 的值
+#### 通过 json 的键获取 json 的值
 **如果将 -> 指向一个数字的话，就是对 json 数组的操作了**，表示取第几个元素，比如以下代码，就是取第1个 json 元素
 ```sql
 select user_home -> 1 as aaa
@@ -298,13 +298,13 @@ from user
 select user_home ->> 'beijing' as aaa
 from user
 ```
-### #> 获取指定路径上的对象
+#### #> 获取指定路径上的对象
 一个 json 数据可能会包含多个嵌套属性，**使用 #> 获得在指定路径上的 JSON 对象**，同样，该操作符有变种 #>>
 ```sql
 select user_home #>> '{beijing, 汤臣一品}' as aaa
 from user
 ```
-### ？判断 json 中是否存在某个键
+#### ？判断 json 中是否存在某个键
 用户在使用 JSON 类型时，常见的一些 JSON 搜索比如，JSON 中是否存在某个 KEY，某些 KEY，某些 KEY 的任意一个，这些操作 pg 都为我们提供了
 
 存在某个 KEY
@@ -319,7 +319,7 @@ select * from my_table where colmn ? 'key'
 ```sql
 '["a", "b"]'::jsonb ?| array['a', 'b'] 
 ```
-### @> 判断 json 中是否存在某个键值对
+#### @> 判断 json 中是否存在某个键值对
 JSON 中是否存在指定的 key:value 对（支持嵌套 JSON）
 ```sql
 '{"a":1, "b":2}'::jsonb @> '{"b":2}'::jsonb  
@@ -329,7 +329,7 @@ JSON 中某个路径下的 VALUE（数组）中，是否包含指定的所有元
 select jsonb '{"a":1, "b": {"c":[1,2,3], "d":["k","y","z"]}, "d":"kbc"}' @> '{"b":{"c":[2,3]}}';  
 ```
 
-## 修改操作符
+### 修改操作符
 向某个 json 类型的列塞入数据，需要使用单引号配合大括号
 ```sql
 update users set data = '{"uptate_data": "7"}'::jsonb where id = 3;
@@ -340,7 +340,7 @@ update users set data = '{"uptate_data": "7"}'::jsonb where id = 3;
 update users set data = data::jsonb || '{"uptate_minute": "10"}'::jsonb where id = 3;
 ```
 
-## 函数
+### 函数
 pg 还提供了很多函数用来对对应的数据类型做操作，函数的传入应该是查询后的结果，但是函数会允许下面格式的查询语句
 ```sql
 SELECT jsonb_array_elements('[1, 2, [3, 4]]');
@@ -348,7 +348,7 @@ SELECT jsonb_array_elements('[1, 2, [3, 4]]');
 select jsonb_array_elements(user_house)
 from user;
 ```
-### jsonb_array_elements 操作 json 数组
+#### jsonb_array_elements 操作 json 数组
 比如你其实可以传入一个 json 类型的数组作为一个列，但是此时你就不能使用箭头来对数组中的每个元素进行同样的操作了。注意是一个，不是一群，需要严格限制个数，不然会报错。同时，该函数还允许传入 null
 
 此时你可以使用 jsonb_array_elements 函数，将顶层 JSON 数组扩展为一个 JSONB 值的集合，然后使用箭头来查询它们里面包含的值，即解析 JSON 数组转成多行
@@ -361,7 +361,7 @@ from user
 更多的函数：
 https://www.sjkjc.com/postgresql-ref/jsonb_array_elements/
 
-# hstore
+## hstore
 pg 可以使用 hstore 来储存一个类似 map 的结构，在数据库中，对应关系会使用 =>  来表示，对该类型数据的增删改查有不同的方式
 
 hstore 模块实现了将键/值对存储到单个值的 hstore 数据类型。注意，hstore 中的 键 和 值 都只能是字符串
@@ -375,7 +375,7 @@ hstore 模块实现了将键/值对存储到单个值的 hstore 数据类型。�
 	'a=>x, b=>y, c=>z'::hstore -> ARRAY['c','a']
 ```
 如果键没有对应的值，hstore 的特性还可以让它拿到 null，而不是丢出异常
-## 操作符
+### 操作符
 hstore 的操作符可以使用不同方式查询该数据，比如使用键来寻找值（箭头）、判断对应的键是否在 hstore 中（问号）、左操作符是否包含右操作符（@>）
 ```sql
 // 获得键的值(如果不存在为NULL)	
@@ -396,7 +396,7 @@ hstore 的操作符可以使用不同方式查询该数据，比如使用键来�
 
 
 
-## 增删改
+### 增删改
 操作符配合 ARRAY 函数即可实现大多数的 hstore 属性查询功能了，但是我们还是不知道如何将数据插入 hstore 中，以及如何创建一个 hstore 属性等问题
 
 首先我们启用 hstore 模块，使用 HSTORE 数据类型之前，需要先启用 hstore 模块：
@@ -448,11 +448,11 @@ SET attr = delete(attr, 'freeshipping');
 // 从左操作符中删除键	
 'a=>1, b=>2, c=>3'::hstore - 'b'::text
 ```
-# 数组
+## 数组
 pg 支持数组类型数据结构，可以在一些数据类型后面加上中括号来表示数组这个结构，比如 integer[]
 
 对于数组的增删改查与上面的 hstore 与 json 差不多
-## 操作符
+### 操作符
 默认情况下，数组的下标是从 1 开始的，我们也可以指定下标的开始值，如下：
 ```sql
 SELECT id[2], id[3], id[4] FROM test02;
@@ -471,7 +471,7 @@ SELECT id[2], id[3], id[4] FROM test02;
 <@|包含于| select ARRAY[2,7] <@ ARRAY[1,7,4,2,6];| t
 &&|重叠（是否有相同元素）| select ARRAY[1,4,3] && ARRAY[2,1];| t
 
-## 函数
+### 函数
 可以使用 sql 的 ARRAY 函数来将一系列数据变成函数，后面的 ::integer[] 强制转换为数组其实没有必要，但是还是推荐加上，这是为了规定类型
 ```sql
 update my_table set department_id = ARRAY[1]::integer[] where id = 42
@@ -514,8 +514,8 @@ select array_agg(id) from wechat_kf_info group by open_kfid;
 ```sql
 select 'a' = any('{a, b, c}')
 ```
-# ltree
-## 查询操作符
+## ltree
+### 查询操作符
 ltree 提供两种数据类型
 
 - ltree：存储标签路径
@@ -534,8 +534,8 @@ SELECT v FROM configuration WHERE k ~ lquery 'sms';
 -- 匹配 aaa.sms.aaa
 SELECT v FROM configuration WHERE k ~ lquery '*.sms.*';
 ```
-# 性能分析
-## generate_series 生成数据
+## 性能分析
+### generate_series 生成数据
 该函数一般用于我们向 pg 插入大量的数据，该函数的作用是在给定间隔内生成一系列数字，一般用于测试性能。 序列值之间的间隔和步骤由用户定义，下面的 start 指定开始大小，stop 指定结束大小，默认按一增加，但是可以用 step 指定增加大小
 ```sql
 GENERATE_SERIES ( start, stop [, step ] )
@@ -563,7 +563,7 @@ insert into second_kill_batch (id, start_time, end_time, batch_name, activity_fl
 select generate_series(50, 1050), now(), now(), '测试千条性能', generate_series(150, 1150)::varchar;
 ```
 
-## explain analyze
+### explain analyze
 使用 pg 提供的 explain analyze sql 语句进行性能分析，返回的数据意义如下：
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a1de82512f94da1ca81c9c49f2542e1.png)
 

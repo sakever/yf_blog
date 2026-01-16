@@ -7,7 +7,7 @@ tags:
   - 异常
 ---
 Java 异常是 Java 提供的一种识别及响应错误的一致性机制
-# 异常继承图
+## 异常继承图
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eabee8d538bd89af8e8d44886b32bb7e.png)
 Throwable 实现了 Serializable 接口，它有 Error 与 Exception 两个子类，程序出现错误时，方法就会向外抛异常，它提供了 printStackTrace 等接口用于获取堆栈跟踪数据等信息
 
@@ -34,7 +34,7 @@ Exception 中的运行时异常 RuntimeExceptionn 是我们着重关注的异常
 - ArithmeticException 算术错误
 - SecurityException 安全错误比如权限不够
 - UnsupportedOperationException 不支持的操作错误比如重复创建同一用户
-# try-catch-finally
+## try-catch-finally
 这个捕获异常的语句有以下特性
 
 - 在一个 try-catch 语句块中可以捕获多个异常类型，同一个 catch 也可以捕获多种类型异常，用 | 隔开
@@ -53,7 +53,7 @@ public interface Closeable extends AutoCloseable {
 }
 ```
 它有什么好处呢？finally 中的 close 方法也可能抛出 IOException，从而覆盖了原始异常，实现该接口的话抛出的仍然为原始异常。被抑制的异常会由 addSusppressed 方法添加到原来的异常，如果想要获取被抑制的异常列表，可以调用 getSuppressed 方法来获取
-# 最佳实践
+## 最佳实践
 1，尽量使用标准的异常，在不可避免的情况下才自定义异常，常见的异常如下：
 
 - IllegalArgumentException 参数的值不合适
@@ -74,7 +74,7 @@ public interface Closeable extends AutoCloseable {
         throw new MyException("hello exception", e);
     }
 ```
-# JVM 层面的异常处理
+## JVM 层面的异常处理
 JVM 使用 Exception Table 异常表来处理异常，在使用 try-catch-finally 语句后，class 文件的常量池后面会出现类似这样的语句
 ```java
     Exception table:
@@ -83,21 +83,21 @@ JVM 使用 Exception Table 异常表来处理异常，在使用 try-catch-finall
            0     3    15   any
            6     8    15   any
 ```
-## 各个属性的解释
+### 各个属性的解释
 
 - from 可能发生异常的起始点
 - to 可能发生异常的结束点
 - target 上述 from 和 to 之前发生异常后的异常处理者的位置
 - type 异常处理者处理的异常的类信息，any 表示发生了任何异常都会跳转到这个语句并执行
 
-## 当异常发生时，JVM会这么处理
+### 当异常发生时，JVM会这么处理
 
 - 如果当前方法异常表不为空，并且异常符合处理者的 from 和 to 节点，并且 type 也匹配，则调用位于 target 的调用者来处理
 - 如果上一条未找到合理的处理者，则继续查找异常表中的剩余条目。如果当前方法的异常表无法处理，则向上查找（弹栈处理）刚刚调用该方法的调用处，并重复上面的操作
 - 如果所有的栈帧被弹出，仍然没有处理，则抛给当前的 Thread，Thread 则会终止
 - 如果当前 Thread 为最后一个非守护线程，且未处理异常，则会导致 JVM 终止运行
 
-## 跳转语句
+### 跳转语句
 你可能会想到在 try 或者 catch 语句中定义了 return 或者 throw 语句，程序会在这些语句之前先执行 finally 代码块，再返回结果，这一段过程 JVM 是如何实现的
 ```java
     Code:
@@ -110,7 +110,7 @@ JVM 使用 Exception Table 异常表来处理异常，在使用 try-catch-finall
 ```
 就是利用这个 goto 语句实现的，将 return 语句写在最后面，在 try 或者 catch 的语句里面定义的 return 语句都会被替换为 goto
 
-# 异常为什么会耗时（源码层面异常处理）
+## 异常为什么会耗时（源码层面异常处理）
 众所周知，建立一个异常对象，是建立一个普通 Object 耗时的约20倍，而抛出、接住一个异常对象，所花费时间大约是建立异常对象的4倍，这是为什么呢？
 
 先来看看 Throwable 的源码，它的成员变量如下

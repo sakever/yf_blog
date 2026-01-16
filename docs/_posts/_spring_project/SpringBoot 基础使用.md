@@ -6,7 +6,7 @@ categories:
 tags:
   - SpringBoot
 --- 
-# 常用注解
+## 常用注解
 @SpringBootApplication：该注解标注一个 springboot 应用。以下的 exclude 就是排除了默认的数据源，使用自定义的数据源
 ```java
 package demo;
@@ -55,8 +55,8 @@ DataSourceAutoConfiguration 功能概况
 public class AdminFilter implements Filter {...}
 ```
 
-# Web开发
-## 静态资源
+## Web开发
+### 静态资源
 静态资源就是浏览器能够直接打开的，比如 html 文件、css 文件、js 文件、jpg 文件等；动态资源就是需要走控制器的资源，Spring 默认先寻找动态资源，再寻找静态资源
 
 静态资源放在 recources 文件下的 static、public 等包下，它们的优先级依次降低，因为自动配置类中是这么配置的
@@ -75,7 +75,7 @@ spring:
 recourses 包下的 templates 包为动态资源，在包下写 error 包，404等网站会自动显示在这里，并且直接访问里面的资源是访问不到的
 
 
-# 接管 MVC 配置
+## 接管 MVC 配置
 使用继承方式来扩张 MVC 的功能
 ```java
 @Configuration

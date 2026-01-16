@@ -11,7 +11,7 @@ tags:
     ThreadLocal<Object> threadLocal = new ThreadLocal<>();
 ```
 
-# 用法
+## 用法
 比如可以这样使用，用 ThreadLocal 保存用户信息。在用户登录拦截时，通过校验的用户可以将该用户常用信息放进 ThreadLocal，在这次请求时可以随时取出来使用，不是公用属性不会存在多线程并发问题：
 ```java
 public class RequestContextCache {
@@ -47,7 +47,7 @@ public class RequestContextCache {
     }
 }
 ```
-# 底层结构
+## 底层结构
 这个类中只有一个 ThreadLocal 对象，但是**每一个线程中都有不同的 ThreadLocalMap**，Thread 中定义了 ThreadLocal.ThreadLocalMap threadLocals = null;
 
 **最终的变量是放在了当前线程的 ThreadLocalMap 中，并将 ThreadLocal 这个对象的弱引用作为键**。而 ThreadLocalMap 被定义成了 Thread 类的成员变量
@@ -128,7 +128,7 @@ get 方法如下，如果原先 ThreadLocalMap 中没有值会返回 null，Thre
         }
 ```
 
-# 为啥要使用弱引用
+## 为啥要使用弱引用
 让一个弱引用当值主要是为了防止内存泄漏，当 ThreadLocal 需要被回收的时候，如果在 map 中的键是强引用，那么这个对象是无法被回收掉的。即使 ThreadLocal 变量生命周期结束了，设置成 null 了，但**如果这个 ThreadLocalMap 中的 Entry 对 ThreadLocal 还是强引用**，此时，这个 ThreadLocal 是不会被销毁的
 
 当然将 ThreadLocal 设置成 static 则是例外，此时它被存放在方法区里
@@ -149,7 +149,7 @@ java 为了处理这种问题，定义了方法 replaceStaleEntry，如果系统
 同时 ThreadLocal 一般会设置为 static，用户请求进来，用一个线程池中线程处理，处理完毕后如果不清理，这个线程可能会处理其他的请求，这时候再调用 ThreadLocal 获取数据，此时会出现问题
 
 那么我们回头来看看 hashMap，弱引用这么好，为什么 hashMap 不使用弱引用优化一下 key 呢？因为没必要，我们不可能使用 map = null 这种语句来删除 key，我们都是调用 remove 方法，因此根本不可能发生内存泄漏
-# 碰撞处理
+## 碰撞处理
 ThreadLocalMap 类似 hashmap，但是所使用的 hash 函数、碰撞处理等方法大不相同
 
 碰撞处理使用**动态寻址法**，当哈希碰撞发生时，从发生碰撞的那个单元起，按照一定的次序，从哈希表中寻找一个空闲的单元，然后把发生冲突的元素存入到该单元。这个空闲单元又称为开放单元或者空白单元

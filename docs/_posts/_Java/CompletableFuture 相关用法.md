@@ -8,7 +8,7 @@ tags:
   - CompletableFuture
 --- 
 由于 guava 中 Listenablefuture 的成功，在Java 8中，设计师们也新加了一个包含50个方法左右的类 CompletableFuture。它的优点就是异步编程，同时这个类的使用也相当抽象...非常抽象
-# 构造
+## 构造
 CompletableFuture 它可以直接被 new 出来，此时它被当做 Future 来使用。它的基础方法如下
 ```java
 CompletableFuture<Object> completableFuture = new CompletableFuture<Object>();
@@ -48,7 +48,7 @@ run 族的方法不会返回结果，像 Runnable 一样就只是执行线程任
 ```
 supplyAsync() 方法接受的参数是 Supplier，它是一个功能接口，代表结果的提供者。Supplier 只有一个 get() 方法，可以返回通用类型的值，在这里它的返回值就是 CompletableFuture 里存的值，而接口所传入的参数类型就是返回值的参数类型
 
-# 获取结果
+## 获取结果
 以下是可以拿到 CompletableFuture 中存放的值的方法
 ```java
 public T    get()
@@ -61,7 +61,7 @@ join 和 get 方法都是用来获取 CompletableFuture 异步之后的返回值
 join 方法抛出的是 uncheck 异常（即未经检查的异常)，不会强制开发者处理
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42ecc8f33f49f85d5953692242cf05ea.png)
 
-# callback
+## callback
 这是 CompletableFuture 的灵魂，我们可以用一些方法对得到的 CompletableFuture 进行进一步的处理，也就是所谓的异步回调过程。我们一般使用 thenRun、thenAccept 和 thenApply 来执行回调过程
 
 thenRun 后面跟的是一个无参数、无返回值的方法，即 Runnable
@@ -87,7 +87,7 @@ public CompletableFuture<Void> thenRunAsync(Runnable action)
 public CompletableFuture<Void> thenRunAsync(Runnable action, Executor executor)
 ```
 
-# 带异常的回调
+## 带异常的回调
 如果上一个任务抛出了异常导致链式无法进行下去，我们可以使用 whenComplete、handle 来处理异常。 当异步操作完成时，无论是否发生异常，都会执行 whenComplete 方法中的逻辑，而 handle 有所不同，只有当异常发生时，才会执行 handler 中的代码
 ```java
 public CompletableFuture<T> whenComplete(BiConsumer<? super T,? super Throwable> action)
@@ -98,7 +98,7 @@ public <U> CompletableFuture<U> handle(BiFunction<? super T,Throwable,? extends 
 public <U> CompletableFuture<U> handleAsync(BiFunction<? super T,Throwable,? extends U> fn)
 public <U> CompletableFuture<U> handleAsync(BiFunction<? super T,Throwable,? extends U> fn, Executor executor)
 ```
-# 组合
+## 组合
 CompletableFuture 提供一些方法按顺序链接两个 CompletableFuture 对象
 
 ```java
@@ -155,7 +155,7 @@ public class Thread10_ThenCombine {
     }
 }
 ```
-# 并行运行任务
+## 并行运行任务
 CompletableFuture 使用静态的 allOf 与 anyOf 来并行运行任务，中间的 task1 到 task6 都是 CompletableFuture 对象
 ```java
 CompletableFuture<Void> headerFuture = CompletableFuture.allOf(task1,.....,task6);

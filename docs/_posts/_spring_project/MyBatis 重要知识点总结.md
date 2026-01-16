@@ -9,7 +9,7 @@ tags:
 ---
 
 记录一下 MyBatis 的底层原理以及相关重要知识点
-# 大体架构
+## 大体架构
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7f07420786696a6381428685cfb7a4e5.png)
 在接口层中 MyBatis 提供和数据库交互的两种方式：使用传统的 MyBatis 提供的 API 实现简单的增删改查，以及使用 Mapper 接口实现自己写的 sql 语句
 
@@ -27,8 +27,8 @@ tags:
 （2）Executor 接口，它将根据 SqlSession 传递的参数动态地生成需要执行的 SQL 语句，同时负责查询缓存的维护。类似于 JDBC 里面的 Statement/PrepareStatement
 （3）MappedStatement 对象，该对象是对映射 SQL 的封装，用于存储要映射的 SQL 语句的 id、参数等信息
 （4）ResultHandler 对象，用于对返回的结果进行处理，最终得到自己想要的数据格式或类型。可以自定义返回类型
-# Mapper 创建过程
-## SqlSessionFactoryBuilder
+## Mapper 创建过程
+### SqlSessionFactoryBuilder
 一旦创建了工厂就没用了，推荐成为局部变量
 
 一般先使用两个 build 方法，不同点只是处理的是字节流还是字符流
@@ -76,7 +76,7 @@ public class SqlSessionFactoryBuilder {
 }
 ```
 
-## SqlSessionFactory
+### SqlSessionFactory
 因为包含配置文件中的所有信息，可以视作数据库但不是数据库，必须一直存在(因为要创建 sqlsession)，建议设为全局变量
 
 Configuration：将 mybatis 配置文件中的信息保存到该类中，之后的大部分操作都会从这个类中拿数据，可以说主体就是这个类，Factory 只是个包装
@@ -106,7 +106,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
   }
 }
 ```
-## SqlSession
+### SqlSession
 连接请求，负责和数据库交互，不是线程安全的，使用完关闭，推荐将 close 方法放在 finally 中，和 ReentrantLock 一样
 
 所有的增删改查操作，都会由 SqlSession 实现类中以下三个方法执行，选择和修改，并且最后都会调用执行器执行sql语句
@@ -162,7 +162,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 ```
 
 
-## Mapper
+### Mapper
 会话中的一个具体的业务，包含多个sql请求，调用getMapper方法获得
 ```java
     public <T> T getMapper(Class<T> type) {
@@ -186,7 +186,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 ```
 所以它最后返回了对应接口的一个代理对象，我们只用这个代理对象实现增删改查方法
 
-# 一个查询语句的执行过程
+## 一个查询语句的执行过程
 由于是代理对象，所以直接执行 invoke 方法，即无论用 mapper 中什么方法都会执行 invoke 方法
 
 如果是查询语句，先运行到 SqlSession 中的 select 方法，然后执行 executor 中的 query 方法，executor 只是个接口，根据用户选择的不同会执行不同的 executor，比如：
@@ -229,7 +229,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 ```
 
 综上，SqlSession方法中的getMapper传入的是接口的class对象，它的作用是作为类的全限定名配合之后调用的方法名唯一确定一个sql语句（MappedStatement）；而它的返回值类型虽然可以调用它里面的方法，但是方法的实现已经被 jdk 完全代理了
-## Dao 接口里的方法，参数不同时，方法能重载吗
+### Dao 接口里的方法，参数不同时，方法能重载吗
 **最佳实践中，通常一个 xml 映射文件，都只会有一个 Dao 接口与之对应**
 
 因为接口的全限名，就是映射文件中的 namespace 的值，接口的方法名，就是映射文件中 MappedStatement 的 id 值，接口方法内的参数，就是传递给 sql 的参数。 Mapper 接口是没有实现类的，当调用接口方法时，接口全限名+方法名拼接字符串作为 key 值，可唯一定位一个 MappedStatement
@@ -267,7 +267,7 @@ Person queryById(@Param("id") Long id, @Param("name") String name);
 
 mybatis 虽然允许重载，但是功能非常鸡肋，估计在设计的时候也没有考虑到重载的情况，不推荐使用
 
-## 总结
+### 总结
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eebe0e36b23db75377698bf21837c21e.png)
 上面中流程就是 MyBatis 内部核心流程，每一步流程的详细说明如下文所述：
 
@@ -286,7 +286,7 @@ mybatis 虽然允许重载，但是功能非常鸡肋，估计在设计的时候
 （7）输入参数映射。输入参数类型可以是Map、List等集合类型，也可以是基本数据类型和POJO类型。输入参数映射过程类似于JDBC对preparedStatement对象设置参数的过程。
 
 （8）输出结果映射。输出结果类型可以是Map、List等集合类型，也可以是基本数据类型和POJO类型。输出结果映射过程类似于JDBC对结果集的解析过程。
-# #{} 与 ${} 的不同
+## #{} 与 ${} 的不同
 它们都是占位符（占领一个空间，等待传入其他参数）
 
 #{} 会被自动替换为 ? 号，然后这个sql语句作为值存放在 MappedStatement 里，然后使用 PreparedStatement 的内部参数设置方法对 ？进行填充，整个过程使用反射获取对象属性。这种方法会对语句进行预编译处理，所以防止sql注入（因为sql注入发生在sql编译过程中），推荐使用
@@ -301,18 +301,18 @@ select * from order_detail where id = ?;
 ```sql
 select * from order_detail where id = 1;
 ```
-# 物理分页与逻辑分页
+## 物理分页与逻辑分页
 MyBatis 使用 RowBounds 对象进行分页，它是针对 ResultSet 结果集执行的内存分页，属于逻辑分页，这种分页方式一次读取大量数据，在数据库数据修改之后不能第一时间获取值，并且对数据内部的处理也需要时间，一般不使用 mybatis 自带的分页方式
 
 物理分页是依赖数据库的 limit 进行分页的，我们可以在 sql 内直接书写带有物理分页的参数来完成物理分页功能，也可以使用分页插件来完成物理分页，因为可以配合 where 使用索引，效率较高
-# 缓存
+## 缓存
 mybatis 的缓存分为两级
 
 一级缓存是自动开启的 sqlsession 会话缓存，通过同一个 sqlsession 查找的数据会被缓存，所有的查询结果都存储在一个以对应语句为值的 Map 中，在 sqlsession 关闭时所有的缓存都被清空或者转到二级缓存中，推荐关了，毕竟在现在分布式的应用中单机缓存也没啥用
 
 二级缓存推荐一直关闭（默认也是开启的），二级缓存是全局缓存，即 sqlsessionfactory 级别的，此后在执行相同的查询语句，会去缓存中找。每个缓存存放在对应的每个namespace中，是用CachingExecutor实现的
 
-# 执行器
+## 执行器
 调用StatementHander对象发送sql语句
 
 执行器有不同的类型：
@@ -323,7 +323,7 @@ BatchExecutor：批处理语句，不执行select，批量插入后，能返回�
 
 执行器的活动范围在SqlSession生命周期中（因为它定义在SqlSession中）
 
-# 插件
+## 插件
 plugins，在 mybatis 中可以理解成拦截器
 
 主要拦截以下四大对象：
@@ -339,7 +339,7 @@ ResultSetHandler：存放结果集
 
 里层：执行这 4 种接口对象的方法时，就会进入拦截方法，InvocationHandler 的 invoke() 方法
 
-# 延迟加载
+## 延迟加载
 在MyBatis配置文件中，可以配置是否启用延迟加载 lazyLoadingEnabled
 
 延迟加载就是懒加载，在表的关联查询时（比如一对多使用分布查询时），推迟对附表的查询时机，减少数据库访问的压力。又比如在获取某种数据的时候，只有在使用该数据的时候才从数据库中读取数据，这么做的好处是提高用户的访问速度

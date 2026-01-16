@@ -13,7 +13,7 @@ tags:
 Spring AOP 基于动态代理，如果代理对象有接口，使用 jdk 动态代理；如果没有，会使用 cglib
 
 那 AOP 有什么好处呢？它将一些类似日志操作等大量在项目中重复的代码独立出来，降低模块间的耦合度，有利于未来的可拓展性和可维护性
-# 静态代理与动态代理
+## 静态代理与动态代理
 **静态代理：每一个方法都需要写一个代理方法**，可以通过 Impl 或者子类实现，代理类和目标类实现相同的接口，代理类持有目标对象的引用，并在方法调用前后进行额外的操作
 
 动态代理：所有方法都可以公用一个代理方法，通过 java 给定的类实现
@@ -46,7 +46,7 @@ public class StaticProxyUser extends UserImpl {
 }
 ```
 像这么写的话代码的可重用性不高，如果其他接口也像使用代理每个接口都需要写这样一段代码
-## JDK 动态代理
+### JDK 动态代理
 被代理的类实现了接口的时候才能使用，**生成的代理类是实现了相同接口的同级代理类**，调用代理类方法的时候，事实上 jdk 调用了我们的接口实现类方法并且把我们写在代理类中的方法缝合在了一个新类中
 
 通过 Proxy 的 newProxyInstance 生成代理类，这个代理类的方法都会视为代理增强后的方法
@@ -157,7 +157,7 @@ class UserAspect implements User, InvocationHandler {
 - 我们只能代理实现接口后实现的方法，实现类自己的方法也是不可以代理的
 - 反射其实可以直接拿到类中的每一个方法，但是 jdk 没有这么做，是因为需要满足 java 的设计规约，保证封装性
 - **由于我们在代码中生成了 class，因此 jdk 动态代理属于运行时增强**，这种增强在重复调用的时候，会比 CGlib 增强消耗更多性能。但是在 Spring 中，由于代理对象已经放在 IOC 容器中了，因此不会消耗太多性能
-## CGlib 动态代理
+### CGlib 动态代理
 CGLIB 是一个开源、高性能、高质量的 Code 生成类库（代码生成包），**它可以在运行期扩展 Java 类与实现 Java 接口**。CGLIB 的底层是通过使用一个小而快的字节码处理框架 ASM，来转换字节码并生成新的类。但不鼓励大家直接使用 ASM 框架，因为对底层技术要求比较高
 
 被代理的类是代理类的父类，如果被代理的类有一些属性或方法被 final 定义，或者有**一些方法定义为 private** 等等情况，是不能成功代理的。因为我们事实上访问的方法，是其子类的方法，但是子类不能访问到被代理类的方法
@@ -286,7 +286,7 @@ public class UserDao$$EnhancerByCGLIB$$1169c462 extends UserDao implements Facto
 ```
 由此，我们看到了，增强在 class 中已经处理完毕，进入虚拟机时，重复调用该方法的效率会比 jdk 代理高。同时，CGlib 的实现是调用被代理对象的子类，通过生成代码的方式来实现动态代理的
 
-## Spring AOP 自调用问题
+### Spring AOP 自调用问题
 线上出现过这个问题，当一个方法被标记了 @Transactional 注解的时候，**Spring 事务管理器只会在被其他类方法调用的时候生效，而不会在同一个类的方法调用中生效**。同时。如果方法不标记为 public 也不会生效，这个在写代码的时候注意一下
 
 这是因为 Spring AOP 工作原理决定的。因为 Spring AOP 使用动态代理来实现事务的管理，它会在运行的时候为带有 @Transactional 注解的方法生成代理对象，并在方法调用的前后应用事物逻辑。如果该方法被其他类调用我们的代理对象就会拦截方法调用并处理事务
@@ -294,13 +294,13 @@ public class UserDao$$EnhancerByCGLIB$$1169c462 extends UserDao implements Facto
 但是在一个类中的其他方法内部调用的时候，我们代理对象就无法拦截到这个内部调用，因为 SpringAOP 是调用的方法的同级或者子级，因此事务也就失效了
 
 那我们应该怎么办呢？很简单，把事务写在其他方法里就行了
-# AspectJ 的使用
+## AspectJ 的使用
 Spring AOP 现在已经集成了 AspectJ，AspectJ 算的上是 Spring 生态系统中最完整的 AOP 框架
 
 AspectJ 代理不同与 Spring 代理，Spring AOP 属于运行时增强（基于 java 提供的类在运行时实现），而 AspectJ 是编译时增强（基于字节码操作在生成 class 文件时就进行改变），因此 AspectJ 在处理大量请求时性能上比 SpringAOP 好很多，因为在运行时不用读取二进制代理文件
 
 与此同时，cglib 和 jdk 动态代理的很多痛点也被解决了，比如拦截 private 方法、拦截静态方法、拦截内部调用等等，在之前都不能实现的事情，使用 AspectJ 就可以处理
-## 相关名词
+### 相关名词
 增强（advice，也叫通知）：对原方法额外进行的操作，一共有5种类型
 - 前置通知：目标对象的方法调用之前触发
 - 后置通知：目标对象的方法返回结果之后触发
@@ -315,7 +315,7 @@ AspectJ 代理不同与 Spring 代理，Spring AOP 属于运行时增强（基�
 切面：这不是一个名词，这是一个动词，使用 AOP 增强切入点的这样一个操作叫切面
 
 目标：被通知的对象
-## 例子以及注解说明
+### 例子以及注解说明
 @Aspect：表示这是一个增强类
 @Before：前置通知，后面 value 跟着的是切入点表达式
 @After：最终通知
@@ -356,7 +356,7 @@ public class ProxyUser {
     }
 }
 ```
-## PointCut
+### PointCut
 我们发现上面的5种增强里的路径都是一样的，在修改路径时太麻烦了，有没有可以将这些路径抽取出来的方法？
 
 此时我们可以使用使用 PointCut 注解做公共切入点抽取，使用的时候将被注解的方法放进 value 中即可
@@ -379,7 +379,7 @@ public class ProxyUser {
         System.out.println("========== 【Aspectj前置通知】 ==========");
     }
 ```
-## 优先级
+### 优先级
 每个增强类最多有5种增强，而一个切入点可能被很多个增强类增强，我们现在想控制多个切面的执行顺序，怎么办？
 
 我们可以在增强类上使用 Order 注解，Order 之中的数字越小，说明优先级越高，也就越先执行
@@ -401,8 +401,8 @@ public class ProxyUser {
 }
 ```
 
-# 切入点表达式
-## execution
+## 切入点表达式
+### execution
 execution 是使用的最多的注解，用于根据方法的全限定名做匹配，格式如下：
 ```
 execution([权限修饰符] 返回值类型 包名.类名.方法名(参数列表))
@@ -425,7 +425,7 @@ execution(* *To(..))
 // 匹配包名前缀为com的任何包下类名后缀为Dao的方法，方法名必须以find为前缀
 execution(* com..*Dao.find*(..))
 ```
-## within 和 @within
+### within 和 @within
 我们还可以使用 within 做限制，他是一个对所命中路径下的所有方法都进行切面，我们可以使用 @within 对某个注解修饰的类下面的所有方法进行切面，也可以直接切包
 ```java
 // 拦截包中任意方法，不包含子包中的方法
@@ -435,7 +435,7 @@ execution(* com..*Dao.find*(..))
 // 假设 RpcExceptionHandler 是一个对类生效的注解，这样就可以拦截类中的所有方法
 @After(value = @within(com.kuaishou.ad.industry.aigc.center.common.aspect.RpcExceptionHandler))
 ```
-## args 与 @args
+### args 与 @args
 这两个用于对参数进行限制，args 用于匹配方法中的参数类型
 ```java
 // 匹配只有一个参数，且类型为com.ms.aop.args.demo1.UserModel
@@ -451,7 +451,7 @@ public void after(String type1, String type2, Integer typeN) {
 // 匹配多个参数，且多个参数所属的类型上都有指定的注解
 @Pointcut("@args(com.ms.aop.jargs.demo1.Anno1, com.ms.aop.jargs.demo1.Anno2)")
 ```
-## @annotation
+### @annotation
 这个非常的常见，直接通过注解进行的切面，用于匹配当前执行方法持有指定注解的方法。只需要在需要切面的方法上加上对应的注解就可以了。例如：
 ```java
 	@Pointcut("@annotation(cn.hjljy.mlog.common.annotation.MlogLog)")
@@ -483,7 +483,7 @@ public class AppendProcessor {
 }
 
 ```
-## 与并非
+### 与并非
 同时，Pointcut 定义时,还可以使用 &&、∣∣、! 运算符，用于联合多个限制条件
 ```java
 @Pointcut("execution(* com.savage.aop.MessageSender.*(..)) && args(param)")
@@ -500,8 +500,8 @@ public void beforeLog(){
      //todo something....
 }
 ```
-# 实践
-## 常用方法
+## 实践
+### 常用方法
 我们在写 aop 切面时，常用的方法
 ```java
 @Around(value = "pointCut()")
@@ -523,7 +523,7 @@ public Object logBefore(JoinPoint joinpoint) throws Throwable {
     return point.proceed(); //放行，执行接口方法
 }
 ```
-## 例子 @RedisCache
+### 例子 @RedisCache
 注解：
 
 ```java

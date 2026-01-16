@@ -11,8 +11,8 @@ tags:
 经过调研发现 ffmpeg 比较适合处理这个，在 java 中有提供对应的封装库 javacv、ffmpeg-platform，当然 java 中也提供了其他的组件去切音频，但是他们的泛用性不如 ffmpeg
 
 本文将从 ffmpeg 的安装介绍起，包含 linux、mac、docker 下的各种安装方式，和该工具在命令行模式、java 代码中的使用，以及该工具对应的封装库 javacv 的使用方式
-# 关于 ffmpeg 的安装
-## mac 下安装 ffmpeg
+## 关于 ffmpeg 的安装
+### mac 下安装 ffmpeg
 在 mac 下安装 ffmpeg，推荐使用 brew 命令。Brew 全称叫 Homebrew，是 Mac 系统上的软件包管理工具。这里的软件并不是指从 AppStore 或从网上下载的 dmg 文件，而是开发所需要用的一些工具软件，如 gawk 等。 只需要一个命令， 安装和卸载它们非常方便
 
 Homebrew 最初是为 macOS 设计的，但后来也被移植到了 Linux 上，使得在类 Unix 的操作系统上也能使用 Homebrew 来管理软件包。虽然 Homebrew 在 macOS 上非常流行，因为它能很好地与 macOS 的系统结构集成，但 Homebrew 在 Linux 上同样有用，尤其是在那些没有强大的包管理系统的发行版上，或者当用户想要在标准包之外安装额外的软件时
@@ -23,7 +23,7 @@ Homebrew 最初是为 macOS 设计的，但后来也被移植到了 Linux 上，
 ```bash
 brew install ffmpeg
 ```
-## docker 和 linux 下安装 ffmpeg
+### docker 和 linux 下安装 ffmpeg
 下面说的都是 docker 安装镜像的操作，在 linux 下安装只需要去掉 RUN 即可
 
 对于 Debian 或 Ubuntu 镜像
@@ -49,8 +49,8 @@ RUN yum install -y epel-release && yum install -y ffmpeg
 docker build -t docker-with-ffmpeg .
 docker run -it --rm docker-with-ffmpeg bash
 ```
-# 关于 ffmpeg 使用
-## 在命令行使用
+## 关于 ffmpeg 使用
+### 在命令行使用
 在终端中输入以下命令检查 ffmpeg 是否已经安装
 
 ```bash
@@ -80,7 +80,7 @@ ffprobe -i "path/to/audio_file.mp3" -show_entries format=duration -v quiet -of c
 -v quiet: 设置日志级别为 quiet，只显示错误信息
 -of csv="p=0": 设置输出格式为 CSV 格式，其中 p=0 表示不使用管道分隔符，只输出数字
 
-## 在 java 代码中使用
+### 在 java 代码中使用
 我们可以通过 ProcessBuilder 来调用 ffmpeg 功能。这种方式需要保证我们的机器里已经安装了 ffmpeg，并且 ffmpeg 已经配置到了环境变量里
 
 ProcessBuilder 是 Java 中的一个类，位于 java.lang 包下，用于创建和启动新的系统进程。它是 Java 平台标准库的一部分，提供了高级别的抽象来控制和启动外部进程，允许你在 Java 应用程序中执行操作系统命令或运行其他可执行程序
@@ -110,7 +110,7 @@ ProcessBuilder 是 Java 中的一个类，位于 java.lang 包下，用于创建
     }
 ```
 
-# 关于 javacv、ffmpeg-platform 的使用
+## 关于 javacv、ffmpeg-platform 的使用
 javacv 是一个封装了多个计算机视觉和多媒体处理库（包括 OpenCV、FFmpeg 等）的 Java 绑定库，它允许开发者在 Java 中方便地使用这些底层库的功能。导入了 javacv 后，在 java 中使用 ffmpeg 的功能，就不用安装 ffmpeg 了，因为该库已经自带了二进制的 ffmpeg
 
 maven 导入方式

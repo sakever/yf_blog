@@ -9,7 +9,7 @@ tags:
   - 下载
 ---
 做这玩意给我恶心坏了
-# 上传
+## 上传
 上传图片到本地的代码
 ```java
     public void uploadFileToDisk(HttpServletRequest request, HttpServletResponse response, String baseDir) {
@@ -69,7 +69,7 @@ tags:
         return fileItems;
     }
 ```
-# 下载
+## 下载
 直接访问上传的路径就可以下载图片了。但是我们往往会包一层接口，以流的方式读取 url 的内容然后返回给前端，这么做的优点是：
 
 - 内网域名转外网域名，做业务校验并且让用户可以访问内网数据
@@ -102,7 +102,7 @@ tags:
         out.close();
     }
 ```
-# base64
+## base64
 讲一下 base64 是什么：
 
 - Base64 是一种基于 64 个可打印字符来表示二进制数据的表示方法，由于 2^6=64，所以每 6 个比特为一个单元，对应某个可打印字符
@@ -145,7 +145,7 @@ Base64 编码具有以下特点：
 
 - 加号(+)：url 编码后，会用 %2 替换原来位置的 +。这里 url 的编码规则是符号的 Unicode 值前面加一个 %。因此 + 对应的是 %2B，空格则是 %20
 - form 表单提交，默认是 application/x-www-form-urlencoded，因此会对参数进行 urlencode
-# 设置响应
+## 设置响应
 最后，贴一下响应头的代码：
 
 ```java

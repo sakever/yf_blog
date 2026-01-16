@@ -7,7 +7,7 @@ tags:
   - Servlet
 ---
 很多成熟的框架底层封装了 servlet，我们只需要简单了解一些即可
-# Servlet 接口
+## Servlet 接口
 用户跳转网页时，一些需要后端处理的请求应该送到servlet处，让服务器进行操作后将数据返回到视图，然后发送给用户
 
 经过Servlet转发的请求直接地址是Servlet，而不是页面
@@ -52,10 +52,10 @@ public class helloServlet implements Servlet {
 }
 ```
 
-## service方法
+### service方法
 这个方法用来接受请求并进行响应
 
-# ServiceContext
+## ServiceContext
 在init方法中，有ServletConfig类，这个类是配置类，Servlet根据这个类中的信息进行初始化
 ```java
 public interface ServletConfig {
@@ -70,7 +70,7 @@ public interface ServletConfig {
 ```
 使用ServletConfig可以得到ServletContext对象，这个对象像Map一样储存数据，一个工程只有一个上下文对象
 
-# HttpServlet
+## HttpServlet
 继承这个类直接重写doPost与doGet对象可以处理两种请求，因为这个类将这两种请求分开了
 ```java
 //这个抽象类实现了Servlert接口，做了很多空实现，并补充了一些功能
@@ -80,7 +80,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, Serializ
 public abstract class HttpServlet extends GenericServlet
 ```
 
-# HttpServletRequest 请求
+## HttpServletRequest 请求
 HttpServletRequest 继承了 ServletRequest，Tomcat 解析 http 请求后，将所有的数据都存放在这个类中，通过这个类，可以找到所有的请求相关信息
 
 想拿到请求报文的信息，比如 cookie 等东西，只需要在方法的入参中加入该类即可，之后调用 request 的各种方法获取相关信息
@@ -110,7 +110,7 @@ HttpServletRequest 继承了 ServletRequest，Tomcat 解析 http 请求后，将
         req.setAttribute("what", "whatever");
         req.getAttribute("what");
 ```
-# HttpServletResponse 响应
+## HttpServletResponse 响应
 通过这个servlet，返回给用户的响应报文的信息都在这个类中，可以用字节流（二进制，一般用来传输文件）或者字符流（字符串，常用）返回数据给用户
 
 以下是常见方法
@@ -135,7 +135,7 @@ HttpServletRequest 继承了 ServletRequest，Tomcat 解析 http 请求后，将
     // do something
     }
 ```
-# Cookie
+## Cookie
 这个类储存键值对，可以将cookie放入响应报文中发给用户，用户端的浏览器会存储cookie，下次访问时将cookie放在请求头中直接发送给服务器
 
 cookie的path属性会过滤，哪些可以发送给服务器，哪些不发送
@@ -152,7 +152,7 @@ cookie在响应报文的Cookie那一行
         cookie.setMaxAge(7*24*60*60);
 ```
 
-# Session
+## Session
 每一个客户端都有一个Session会话，这个session保存在服务器，与cookie配合使用
 
 cookie中某一项的值保存了session的ID，每个session的ID唯一确定，因此才知道用户的信息
@@ -166,7 +166,7 @@ cookie中某一项的值保存了session的ID，每个session的ID唯一确定�
         session.setAttribute("key", value);
 ```
 
-# Filter
+## Filter
 过滤器接口，用来拦截请求，过滤响应，实现这个接口并重写方法就可以实现拦截器，在web.xml中配置拦截路径就能生效，如果有多个过滤器，谁先配置谁先生效
 
 FilterChain是过滤器链，类中的doFilter方法表示执行下一个Filter（或者目标资源），本质上是调用了下一个方法

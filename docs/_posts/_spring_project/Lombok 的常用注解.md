@@ -8,7 +8,7 @@ tags:
 ---
 
 该框架用来简化开发，使代码变的更易于阅读和维护
-# @Getter 和 @Setter
+## @Getter 和 @Setter
 这两个注解可以加在非 final 成员变量上，用来生成get和set方法，如果加在 final 成员变量上会报错
 ```java
     @Getter
@@ -25,7 +25,7 @@ tags:
 @Setter
 public class JustItem {
 ```
-# @AllArgsConstructor、@NoArgsConstructor、@RequiredArgsConstructor
+## @AllArgsConstructor、@NoArgsConstructor、@RequiredArgsConstructor
 这三个注解用来加在类上以生成构造函数，通过他们的名字就可以了解他们是干什么的
 
 @AllArgsConstructor用于生成为每个成员变量接受参数的构造函数
@@ -34,7 +34,7 @@ public class JustItem {
 
 @NoArgsConstructor将创建没有参数的构造函数
 
-# @NonNull
+## @NonNull
 该注解用于加在方法中的入参上，用于判断该入参是否为空，如果为空，报错
 ```java
 public void nonNullDemo(@NonNull Employee employee, @NonNull Account account) {
@@ -53,9 +53,9 @@ public void nonNullDemo(Employee employee, Account account) {
     ...
 }
 ```
-# @ToString
+## @ToString
 在你的数据类上覆盖 toString 方法是有助于记录日志的良好实践。该注解等同于 IDE 生成的 toString
-# @EqualsAndHashCode
+## @EqualsAndHashCode
 我们都知道对象的相等是基于业务规则定义的。比如假如我们认为两个对象中有两个主要属性相等这两个对象就相等，其他的次要属性对判断相等没有影响
 
 此时我们需要重写hashcode，否则在使用hashmap的时候或者需要其他判断的时候会出现错误的数据
@@ -81,10 +81,10 @@ public int hashCode() {
 @EqualsAndHashCode(exclude = {"item3", "item4"})
 public class Item {...}
 ```
-# @Data
+## @Data
 @Data 是 @Getter、 @Setter、 @ToString、 @EqualsAndHashCode 和 @RequiredArgsConstructor 的快捷方式，加在类上以实现上面所有功能
 
-# @Buidler
+## @Buidler
 通过建造者模式创建一个复杂的对象，比如以下实例，调用生成的 builder 方法获取 CarBuilder 实例，然后调用任何我们感兴趣的 setter 风格方法。最后，调用 build 创建 Car 的新实例
 ```java
 Car car= Car.builder().make("Ford")
@@ -92,10 +92,10 @@ Car car= Car.builder().make("Ford")
         .bodyType("coupe")
         .build();
 ```
-# @Singular
+## @Singular
 允许你向集合添加单个项，有助于在创建对象期间处理集合时保持代码简洁
 
-# @Slf4j
+## @Slf4j
 Lombok 简化了日志的生成，一般情况下要实例化标准的 SLF4J 日志记录器，通常会有以下内容：
 ```java
 public class SomeService {

@@ -6,13 +6,13 @@ categories:
 tags:
   - 通信协议
 ---
-# Protobuf 简介
+## Protobuf 简介
 在移动互联网时代，手机流量、电量是最为有限的资源，而移动端的即时通讯应用无疑必须得直面这两点
 
 解决流量过大的基本方法就是使用高度压缩的通信协议，而数据压缩后流量减小带来的自然结果也就是省电：因为大数据量的传输必然需要更久的网络操作、数据序列化及反序列化操作，这些都是电量消耗过快的根源
 
 当前即时通讯应用中最热门的通信协议无疑就是 Google 的 Protobuf 了。它和 xml、json 类似，定义了数据结构的存储格式，并且为 C++、java 等数十种语言提供了对应的 api，让该通信协议可以在不同语言的项目中相互通信
-# 使用
+## 使用
 Protobuf 的语法非常类似 c 语言，下面是一个例子。首先我们需要编写一个 proto 文件，定义我们程序中需要处理的结构化数据，在 protobuf 的术语中，结构化数据被称为 Message
 
 ```protobuf
@@ -40,7 +40,7 @@ protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/addressbook.proto
 
 Protobuf 的主要优点就是：简单，快。这有测试为证，项目 thrift-protobuf-compare 比较了这些类似的技术，显示了该项目的一项测试结果
 ![请添加图片描述](https://i-blog.csdnimg.cn/blog_migrate/daeec9862621cc779392e993bd158cdd.png)
-## 定义空入参
+### 定义空入参
 在 Protocol Buffers (Proto) 中，必须定义服务方法的入参类型，如果想定义入参为空，可以使用 google.protobuf.Empty 类型。这是 Protocol Buffers 提供的一个预定义消息类型，表示空值
 ```proto
 syntax = "proto3";
@@ -57,7 +57,7 @@ message MyResponse {
 }
 ```
 
-# 技术内幕
+## 技术内幕
 有两项技术保证了采用 Protobuf 的程序能获得相对于 XML 极大的性能提高：
 
 - Protobuf 封解包的过程比 XML 更加优秀

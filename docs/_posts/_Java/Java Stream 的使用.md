@@ -26,7 +26,7 @@ Stream 可以使用串行和并行来完成操作，串行操作是用一个线�
         ).findFirst();
 ```
 流的操作大多需要使用 lambda 重写逻辑，它的常见操作如下：
-# 开始
+## 开始
 我们对一个集合或者迭代器使用 stream 方法就可以得到一个流了
 ```java
    		Lists.newArrayList().stream();
@@ -46,18 +46,18 @@ Stream 可以使用串行和并行来完成操作，串行操作是用一个线�
 		Stream.of(splitter.splitToList(a, b)).flatMap(Arrays::stream);
 ```
 此时使用 flatMap(Array::stream) 可以将生成的多个流被合并起来，即扁平化为一个流
-# 中间操作
-## forEach 遍历
+## 中间操作
+### forEach 遍历
 该方法是最常见的，该方法用来迭代流中的每个数据，不只是 stream 对象，集合也可以直接使用 forEach 方法
 ```java
 		integers.forEach(System.out::println);
 ```
-## map 映射
+### map 映射
 该方法用于映射每个元素到对应的结果
 ```java
 		integers.stream().map(i -> i+1).forEach(System.out::println);
 ```
-## flatMap 平铺
+### flatMap 平铺
 map 是对流元素进行转换，flatMap 是对流中的元素（数组）进行平铺后合并，即对流中的每个元素平铺后又转换成为了 Stream 流。flatMap 必须返回一个 stream 流，他会将每次返回的流中数据连起来
 ```java
 System.out.println("=====flatmap list=====");
@@ -67,31 +67,31 @@ System.out.println("\nflatmap list size: " + mapList.size());
 System.out.println();
 ```
 如果是数组的话一般在里面直接填入 Arrays::stream 即可，如果是 list 的话传入 Collection::stream
-## filter 过滤
+### filter 过滤
 该方法用于通过设置的条件过滤出元素，只有满足条件的（里面的方法返回为 true）才会留下来，其他的都会被过滤掉。该方法不会删除原集合的数据
 ```java
 		integers.stream().filter(a -> a/2 == 0).forEach(System.out::println);
 ```
-## limit 限制
+### limit 限制
 该方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出前 10 条数据
 ```java
 	integers.limit(10).forEach(System.out::println);
 ```
-## sorted 排序
+### sorted 排序
 该方法用于对流用指定的操作进行排序，如果不传入 Comparator 排序器，则默认使用自然排序，自然排序需要流中元素需实现 Comparable 接口
 ```java
 	integers.sort((a1, a2) -> a2 - a1).forEach(System.out::println);
 ```
-## distinct 去重
+### distinct 去重
 方法用于去除流中的重复元素，该方法不用传入参数
 ```java
 	integers.distinct().forEach(System.out::println);
 ```
 distinct 使用 hashCode 和 equals 方法来获取不同的元素。因此，我们的类必须实现 hashCode 和 equals 方法
-## boxed 包装
+### boxed 包装
 java 中有很多未经包装的基本数据类型形成的流，比如 IntStream、LongStream、DoubleStream，而 Collectors.toList() 等收集器只能处理对象流（如 Stream&lt;Integer>），不能直接处理 IntStream。因此，需要使用 boxed() 将 int 转换为 Integer
 
-## peek 
+### peek 
 是一个中间操作，它接受一个 Consumer 函数式接口，对流中的每个元素执行指定的操作，同时返回一个包含相同元素的新流
 
 一般用于打印调试信息
@@ -119,14 +119,14 @@ List<Person> updated = people.stream()
     .peek(p -> p.setName("Unknown"))  // 修改对象状态
     .collect(Collectors.toList());
 ```
-# 结束操作
+## 结束操作
 以上方法属于中间操作，返回 Stream 本身，结束操作不会指的是不返回 Stream 的方法
-##  collect 收集
+###  collect 收集
 该方法可以返回列表或者字符串，该方法可以接收一个集合实例，将流中元素收集成该集合实例
  
 但是 collect 的功能不止于此，它可以说是内容最繁多、功能最丰富的部分了。从字面上去理解，就是把一个流收集起来，最终可以是收集成一个值也可以收集成一个新的集合
 
-### toList、toSet 和 toMap
+#### toList、toSet 和 toMap
 collect 主要依赖 java.util.stream.Collectors 类内置的静态方法，下面用一个案例演示 toList、toSet 和 toMap，以及把一个集合配合一些分隔符链接为一个字符串
 ```java
 List<String> list = strings.stream().collect(Collectors.toList());
@@ -161,7 +161,7 @@ Map<String, List<Working>> map =
                             return oldList;
                         }));
 ```
-### Collectors.groupingBy
+#### Collectors.groupingBy
 举个例子，我们可以优雅的对某个集合做分组统计，比如在学生这个 pojo 中，对属性班级做分组或者做分组统计
 ```java
 Map<Integer, List<Student>> studentGroup = studentList.stream().collect(Collectors.groupingBy(Student::getClassNumber));
@@ -188,7 +188,7 @@ EnumMap<BlogPostType, List<BlogPost>> postsPerType = posts.stream()
   .collect(groupingBy(BlogPost::getType, 
   () -> new EnumMap<>(BlogPostType.class), Collectors.toList()));
 ```
-### Collectors.mapping
+#### Collectors.mapping
 groupingBy 方法的第二个入参，可以是 mapping 方法，这个方法是用来干啥的呢？
 
 基本语法：
@@ -219,7 +219,7 @@ public class Main {
 
 String::toUpperCase 是一个函数，它将每个字符串转换为大写
 Collectors.toList() 是一个下游收集器，它将转换后的元素收集到一个列表中
-### Collectors.collectingAndThen
+#### Collectors.collectingAndThen
 Collectors.collectingAndThen() 函数应该最像 map and reduce 了，它可接受两个参数，第一个参数用于 reduce 操作，而第二参数用于 map 操作
 
 先把流中的所有元素传递给第一个参数，然后把生成的集合传递给第二个参数来处理
@@ -250,21 +250,21 @@ public void collectingAndThenExample() {
                         .flatMap(Collection::stream)
                         .collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<WechatUserInfo>(Comparator.comparing(WechatUserInfo::getExternalUserid))), ArrayList::new))
 ```
-## metch 匹配
+### metch 匹配
 metch 函数只返回 true 与 false，该方法会对传入的数据进行逐个判断，有以下几种类型
 
 - allMatch：接收一个 Predicate 函数，当流中每个元素都符合该断言时才返回 true，否则返回 false
 - noneMatch：接收一个 Predicate 函数，当流中每个元素都不符合该断言时才返回 true，否则返回 false
 - anyMatch：接收一个 Predicate 函数，只要流中有一个元素满足该断言则返回 true，否则返回 false
 
-## find 查询
+### find 查询
 有以下两个分支
 
 - findFirst 返回流中满足条件的第一个元素
 - findAny：返回流中找到的第一个元素
 
 这两个方法在串行流中的概念以及效果是一模一样的，不同之处在于并行流
-### findFirst 与 findAny 的使用
+#### findFirst 与 findAny 的使用
 在并行流中的 findAny() 操作，返回的元素是不确定的，对于同一个列表多次调用 findAny() 有可能会返回不同的值。使用 findAny() 是为了更高效的性能。如果是数据较少，串行地情况下，一般会返回第一个结果，如果是并行的情况，那就不能确保是第一个
 
 举个栗子：
@@ -278,7 +278,7 @@ metch 函数只返回 true 与 false，该方法会对传入的数据进行逐�
 ```
 这里两个并行流的结果是不一样的，findAny 方法会侧重第一个查到返回值的线程，而 findFirst 则会侧重数组中第一个满足条件的值
 
-### Optional 的获取
+#### Optional 的获取
 Optional 是对 stream 使用 findFirst 或者 findAny 方法会得到的类，它是为了防止空指针问题而被创造出来的，本来这块内容不应该是流结束操作涉及到的，但是 findAny 或者 findAny 也算是和 stream 结束有关系
 
 我们在获取 Optional 后直接 get 会提示没有进行赋值检查，因此不推荐直接 get，准确的写法如下：
@@ -290,12 +290,12 @@ Optional 是对 stream 使用 findFirst 或者 findAny 方法会得到的类，�
 说一下 orElse 与 orElseGet 的区别，orElse 是传值的，所以里面的表达式会立即执行（在传入一个方法的时候），如果 optional 有值也会执行就没必要了；而 orElseGet 接受的是一个 function，只有 optional 为空的时候才会被执行，因此不会让 cpu 资源被浪费
 
 尽量在 orElse 中传入属性，在 orElseGet 中传入方法，如果在 orElse 中传入了方法，而且方法中含有更新修改类的操作，这样就不光是 CPU 或者耗时的问题了
-## count 计数
+### count 计数
 返回流中元素的总个数
 ```java
 	strings.stream().count();
 ```
-## reduce 规约
+### reduce 规约
 规约操作（reduction operation）又被称作折叠操作（fold），是通过某个连接动作将所有元素汇总成一个汇总结果的过程。元素求和、求最大值或最小值、求出元素总个数、合并、将所有元素转换成一个元素，都属于规约操作
 
 reduce 擅长的是生成一个值，而 collect 擅长从 Stream 中生成一个集合或者 Map 等复杂的对象
@@ -327,7 +327,7 @@ int result = users.stream()
   .reduce("", (a, b) -> a + String.valueOf(b), String::concat);
 ```
 
-# 原理
+## 原理
 简单聊一下 stream 的原理，stream 是一个基于源、零个或多个中间操作、一个终止操作构建的、支持惰性求值和短路优化的函数式数据处理管道
 
 整个 Stream 操作分为两步，构建流水线（filter、map、sorted 等方法，此时会将这些操作记录（链接）起来，形成一个执行计划，而不会立即进行任何数据处理）和触发执行（调用终止操作时会启动，此时数据开始从头到尾依次通过每个操作节点）

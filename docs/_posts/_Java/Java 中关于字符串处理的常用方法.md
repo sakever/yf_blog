@@ -6,7 +6,7 @@ categories:
 tags:
   - 字符串
 ---
-# 替换字符串 replaceAll()
+## 替换字符串 replaceAll()
 replaceAll() 方法使用给定的参数 replacement 替换字符串所有匹配给定的正则表达式的子字符串
 
 第一个参数是正则，第二个参数是需要替换的内容
@@ -33,7 +33,7 @@ replaceAll() 方法使用给定的参数 replacement 替换字符串所有匹配
 在正则表达式中使用 () 定义一个子表达式。子表达式的内容可以当成一个独立元素，即可以将它看成一个字符，可以在 () 中使用元字符
 
 该方法在做字符串替换的时候非常方便，实际应用如下
-## 手机号身份证号脱敏
+### 手机号身份证号脱敏
 以下是一个 replaceAll 方法使用的例子
 ```java
 String phoneNumber = String.valueOf("18866666666").replace("null", "");
@@ -43,7 +43,7 @@ String identityCardNum = String.valueOf("************").replace("null", "");
 identityCardNum = identityCardNum.replaceAll("(?<=\\w{5})\\w(?=\\w{2})", "*");
 System.out.println(identityCardNum)um);
 ```
-# 拼接字符串 MessageFormat.format() 
+## 拼接字符串 MessageFormat.format() 
 该方法用于拼接字符串，在原来的字符串中使用大括号与数字当做占位符，后面的参数可以接上若干的字符串，作为替换占位符的字符串
 ```java
         System.out.println(MessageFormat.format("hello {0}, {1}", "world", "someone"));
@@ -67,10 +67,10 @@ System.out.println(value);
 ```
 这个方法在做字符串拼接的时候更加方便
 
-# 判断子字符串 contain
+## 判断子字符串 contain
 String 类型有一个方法：contains，该方法是判断字符串中是否有子字符串。如果有则返回 true，如果没有则返回 false
 
-# 字符串格式化 format
+## 字符串格式化 format
 
 字串格式化输出经常用到，比如将字串固定输出长度可以使用如下方式格式化输出
 ```java
@@ -93,7 +93,7 @@ format 的使用有以下几点：
 - %m.ns：输出占 m 列，但只取字符串中左端 n 个字符。这 n 个字符输出在 m 列的右侧，左补空格
 - %-m.ns：其中 m、n 含义同上，n 个字符输出在 m 列范围的左侧，右补空格。如果 n>m，则自动取 n 值，即保证 n 个字符正常输出
 
-# 正则匹配字符串
+## 正则匹配字符串
 正则匹配字符串有两种方式，一种是 String 内部提供的 match 方法，可以用来判断字符串是否满足正则表达式
 ```java
 // 匹配是否是纯数字

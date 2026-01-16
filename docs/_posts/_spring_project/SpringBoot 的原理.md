@@ -9,7 +9,7 @@ tags:
 ---
 
 SpringBoot 的主要作用有两个：依赖管理和自动配置，需要了解它们的原理和如何修改默认配置
-# 依赖管理
+## 依赖管理
 依赖存放在父工程中，就是 spring-boot-starter-parent
 
 而其父工程的父工程 spring-boot-dependencies 中保存了所有依赖以及版本号，大大减少了版本问题
@@ -17,7 +17,7 @@ SpringBoot 的主要作用有两个：依赖管理和自动配置，需要了解
 如果想要修改依赖的版本，在 pom 文件中 properties 下增加对应依赖版本即可
 
 有了 springboot 的版本仲裁，以后写项目的时候应该将依赖的版本写在父 pom 文件中，子文件只用来导入依赖
-# 配置类 @Configuration 与 proxyBeanMethods 
+## 配置类 @Configuration 与 proxyBeanMethods 
 使用 @Configuration 注解来将一个类定义为配置类，它的功能类似与配置文件
 
 该注解的底层长这样
@@ -40,7 +40,7 @@ public @interface Configuration {
 那代理之后的类增加了什么功能呢？当我们使用代理对象的时候，调用它的方法，他会检测容器中是不是有了这样的组件，如果有，则不再新建组件，直接将已经有的组件返回。如果说没有的话，才会新建组件。这样保证了容器中的组件始终就保持单一性。不过这也有一个不好的地方，那就是每次都要检测，会降低速度。当不是代理对象的时候，则不会检测，直接创建新的组件了
 
 因此直观的说，proxyBeanMethods 为 true 时，表示 full （全）模式，保证组件单例；proxyBeanMethods 为 false 时，表示 lite （轻）模式，系统启动快
-# 创建时文件以及目录作用
+## 创建时文件以及目录作用
 .idea 目录用来存放 idea 配置
 .mvn 目录用来存放 maven 配置（可删除，没影响）
 .gitignore 用 git 做版本控制时，用这个文件控制哪些文件或文件夹不被提交（不用 git 的话可删除，没影响）
@@ -48,8 +48,8 @@ HELP.md md是一种文档格式 这个就是你项目的帮助文档（可删除
 mvnw linux上处理mevan版本兼容问题的脚本（可删除，没影响）
 mvnw.cmd windows 上处理mevan版本兼容问题的脚本（可删除，没影响）
 springboot.iml 有的文件每个导入IDEA的项目都会生成一个项目同名的 .iml文件，用于保存你对这个项目的配置（删了程序重新导入后还会生成，但由于配置丢失可能会造成程序异常）
-# 自动配置原理
-## 主类与 @SpringBootApplication
+## 自动配置原理
+### 主类与 @SpringBootApplication
 主类是 SpringBoot 的一部分，删掉的话无法正常执行程序，主类包括 @SpringBootApplication 注解以及 run 方法
 ```java
 SpringApplication.run(HelloworldApplication.class, args)
@@ -82,7 +82,7 @@ public @interface SpringBootApplication {...}
 2，@ComponentScan(XXX)：扫描主类注解所在的同级目录下的其他包中用户定义的 bean，在里面配置其他的东西可以让其扫描其他包下的注解
 
 3，@SpringBootConfiguration：允许用户定义 bean 或者配置类（这个注解被 @Configuration 注解，指这个类是配置类，而 @Configuration 是一个 Component）
-## 自动装配的注解 @EnableConfigurationProperties 与 @ConfigurationProperties
+### 自动装配的注解 @EnableConfigurationProperties 与 @ConfigurationProperties
 点入 @EnableAutoConfiguration中，发现
 ```java
 //这个自动注册包
@@ -110,7 +110,7 @@ XXXAutoConfiguration一定包含 @Configration 注解，这让它是一个配置
 @ConfigurationProperties(prefix = "spring.cache")
 ```
 在 spring-boot-autoconfigure 的 jar 包下的非 MATE-INF 包中可以找到它们，你可以直接找到它们
-## 所有的配置类在启动时都会生效吗 @ConditionalXXX
+### 所有的配置类在启动时都会生效吗 @ConditionalXXX
 所有的自动配置类（写在MATE-INF/spring.factories中的类）在SpringBoot启动时都会被遍历到，它们会被扫描并加载
 
 但是它们都会有 @ConditionalOnXXX 条件装配注解，这个注解表示，只有在对应条件满足的时候配置才会生效，比如只有导入对应启动器时才能生效、只有对应实体配置类存在才生效
@@ -124,7 +124,7 @@ XXXAutoConfiguration一定包含 @Configration 注解，这让它是一个配置
 )
 ```
 这么做会避免读取过多的 bean
-## 使用配置文件对实体配置类进行配置
+### 使用配置文件对实体配置类进行配置
 所有的配置文件必须叫 application，后缀可变，配置文件可以设置在4个位置
 
 可以使用原来的.properties（财产、所有物）文件进行配置，在对应类的上面使用注解 @PropertySource(value = "文件全限地址")来配置文件
@@ -133,10 +133,10 @@ XXXAutoConfiguration一定包含 @Configration 注解，这让它是一个配置
 ```yaml
 #对象
 student:
-#  对象属性
+##  对象属性
   name: xie
   age: 20
-#  数组
+##  数组
   book:
     - b1
     - b2
@@ -154,7 +154,7 @@ Integer integer;
 integerValue: 12
 ```
 
-## starter 原理
+### starter 原理
 starter 可以理解成 pom 配置了一堆 jar 组合的空 maven 项目，用来简化 maven 依赖配置，starter 可以继承也可以依赖于别的 starter。starter 是提供默认的配置
 
 说完了上面的流程，其实我们也说完了 starter 的原理，只不过两者看这个流程的角度是不一样的：
@@ -165,7 +165,7 @@ starter 可以理解成 pom 配置了一堆 jar 组合的空 maven 项目，用�
 3，这个类中有很多 bean 注解，配置 starter 相关的业务类
 4，这个类有 @EnableConfigurationProperties 注解，将和参数相关的类注册进 bean 容器
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3935424afd28433d8d79a8a0ff17f363.png)
-## 总结
+### 总结
 我们遇到的比较重要的注解如下：
 
 - @EnableConfigurationProperties({CacheProperties.class})：将 CacheProperties 注册为 bean，准确的说是使 @ConfigurationProperties 注解标识的类成为一个 bean
@@ -174,7 +174,7 @@ starter 可以理解成 pom 配置了一堆 jar 组合的空 maven 项目，用�
 - @Configuration：标识一个配置类
 - @Bean：标识一个类
 - @Import：扫描其他包中的需要导入的自动配置的组件（META-INF/spring.factories 文件中读取的 bean 的全类名）
-# Spring Boot 配置文件加载优先级
+## Spring Boot 配置文件加载优先级
 总体按照几个原则来：
 
 1，带 -{profile} 后缀的配置文件优先级高于普通配置文件

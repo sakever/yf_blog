@@ -6,25 +6,25 @@ categories:
 tags:
   - JVM
 ---
-# JVM 调优
+## JVM 调优
 正常来说我们一般不会接触到 JVM 调优，一般也不会出现 OOM 问题（就算出现了也大概率不是我们业务代码的问题，而是框架或者工具的问题），不过我们需要看 gc 日志来判断虚拟机的性能怎么样，以优化业务代码
 
 gc 日志主要包含的信息为收集类型（是老年代还是新生代等）、从开始的多少 K 收集到了多少 K、收集的耗时是多少等数据，我们还可以观察 GC 日志的频率看看是否出现了短时间内出现了大量的收集行为。尽量让日志中不要出现 Full GC，因为会 STW，非常影响性能
 
-# JVM 分析命令
+## JVM 分析命令
 除了 gc 日志，一般来说，我们分析会用到以下的命令：
-## jstack 分析栈情况
+### jstack 分析栈情况
 **jstack：主要用来查看某个 Java 进程内的线程栈信息，根据堆栈信息我们可以定位到具体代码，具体用法需要先找到线程**
 
 第一步先找出 Java 进程 ID，我部署在服务器上的 Java 应用名称为 mrf-center。这里也可以用 top 命令找
 ```
-root@ubuntu:/# ps -ef | grep mrf-center
+root@ubuntu:/## ps -ef | grep mrf-center
 
 root     21711     1  1 14:47 pts/3    00:02:10 java -jar mrf-center.jar
 ```
 得出进程 ID 为21711，通过进程可以找到进程中的线程，以及线程执行时间、消耗 CPU 和内存资源情况，找出异常数据，通过线程 ID 配合 jstack，就可以输出进程21711的堆栈信息了。里面会包含在哪个类执行哪些方法
 ```
-root@ubuntu:/# jstack 21711 | grep 54ee
+root@ubuntu:/## jstack 21711 | grep 54ee
 
 "PollIntervalRetrySchedulerThread" prio=10 tid=0x00007f950043e000 nid=0x54ee in Object.wait() [0x00007f94c6eda000]
 ```
@@ -35,7 +35,7 @@ jstack -l <pid> > thread_dump.txt
 执行 jstack 需要切换自己的用户到之前执行 java 命令的用户，不然会报错
 
 jstack 可以生成栈转储问题
-## jstat 查看堆、gc 情况
+### jstat 查看堆、gc 情况
 **jstat 是 JVM 统计监测工具，比如下面输出的是 GC 信息，采样时间间隔为 250ms，需要采样4次。通过这个命令可以看到大概发生了多少次 GC，以及平均 GC 耗时**
 
 jstat 命令命令格式：
@@ -49,7 +49,7 @@ jstat [Options] vmid [interval] [count]
 - interval，间隔时间，单位为秒或者毫秒
 - count，打印次数，如果缺省则打印无数次
 ```
-root@ubuntu:/# jstat -gc 21711 250 4
+root@ubuntu:/## jstat -gc 21711 250 4
  S0C    S1C    S0U    S1U      EC       EU        OC         OU       PC     PU    YGC     YGCT    FGC    FGCT     GCT   
 192.0  192.0   64.0   0.0    6144.0   1854.9   32000.0     4111.6   55296.0 25472.7    702    0.431   3      0.218    0.649
 192.0  192.0   64.0   0.0    6144.0   1972.2   32000.0     4111.6   55296.0 25472.7    702    0.431   3      0.218    0.649
@@ -77,7 +77,7 @@ root@ubuntu:/# jstat -gc 21711 250 4
 - GCT 从应用程序启动到采样时 gc 用的总时间
 
 除此之外，我们还可以根据 top 或者 ps 命令，来查看是否有异常的线程占用了过多的 CPU 或者内存资源。使用 jmap 查看详细堆信息，或者打印 dump 日志
-## jmap
+### jmap
 jdk 安装后会自带一些小工具，jmap 命令 Java Memory Map 是其中之一。主要用于打印指定 Java 进程（或核心文件、远程调试服务器）的共享对象内存映射或堆内存细节
 
 jmap 命令可以获得运行中的 jvm 的堆的快照，从而可以离线分析堆，以检查**内存泄漏**，检查一些严重影响性能的大对象的创建，检查系统中什么对象最多，各种对象所占内存的大小等等。可以使用 jmap 生成 Heap Dump。其用法如下
@@ -104,7 +104,7 @@ jmap -histo <pid>|sort -k 2 -g -r|less
 ```
 jmap -histo <pid>|grep alibaba|sort -k 3 -g -r|less
 ```
-## DUMP 日志内容
+### DUMP 日志内容
 1，堆转储（Heap Dump），包含 Java 堆内存的完整快照：
 
 - 所有对象信息：类实例、数组等
@@ -130,7 +130,7 @@ jmap -histo <pid>|grep alibaba|sort -k 3 -g -r|less
 - 共享库信息：加载的共享库状态
 
 我在线上就遇到过，因为日志打的太多，导致内存缓冲区（它是内存空间的一部分。也就是说，在内存空间中预留了一定的存储空间，这些存储空间用来缓冲输入或输出的数据，Java 日志框架在将日志写入最终目的地之前，会使用缓冲区来提高性能）空间不足，观察 dump 日志后，发现堆转储中无用的 string 对象过多，观察日志发现，某个经常调用的方法中打印了一个巨大对象，最后将该日志删除解决问题，之前还发现过日志打太多导致的 OOM 问题
-# 调优思路
+## 调优思路
 由于调优会修改线上配置，影响较大，我们一般都是先找出哪里的代码写的有问题，实在没办法了，才会进行调优操作
 
 一般修改的参数只有 xms 和 xmx，用于改动堆大小，不得不考虑进行 JVM 调优的是那些情况呢？
@@ -141,7 +141,7 @@ jmap -histo <pid>|grep alibaba|sort -k 3 -g -r|less
 - 应用出现 OutOfMemory 等内存异常；
 - 应用中有使用本地缓存且占用大量内存空间；
 - 系统吞吐量与响应性能不高或下降。
-# 内存泄漏
+## 内存泄漏
 没有实际场景的 JVM 调优都是空谈，我们来看看如何定位内存泄漏问题
 
 如果 gc 日志频繁的发生 fullGC，并且回收的内存逐渐变小，内存不足的话，我们就需要判断是否有内存泄漏问题了
@@ -149,7 +149,7 @@ jmap -histo <pid>|grep alibaba|sort -k 3 -g -r|less
 我们可以先通过 jmap 查看堆内存
 
 ```
-# jmap -heap pid
+## jmap -heap pid
 jmap -heap 27403
 
 Attaching to process ID 27403, please wait...
@@ -212,7 +212,7 @@ tenured generation:
 - 将数据放进 map 时没有重写 equal 和 hashcode 方法的话，会出现内存泄漏问题
 - 集合类中有对对象的引用，使用完后未清空
 - 代码中存在死循环或循环产生过多重复的对象实体
-# CPU 高
+## CPU 高
 1，步骤：通过 top 命令查找进程-》查找线程（top 可以找出 CPU 占用最高的线程 ID）-》根据线程 ID 可以通过 jstack 命令定位问题代码-》找出问题代码
 
 a、查看 cpu 高的 java 进程
@@ -242,7 +242,7 @@ e、在 1712.txt 文件中定位问题
 ```
 su yarn
 ```
-# 系统平均负载高（load average）
+## 系统平均负载高（load average）
 平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和 CPU 使用率并没有直接关系。一般来说单核 CPU 的 load 不应该大于1，同理，多核的 load 不应该大于核数
 
 我们常见的负载高一般有这几种情况引起，一个是 cpu 密集型，使用大量 cpu 会导致平均负载升高。另外一个就是 io 密集型等待 I/O 会导致平均负载升高，但是 CPU 使用率不一定很高

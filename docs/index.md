@@ -1,46 +1,46 @@
 ---
-# 首页
+## 首页
 home: true
 heroImage: /blogger_icon.ico
 heroText: sakever 的技术博客
 tagline: 技术博客，积跬步以至千里，致敬每个爱学习的你。
-# actionText: 立刻进入 →
-# actionLink: /_post/index.md
-# bannerBg: auto # auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
+## actionText: 立刻进入 →
+## actionLink: /_post/index.md
+## bannerBg: auto ## auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
 
-features: # 可选的
+features: ## 可选的
   - title: 分类
     details: 文章分类，可以快速检索想查询的内容
     link: /categories/
-    # imgUrl: /img/ui.png
+    ## imgUrl: /img/ui.png
   - title: 标签
     details: 文章标签，可以快速检索想查询的内容
     link: /tags/
-    # imgUrl: /img/other.png
+    ## imgUrl: /img/other.png
 
-# 文章列表显示方式: detailed 默认，显示详细版文章列表（包括作者、分类、标签、摘要、分页等）| simple => 显示简约版文章列表（仅标题和日期）| none 不显示文章列表
-# postList: detailed
-# simplePostListLength: 10 # 简约版文章列表显示的文章数量，默认10。（仅在postList设置为simple时生效）
-# hideRightBar: true # 是否隐藏右侧边栏 (v1.11.2+)
+## 文章列表显示方式: detailed 默认，显示详细版文章列表（包括作者、分类、标签、摘要、分页等）| simple => 显示简约版文章列表（仅标题和日期）| none 不显示文章列表
+## postList: detailed
+## simplePostListLength: 10 ## 简约版文章列表显示的文章数量，默认10。（仅在postList设置为simple时生效）
+## hideRightBar: true ## 是否隐藏右侧边栏 (v1.11.2+)
 ---
 
-# 欢迎来到 sakever 的博客
+## 欢迎来到 sakever 的博客
 
-## 这是什么
+### 这是什么
 
 这是一部以"后端开发实战与知识沉淀"为叙事主线的个人技术博客，是一幅帮助开发者梳理后端技术栈中繁多知识点的学习地图。
 
 我从事后端开发工作，借用写博客的方式，系统性地整理自己的学习笔记与工作经验，查缺补漏，将它们都融入既有的知识框架之中。将工作中遇到的问题、解决方案以及技术思考记录下来，不仅是对自己成长的记录，也能为团队或社区提供有价值的参考。能够随时更新、与人交流的在线博客，是一件非常实用且有意义的事情。
 
-## 在线阅读
+### 在线阅读
 
 本文档在线阅读地址为：[sakever 的博客](https://sakever.github.io/yf_blog/)，你也可以访问[sakever 的 CSDN 博客](https://blog.csdn.net/sekever)在 CSDN 中进行阅读。本项目在部署前调研过各种方法，比如使用 vercel 部署，不过国内无法访问，需要买个域名，比较麻烦，所以使用了 github pages 部署。
 
-## 二次演绎、传播和发行
+### 二次演绎、传播和发行
 
 本博客中所有的内容，如引用其他资料，均在文档中明确列出资料来源，其他的原创内容以知识共享署名4.0发行，只要遵循许可协议条款中署名、非商业性使用、相同方式共享的条件，你可以在任何地方、以任何形式、向任何人使用、修改、演绎、传播本博客中任何部分的内容。
 
-## 协议
+### 协议
 
 本作品文档部分采用[知识共享署名4.0国际许可协议](https://creativecommons.org/licenses/by/4.0/)进行许可。遵循许可的前提下，你可以自由地共享，包括在任何媒介上以任何形式复制、发行本作品，亦可以自由地演绎、修改、转换或以本作品为基础进行二次创作。但要求你：
 

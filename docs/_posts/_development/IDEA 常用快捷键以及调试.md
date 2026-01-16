@@ -8,18 +8,18 @@ tags:
 ---
 
 用了这么久的IDEA还没有正经总结过自己使用过的快捷键，以及正经调试过一次代码，今天不读源码，来总结一下这个检测工具的使用
-# Alt + Ctrl
+## Alt + Ctrl
 Alt + Ctrl + T ：对选中的代码弹出环绕选项弹出层
 Alt + Ctrl + V：自动生成新对象，等于new Object().var
 Alt + Ctrl + U：生成类的继承图
 Alt + Ctrl + O：自动清除导入的类
 Alt + Ctrl + L：整理代码
-# Alt 快捷键
+## Alt 快捷键
 Alt + Enter：导入包，自动修正
 Alt + insert：自动生成类中的get和set方法，右键点击Generate也可以
 Alt+/ ：实现注解（需要自己修改）
 
-# Ctrl 快捷键
+## Ctrl 快捷键
 Ctrl + F 在当前文件进行文本查找 
 Ctrl + Z 撤销 
 Ctrl + Y 删除光标所在行 或 删除选中的行 
@@ -29,12 +29,12 @@ Ctrl + E 显示最近打开的文件记录列表
 Ctrl + 左键单击：进入方法或者类
 Ctrl + / 释光标所在行代码，会根据当前不同文件类型使用不同的注释符号
 
-# 其他内容
+## 其他内容
 Alt + Ctrl + Shift + N：查找类
 Shift + Enter：开始新一行，光标所在行下空出一行，光标定位到新行位置
 Ctrl + Shift + /：代码块注释 
 Ctrl +shift+ Y：呼出翻译结果
-# 后缀补全
+## 后缀补全
 psvm：main函数
 sout：system.out.println()
 
@@ -54,7 +54,7 @@ student.notnull：判断为非空
 list.length > 0.if
 isSuccess.if
 
-# 调试
+## 调试
 首先说第一组按钮，共8个按钮，从左到右依次如下：
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c49b5c4f6523824f921065395f09f9d.png)
 
@@ -97,7 +97,7 @@ isSuccess.if
 - 在Variables里查看，这里显示当前方法里的所有变量
 - 在Watches里，点击New Watch，输入需要查看的变量。或者可以从Variables里拖到Watche里查看
 
-# Mac 中的键位
+## Mac 中的键位
 以上介绍的是 eclipse 中的键位，在 mac 中键位有所不同，以下是常用键位
 
 快捷键 |快捷键符号	|英文名称|	功能说明

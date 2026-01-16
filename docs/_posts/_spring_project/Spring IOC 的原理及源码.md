@@ -7,8 +7,8 @@ categories:
 tags:
   - Spring
 ---
-# IOC 前置知识
-## 为什么要设计模式
+## IOC 前置知识
+### 为什么要设计模式
 首先我想讲一个比较抽象的概念，没有在实际项目上写过代码的小伙伴可能不知道设计模式有什么用。以下通过一个例子描述一下为什么需要设计模式
 
 首先，我有一只笔
@@ -48,7 +48,7 @@ public class PenFactory {
 我现在有一个工厂去造这支笔，所有的画家都从这个工厂的 getPen 中获得笔，现在笔的路径改了，对我们10000个画家都不会产生什么影响，我们只要在工厂中修改一次笔的路径就行了。这样画家和笔产生了解耦
 
 下面的 IOC 中无时无刻不体现了这种思想
-## 依赖倒置原则
+### 依赖倒置原则
 IOC 根据依赖倒置原则演变而来，那依赖倒置原则解决了什么问题呢？
 
 如果是面向过程的开发，上层调用下层，上层依赖于下层，当下层剧烈变动时上层也要跟着变动，这就会导致模块的复用性降低而且大大提高了开发的成本
@@ -56,7 +56,7 @@ IOC 根据依赖倒置原则演变而来，那依赖倒置原则解决了什么�
 底层是上层的组件，依赖倒置原则是面向接口编程的一种思路。一般情况下抽象的变化概率很小，让用户程序依赖于抽象，实现的细节也依赖于抽象。即使实现细节不断变动，只要抽象不变，客户程序就不需要变化
 
 依赖倒置原则是设计模式的六大原则之一，简单来说就是：针对接口编程，依赖于抽象而不依赖于具体
-## IOC（控制反转）与 DI（依赖注入）
+### IOC（控制反转）与 DI（依赖注入）
 为什么要有 IOC 呢？
 
 试想一下，如果一个系统有大量的组件，其生命周期和相互之间的依赖关系如果由组件自身来维护，也就是对各个类的控制权在我们手中，这样的话我们需要手动的去创建各个类并且维持他们的依赖关系，不但大大增加了系统的复杂度，而且会导致组件之间极为紧密的耦合
@@ -69,7 +69,7 @@ IOC 根据依赖倒置原则演变而来，那依赖倒置原则解决了什么�
 - 反转：控制权交给外部环境（IOC 容器）
 
 而所谓的依赖注入，就是把底层类作为参数传入上层类、将依赖项注入到被依赖项中，实现上层类对下层类的控制。此时就体现出依赖抽象的好处了：我们可以注入任何抽象类的子类，让程序变的更加多样性
-## IOC 容器
+### IOC 容器
 计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决。这句话在设计模式中体现的淋漓尽致，任何强耦合的对象在他们之间加一次中间件就能解耦，IOC 容器就是负责解耦的容器，你可以把它看成是一个装对象的集合
 
 IOC 容器负责实例化、定位、配置应用程序中的对象及建立这些对象间的依赖
@@ -90,7 +90,7 @@ BeanFactory 会读取项目整体的配置，和所有被扫描到的类，生�
 - AOP 支持：提供声明式 AOP 功能
 - 国际化：消息资源处理（i18n）
 - 自动注册：自动注册 BeanPostProcessor 等特殊 bean
-## Spring IOC 的大体思路
+### Spring IOC 的大体思路
 首先 IOC 容器需要知道这个类的具体位置才能找到对应的对象，而我们就用 xml 或者注解的方式标记这个类的位置
 
 然后 Spring 容器通过反射以获得该类的对象（反射的作用是可以获取任意一个类的所有属性和方法，你还可以调用这些方法和属性）
@@ -99,7 +99,7 @@ IOC 容器中存放了程序需要的所有的对象，这些对象只会被创�
 
 IOC 容器完成创建这一步之后会根据我们所需要的方式来管理 bean 的依赖
 
-# 源码
+## 源码
 
 
 来看看 IOC 容器是如何实现上面的过程的
@@ -119,9 +119,9 @@ ApplicationContext 继承了 ListableBeanFactory，这个 Listable 的意思就�
 ApplicationContext 继承了 HierarchicalBeanFactory，Hierarchical 单词本身已经能说明问题了，也就是说我们可以在应用中起多个 BeanFactory，然后可以将各个 BeanFactory 设置为父子关系
 
 AutowireCapableBeanFactory 就是用来自动装配 Bean 用的，上图并没有显示它。但是不继承不代表不可以使用组合
-## 容器创建
+### 容器创建
 从创建 bean 工厂开始看看它的过程。需要重点关注的点是：refresh 重建工厂，bean 定义，别名处理，bean 覆盖
-### refresh
+#### refresh
 步骤1：读取配置创建 bean 工厂
 ```java
 	//这一行我们开始创建bean工厂
@@ -202,7 +202,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 3，注册并且管理事件监听器
 4，循环调用 getBean，实例化非懒加载的单实例
 5，后置处理，清除缓存、发布事件等
-### BeanDefinition
+#### BeanDefinition
 这个接口非常重要，配置文件被 Springxml 解析后，这里的 BeanDefinition 就是我们所说的 Spring 的 Bean，我们配置的一个个类的信息都会存放在一个个BeanDefinition中
 ```java
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
@@ -261,7 +261,7 @@ bean 覆盖：指多个 bean 的名字相同，默认情况下 spring 支持 bea
          // 这是个 ArrayList，所以会按照 bean 配置的顺序保存每一个注册的 Bean 的名字
          this.beanDefinitionNames.add(beanName);
 ```
-## invokeBeanFactoryPostProcessors
+### invokeBeanFactoryPostProcessors
 spring 容器获取 bean 定义后，不会立刻初始化 bean，而是调用 invokeBeanFactoryPostProcessors 方法做一些增强处理
 
 如果需要在所有 bean 加载之前做一些处理，需要继承 BeanFactoryPostProcessor 接口，典型应用场景如动态注册 Bean（如 @Configuration 类中的 @Bean 方法）、条件化加载 Bean（如 @Conditional 的实现）、AOP 代理增强（如 @EnableAspectJAutoProxy 的底层支持）等
@@ -279,7 +279,7 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     }
 }
 ```
-## initApplicationEventMulticaster
+### initApplicationEventMulticaster
 此方法初始化和管理各种事件，ApplicationEventMulticaster 是 Spring 事件机制的核心组件，负责注册事件监听器（ApplicationListener）：存储所有监听特定事件的监听器，并且广播事件（publishEvent）：当事件发布时，通知所有匹配的监听器
 
 事件需要用户自定义，当然 spring 容器也内置了一些自己的事件，比如：
@@ -306,9 +306,9 @@ public class MyContextListener {
 ```
 如果想在 spring 容器启动完毕后执行一段逻辑，除了可以监听 spring 初始化完成的事件，**还可以实现 ApplicationRunner 接口**，这个接口是 spring
 对事件的封装
-## bean 创建
+### bean 创建
 需要关注的点是：两次循环依赖、作用域判断、对象创建、实例化时 CGlib 处理，并且有很多步骤都是认证这个 bean 是否合法
-### getBean
+#### getBean
 在以上这些结束后，Spring 遍历 map 集合，将所有的 bean 初始化，初始化的过程封装到了 getBean 方法里
 
 getBean 应该是我们获取 bean 使用的方法（你也可以使用这个方法来获取对象），所以这个方法有一层判断，如果在单例池中存在这个 bean，直接返回这个 bean
@@ -349,7 +349,7 @@ getBean 应该是我们获取 bean 使用的方法（你也可以使用这个方
 进入此方法，又是一段认证过程，然后实例化时分两种情况，存在方法覆写时使用 CGLIB 代理返回一个**代理对象**，没有就使用 java 反射直接创建一个 bean 对象实例（之间可能还会使用有参构造创建对象或者无参构造创建对象）
 
 随后会进入 DI 的流程，在依赖注入的时候，如果发现需要注入的对象尚未初始化，还需要触发注入对象的初始化动作，同时在注入的时候也会分为按名称注入和按类型注入（除此之外还有构造器注入等方式）
-### 循环依赖
+#### 循环依赖
 循环依赖指的是当我们有两个类 A 和 B，其中 A 依赖 B，B 又依赖了 A，或者多个类也一样，只要形成了一个环状依赖那就属于循环依赖
 
 如果换成我们来开发，我们会如何解决这个问题呢？其实方法也很简单，大家应该都能想到，那就是当我们把对象初始化之后，在没有注入属性之前，就先缓存起来，这样，就相当于缓存了一个半成品 Bean 来提前暴露出来供注入时使用，这也是 Spring 处理循环依赖的方法
@@ -427,7 +427,7 @@ nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationExc
 'salesClueService': Requested bean is currently in creation: Is there an unresolvable circular reference?
 ```
 这种情况一般出现在系统设计的不好，Service 没有做分层，导致同级业务之间相互调用的问题，这种时候我们一般在方法中使用 getBean 在方法中强行获取某个 service 对象
-## 工厂 bean
+### 工厂 bean
 Spring 有两种 bean，一种是普通 bean，另外一种是工厂 bean，我们在项目中一般使用普通 bean 就绰绰有余了，但是工厂 bean 可以用来构建更加复杂的对象，比如**你想在 bean 初始化的时候执行一段复杂的逻辑（如读取配置、设置缓存等），可以使用工厂 bean 来实现**
 
 普通 bean 调用 getBean 方法的时候会返回这个 bean 的对象，而这种工厂 bean 的特性就是在调用 getBean 时不一定返回该 bean 对象，甚至返回值都不一定是该类类型，其返回值是该 FactoryBean 的 getObject 方法所返回的对象。创建出来的对象是否属于单例由 isSingleton 中的返回决定
@@ -446,7 +446,7 @@ public class FactoryBeanImpl implements FactoryBean {
 }
 ```
 那这种 bean 有什么好处呢，它可以基于工厂设计模式创建对象。在某些情况下，实例化 Bean 过程比较复杂，如果按照传统的方式，则需要在 bean 中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring 为此提供了一个 org.springframework.bean.factory.FactoryBean 的工厂类接口，用户可以通过实现该接口定制实例化 Bean 的逻辑
-## bean 的生命周期
+### bean 的生命周期
 就是 bean 在它生成、使用、销毁过程中可能会发生什么事情：
 
 1，实例化 (Instantiation)：通过构造函数或工厂方法创建 Bean 实例。此时对象处于原始状态，属性未注入，这个 bean 还是一个对象，执行了对象的 init 方法、构造方法
@@ -559,8 +559,8 @@ public class AppConfig {
     }
 }
 ```
-# 使用 IOC
-## bean 的作用域
+## 使用 IOC
+### bean 的作用域
 bean 的作用域用于确定哪种类型的 bean 实例应该从 Spring 容器中返回给调用者，从生成方式上来讲只有单例、原型和其他，因为源码是这么写的
 
 1，singleton：单例 bean，获取的每一个 bean 地址都相同，spring 默认使用这个生成方式，当创建起容器时就同时自动创建了一个 bean 的对象，不管你是否使用，他都存在了
@@ -573,14 +573,14 @@ bean 的作用域用于确定哪种类型的 bean 实例应该从 Spring 容器�
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 ```
 除了单例模式其他都不怎么会使用到
-## 如何定义一个 bean
+### 如何定义一个 bean
 @Component：通用的 bean 定义，如果不知道是哪一层的 bean 就使用这个
 @Repository：仓库的意思，对应持久层 dao 层的 bean
 @Service：服务层，主要涉及一些复杂的逻辑
 @Controller：对应 Spring MVC 控制层，主要用户接受用户请求并调用 Service 层返回数据给前端页面，这里除了定义为 bean 以外，还会将类中方法注册到默认 controller 中，处理 HTTP 请求，并返回视图或响应数据
 @bean：将一个方法的返回值标记为 bean，是对方法使用的注解（可以在没有源码的情况下将第三方代码中的类标记为组件，这种情况下使用 component 就不能解决这种需求了）
 @Mapper：设置一个 bean，对应持久层 dao 的注解，同时该 bean 还可以被 mybatis 扫描到
-## 如何使用 bean
+### 如何使用 bean
 使用 Autowired 或者 Resource 来进行 DI，Autowired 根据类型注入，是 spring 自带的注解，Resource 根据名称优先注入，来源于 jsr-250，如果找不到对应的名称会按照类型来注入。因此 resource 更优秀一些（如果根据类型来可能会返回多个 bean）
 
 spring 可以注入 List 或者 Map，支持这种基于接口实现类的直接注入，比如如下示例
@@ -597,7 +597,7 @@ spring 可以注入 List 或者 Map，支持这种基于接口实现类的直接
 ```
 Spring 把 bean 放入了 List 中 那个这个顺序怎么控制呢？可以在实现类中加入 @Order(value) 注解即可 ，值越小越先被初始化越先被放入 List
 
-## @Autowired 与 @Resource 的区别
+### @Autowired 与 @Resource 的区别
 Autowired 属于 Spring 内置的注解，默认的注入方式是根据类型进行匹配，通常被称为 byType。当它通过类型找到多个对象的时候，可以配合 Qualifier 注解来实现按照名称的依赖注入
 ```java
 @Autowired

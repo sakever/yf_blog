@@ -6,7 +6,7 @@ categories:
 tags:
   - Shell
 ---
-# Shell 脚本
+## Shell 脚本
 Shell 脚本适用于在 Linux 环境下执行一段连续的命令，比如著名的 docker 就提供了一键安装 docker 的脚本 get-docker.sh
 
 Shell 脚本（shell script），是一种为 shell 编写的脚本程序。业界所说的 shell 通常都是指 shell 脚本，但 shell 和 shell script 是两个不同的概念
@@ -18,7 +18,7 @@ Shell 脚本（shell script），是一种为 shell 编写的脚本程序。业�
 脚本执行时，计算机会执行一连串的操作，脚本文件将不同的命令组合起来，并按照确定的顺序自动连续地执行。脚本文件是文本文件，可以使用任一文本编辑器来创建编辑脚本文件
 
 Shell 几乎是 IT 企业必须使用的运维自动化编程语言，特别是在运维工作中的服务监控、业务快速部署、服务启动停止、数据备份及处理、日志分析等环节里，shell 是不可缺的
-# 实例
+## 实例
 简单来说“Shell 编程就是对一堆 Linux 命令的逻辑化处理”，Shell 的使用非常简单：
 
 1，新建一个文件 touch helloworld.sh，扩展名为 sh（sh 代表 Shell）
@@ -36,7 +36,7 @@ echo  "helloworld!"
 
 一，一定要写成 ./helloworld.sh ，而不是 helloworld.sh ，运行其它二进制的程序也一样，直接写 helloworld.sh ，linux 系统会去 PATH 里寻找有没有叫 helloworld.sh 的，而只有 /bin, /sbin, /usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 helloworld.sh 是会找不到命令的，要用./helloworld.sh 告诉系统说，就在当前目录找
 
-二，Shell 中 # 符号表示注释。shell 的第一行比较特殊，#! 用来告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序
+二，Shell 中 ## 符号表示注释。shell 的第一行比较特殊，#! 用来告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 程序
 
 在 linux 中，除了 bash shell 以外，还有很多版本的 shell， 例如 zsh、dash 等等，sh 和 bash 都是 Linux 系统 Shell 的一种，其中 bash 命令是 sh 命令的超集，大多数 sh 脚本都可以在 bash 下运行。Linux 系统中预设默认使用的就是 bash
 
@@ -63,7 +63,7 @@ source 命令是 bash shell 的内置命令，它是执行 Shell 脚本的另外
 虽然 ./ 是在子终端运行，但是一些删除命令部署命令还是可以在子终端中实现的，只是在该终端不显示而已
 
 Shell 作为一个脚本语言有他自己的语法，比如变量、数组、函数、判断、循环，只要实现了这些功能，我们就能将它称之为一个脚本语言，如果还可以支持对象，那么这个语言可能还要更高级一点。Shell 只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了
-# 语法
+## 语法
 接下来简单说一下这种语言的语法：
 
 变量：没有限制符与基础类型，使用 x=x 就可以定义一个变量了，注意等号左右不要加空格，字符串可以选择不加引号、加单引号、加双引号。使用这个变量需要使用 ${x}，其实可以不加 $，但是为了显示方便还是加上吧，像这种脚本语言就比较重视字符串的获取与应用

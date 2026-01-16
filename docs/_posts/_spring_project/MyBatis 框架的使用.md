@@ -8,7 +8,7 @@ tags:
   - MyBatis
 ---
 众所周知 mybatisplus 用起来爽的一比，但是在维护一些老项目的时候还是需要知道 mybatis 的使用的，本文浅尝辄止，还有很多 mybatis 的应用没有覆盖到
-# 获取工厂
+## 获取工厂
 utls：mybatis 官网获取 SqlSession
 
 推荐创建 utls 包，里面放置工厂
@@ -26,7 +26,7 @@ public class MybatisConfig {
 }
 ```
 如果使用的是 springboot 的话直接注入 dao 层接口就行了，不用进行 sqlsession 工厂的配置
-# 接口对应的 mapper 文件
+## 接口对应的 mapper 文件
 mybatis 有注解方式的实现
 
 各种注意事项已经在下面用注释解释了，一般该文件放在 resource 包下的 mapper 文件夹中，名字与所对应的接口一致
@@ -51,7 +51,7 @@ mybatis 有注解方式的实现
     </insert>
 </mapper>
 ```
-## 入参的几种姿势
+### 入参的几种姿势
 **普通的一个类**：注意入参的参数类型需要使用 parameterType 绑定，否则 sql 不会解析成需要的样子
 ```java
     <select id="selectLeaveHoliday" parameterType="Integer" resultMap="LeaveHolidayI">...
@@ -77,7 +77,7 @@ mybatis 有注解方式的实现
     <select id="selectLeaveHoliday" resultMap="LeaveHolidayI">
     	insert into mybatis (name, password) values (#{userName}, #{userPassword})...
 ```
-## 返回值的几种姿势
+### 返回值的几种姿势
 还有一个需要注意的问题是返回值，返回值的参数也需要使用 **parameterType** 绑定，但是如果entity的属性和数据库中的字段名不一样就需要进行结果映射，上面所说的 **resultMap** 结果集映射这样使用：
 
 id 表示映射名，里面的 id 表示主键，type 表示 pojo 名，column 表示数据库属性，property 表示实体类中属性
@@ -120,7 +120,7 @@ Map<Long, Map<String, String>>，范型类型可以修改。Map 的 key 一般�
 ```
 {1={area=北京, gender=true, staff_id=1, is_valid=true, name=赵四, mobile=13111111111, id=1}}
 ```
-# mybatis 全局配置文件 mybatis-confg
+## mybatis 全局配置文件 mybatis-confg
 resources里放置mybatisConfig.xml作为全局配置文件，在使用 MP 后就不用写这个了
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -172,9 +172,9 @@ resources里放置mybatisConfig.xml作为全局配置文件，在使用 MP 后�
 </configuration>
 ```
 比较重要的标签都已经在上面了，这里重点说一下类型处理器以及拦截器
-# 类型处理器
+## 类型处理器
 将一些自定义的数据类型转化为数据库中的正常数据类型，以及数据库中的类型转换为 java 中的类型的工具，可以看到处理器就是对底层 jdbc 的操作了
-## 例子
+### 例子
 以将 java 中枚举类转化为 mysql 中的 tinyint 类为例，先写一个枚举类
 ```java
 public enum SexEnums {
@@ -235,7 +235,7 @@ public class EntityEnumTypeHandler extends BaseTypeHandler<SexEnums> {
     }
 }
 ```
-## 使用
+### 使用
 之后有两种用法，第一种是在全局配置文件中定义就可以了，在 mapper 文件中所有的性别枚举类型都会被自动转化为 tinyint，数据库中的性别也会自动转化为枚举类
 
 在全局配置文件中配置后，Mybatis 会根据两种类型会自动匹配，即 jdbc.type 与 java.type，这就是为什么标签中提供了这两种属性
@@ -249,7 +249,7 @@ public class EntityEnumTypeHandler extends BaseTypeHandler<SexEnums> {
         <result column="servicer_list" property="servicerList" jdbcType="VARCHAR" typeHandler="xxxHandler"/>
     </resultMap>
 ```
-## 四个方法的意义
+### 四个方法的意义
 这里说一下四个方法的意义
 ```java
 public interface TypeHandler<T> {
@@ -276,7 +276,7 @@ public interface TypeHandler<T> {
 }
 ```
 一些情况下，可以使用 mp 中的通用枚举来取代类型处理器，都是我们不能完全抛弃这个功能，该功能的泛用性还是很广的
-## 无需转换的类型
+### 无需转换的类型
 总结一下 mybtais 中不需要写转换器或者自带默认转换器的 java 类型与数据库类型的关系
 ```xml
 <resultMap type="java.util.Map" id="resultData">
@@ -301,7 +301,7 @@ public interface TypeHandler<T> {
 MyBatis包含的 JdbcType 类型，主要有下面这些枚举：
 
 BIT、FLOAT、CHAR 、TIMESTAMP 、 OTHER 、UNDEFINEDTINYINT 、REAL 、VARCHAR 、BINARY 、BLOB NVARCHAR、SMALLINT 、DOUBLE 、LONGVARCHAR 、VARBINARY 、CLOB、NCHAR、INTEGER、 NUMERIC、DATE 、LONGVARBINARY 、BOOLEAN 、NCLOB、BIGINT 、DECIMAL 、TIME 、NULL、CURSOR
-# 拦截器（插件）
+## 拦截器（插件）
 插件的原理是四大执行对象源码中调用了获取所有拦截器并且调用的语句，拦截器的实现有三个步骤
 
 1，继承Interceptor接口实现里面的三个方法
@@ -352,7 +352,7 @@ public class HolidayPlugin implements Interceptor {
 
 过程看起来简单事实上写一个拦截器需要对mybatis底层有很高的了解才知道如何去获取需要的结果
 
-# 注解开发
+## 注解开发
 在接口上加一个Mapper注解即可使用注解开发，mybatis 提供的 **@Mapper** 注解就是将一个接口在编译之后会生成相应的接口实现类
 
 如果想要每个接口都要变成实现类，那么需要在每个接口类上加上@Mapper注解，比较麻烦，解决这个问题用 @MapperScan
@@ -383,8 +383,8 @@ public interface StudentDao {
 ```
 除了这四大注解还有可以配置属性的@Optional注解，使用SqlBuider构造sql后配合@SelectPuvider注解使用等
 
-# 动态 SQL
-## if
+## 动态 SQL
+### if
 **if** 标签用来进行判断，只有当 text 中条件满足的时候标签中的内容才会拼接到 sql 中。注意这里为什么要写 1=1 这个恒成立的条件，因为这样拼接 and 就不会报错了，并且如果if不成立也不会报错
 ```xml
     <select id="selectOne" parameterType="Integer" resultType="map">
@@ -421,7 +421,7 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
 
 <if test="takeWay == '1'.toString() and workday != null ">
 ```
-## where
+### where
 可以使用**where**标签来代替 where，这样就不用写 1=1 了，标签会自动去除if标签语句前的连接符（and 或者 or），但是不能去掉后面的
 ```xml
     <select id="selectOne" parameterType="Integer" resultType="map">
@@ -431,7 +431,7 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
         </where>
     </select>
 ```
-## trim
+### trim
 这时候推荐使用 **trim** 标签配合 if 标签执行语句，trim 可以在语句前后添加想要的内容，也可以在语句前后去除想干掉的内容
 
 一般用于去除 sql 语句中多余的 and 关键字，逗号，或者给 sql 语句前拼接 where、set 以及 values ( 等前缀，或者添加 ) 等后缀，可用于选择性插入、更新、删除或者条件查询等操作
@@ -443,7 +443,7 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
         </trim>
     </select>
 ```
-## choose、when、otherwise
+### choose、when、otherwise
 **choose、when、otherwise**是一套标签，他们的作用相当于 if、else if、else，choose 标签中只有一个条件的语句可以拼接到真正的 sql 上，choose 中至多有一个 ohterwise，至少有一个 when
 ```xml
     <select id="selectOne" parameterType="Integer" resultType="map">
@@ -454,7 +454,7 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
         </choose>
     </select>
 ```
-## sql
+### sql
 **sql** 标签用于保存常用的 sql 片段，在需要使用的时候使用 include 标签引入即可
 ```xml
     <sql id="id">employee(id, staff_id, name, mobile, area, gender, is_valid)</sql>
@@ -463,7 +463,7 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
         (#{item.id}, #{item.staffId}, #{item.name}, #{item.mobile}, #{item.area}, #{item.gender}, #{item.isValid})
     </insert>
 ```
-## foreach
+### foreach
 最后这位更是重量级，**foreach**可以用来执行循环操作。标签里面的属性collection是需要循环的集合，集合应当使用Param 标签注释以免 mybatis 找不到，item 代表被遍历的元素，separator 是 foreach 与下一个 foreach 之间的分隔符
 ```java
     public void question9(@Param("list")List<Employee> list);
@@ -478,8 +478,8 @@ if 标签页可以用于判断集合对象的数目，支持 size 获取集合�
 ```
 除了这三个属性比较常用，还有 open 与 close 属性，分别代表循环以什么符号开始与循环以什么符号结束
 
-# 易踩的坑
-1，# 和 $ 问题，为了防止 SQL 注入请尽量使用 #。$ 是字符串直接替换，#{}实现的是向 prepareStatement 中的预处理语句中设置参数值，因此会将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号
+## 易踩的坑
+1，## 和 $ 问题，为了防止 SQL 注入请尽量使用 #。$ 是字符串直接替换，#{}实现的是向 prepareStatement 中的预处理语句中设置参数值，因此会将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号
 
 2，定义 entity 的属性要使用包装类型，防止查询、更新异常，因为数据库中可以存在 null 与 0，但是 java 中的 int 没有 null，它的默认值就为0，因此 java 中的 POJO 最好使用包装类
 

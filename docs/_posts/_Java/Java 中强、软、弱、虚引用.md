@@ -7,7 +7,7 @@ categories:
 tags:
   - Java
 ---
-# 强引用
+## 强引用
 ```java
     Object object1 = new Object();
 ```
@@ -15,7 +15,7 @@ tags:
 
 它的特点是如果一个对象有根节点的强引用，那么 GC 绝对不会回收它；如果这个对象没有被引用指向，那么它就会被回收
 
-# 软引用
+## 软引用
 ```java
     SoftReference<Object> object2 = new SoftReference<>(new Object());
 ```
@@ -25,7 +25,7 @@ tags:
 
 它常常用来做缓存，存放一些数据量较大的数据，比如图片，富文本之类的
 
-# 弱引用
+## 弱引用
 ```java
     WeakReference<Object> Object3 = new WeakReference<>(new Object());
 ```
@@ -84,7 +84,7 @@ public abstract class Reference<T> {
 }
 ```
 
-# 虚引用
+## 虚引用
 ```java
     private ReferenceQueue<Object> queue = new ReferenceQueue<>();
     PhantomReference<Object> object4 = new PhantomReference<>(new Object(), queue);
@@ -102,7 +102,7 @@ JVM 使用一个对象来代表这些堆外内存，这个对象叫 DirectByteBu
 我们使用一个虚引用指向 DirectByteBuffer，当 DirectByteBuffer 被回收时，说明我们不需要这个堆外内存中的数据了，虚引用会将对应信息放入**引用队列**中。GC 线程监视着这个队列，如果有东西进来了，它会调用函数清理对应的堆外内存（这里的函数是我们定义的，相当于虚引用提供了一个回调功能）
 
 引用的构造函数必须指定引用队列，而其他引用类型没有引用队列一样可以运行，**强引用无法放进引用队列**。引用队列主要用于存放软引用、弱引用和虚引用对象
-# 终结器引用
+## 终结器引用
 四大天王有五个是常识。终结器引用用来执行对象的 finalize 方法
 
 没有强引用引用对象时，并且该对象重写了 finalize() 方法时，在对象即将被 GC 前，虚拟机会创建终结器引用并且加入引用队列，在本次垃圾回收过程中，对象会被标记为可回收状态，但此时并不会立即回收它

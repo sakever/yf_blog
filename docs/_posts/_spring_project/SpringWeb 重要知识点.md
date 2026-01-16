@@ -7,13 +7,13 @@ tags:
   - Spring
 ---
 主要讲述 SpringWeb 工作原理以及相关注解。**MVC 本身是一种分层的设计模式思想，主要将模型和视图拆分开来便于编码**，传统的 MVC 模型下包架构为 Service 层（处理业务）、Dao 层（数据库操作）、Entity 层（实体类）、Controller 层
-# 主要组件
+## 主要组件
 1，前端控制器 DispatcherServlet：MVC 的重点，从用户发送请求到返回视图给用户几乎每个过程都有它，它接受所有的用户请求，**负责接收请求、分发，并给予客户端响应**
 2，处理器映射器 HandlerMapping：从 url 中的信息判断应该交给哪个处理器
 3，处理器适配器 HandlerAdapter：根据 HandlerMapping 的判断结果发送给对应的 Handler，并且**统一不同类型的 Handler 调用方式**，因为项目中每个 controller 出入参定义不一样，对前端控制器的影响在 HandlerAdapter 这一层屏蔽
 4，处理器 Handler：处理请求的真正部分，就是我们写的 Controller
 5，视图转发器 ViewResolver：根据 Handler 返回的逻辑视图，解析并渲染真正的视图，并传递给 DispatcherServlet 响应客户端
-# Spring MVC 工作过程
+## Spring MVC 工作过程
 1，用户的 http 请求传入**前端控制器**，中途会有过滤器 Filter 进行数据过滤，Filter 可以直接作用在前端控制器，代表对项目中所有的接口进行拦截
 2，前端控制器发给处理器映射器
 3，处理器映射器返回执行链
@@ -46,7 +46,7 @@ public class MyController {
 }
 ```
 HandlerAdapter 让我们可以统一的调用这些接口，就算你想在 MyController 中拿到 HttpServletRequest 也是可以的，如果你要屏蔽 HttpServletRequest 也是可以的，它封装了一层，让我们的调用更加简洁
-# 转发和重定向
+## 转发和重定向
 在控制器中返回的 String 前加入 redirect 或者 forword 来决定是转发还是重定向
 
 转发是服务器行为，客户端无法了解详细过程，转发只能将目的地址转到当前项目中其他文件，并且用户的 url 不会改变
@@ -56,8 +56,8 @@ HandlerAdapter 让我们可以统一的调用这些接口，就算你想在 MyCo
 其中301状态码是永久重定向（Moved Permanently），表示所请求的资源已经永久地转移到新的位置，这包含域名的改变或者是资源路径的改变。301是为了解决域名更换的问题，域名更换属于网站改版的一种情况，域名 A 用301跳转到域名 B，搜索引擎爬虫抓取后，会认为域名 A 永久性改变域名 B，或者说域名 A 已经不存在，搜索引擎会逐步把域名 B 当做唯一有效抓取目标。域名更换，必须保证所有页面301跳转至新域名的相应页面。在域名更换后的一定时期内，旧域名在搜索引擎中仍然会被查到。但随着权重转移，旧域名最终会被清除出搜索引擎数据库
 
 302状态码是临时重定向（Move Temporarily），表示所请求的资源临时地转移到新的位置，一般是24到48小时以内的转移会用到302。应用场景为网页跳转、身份验证、表单提交
-# 常用注解
-## 前端向后端传参
+## 常用注解
+### 前端向后端传参
 在 ajax 请求之前可以加一个相应的 method 为 options 的请求
 
 HTTP 的 OPTIONS 方法用于获取目的资源所支持的通信选项。客户端可以对特定的 URL 使用 OPTIONS 方法
@@ -65,7 +65,7 @@ HTTP 的 OPTIONS 方法用于获取目的资源所支持的通信选项。客户
 简言之，options 请求是用于请求服务器对于某些接口等资源的支持情况的，包括各种请求方法、头部的支持情况，仅作查询使用
 
 说回正题，前端向后端传参分为 get 与 post 两大类，有这几种方式：
-### GET 传参
+#### GET 传参
 GET 传参的参数信息一般在 url 中
 
 **@PathVariable**：使用 get 接受路径参数，很简单
@@ -125,7 +125,7 @@ public ResponseResult<?> testDate(@RequestParam("testDate")
 ```
 
 不加任何注解时，java 解析参数的原理应该是先调用 pojo 的无参构造方法，然后通过方法里提供的 set 方法将同名称的数据一个个塞进去
-### POST 传参
+#### POST 传参
 **@RequestParam** 的第二种用法是接受请求体中的参数，当请求头中的 Content-Type 类型为：multipart/form-data 或 application/x-www-form-urlencoded 时，该 @RequestParam 注解同样可以把请求体中相应的参数绑定到 Controller 方法的相应形参中
 
 **不加任何注解**：如果在 post 请求中不加任何注解，也是通过 multipart/form-data 接受数据的
@@ -148,7 +148,7 @@ public @interface RequestBody {
 ```
 一个请求方法应该只可以有一个 @RequestBody，但是可以有多个 @RequestParam 和 @PathVariable。如果同时存在两个 @RequestBody，那应该是接口设计出了问题
 
-## 后端的响应数据
+### 后端的响应数据
 @Controller：定义一个类为控制器
 
 @ResponseBody：控制器返回JSON类型数据
@@ -171,7 +171,7 @@ public @interface RequestBody {
 
 如果两个用户调用 put 接口去新建两个不同的数据，后一个用户将前一个用户的新建记录给覆盖了这显然是不合理的；如果一个用户调用 post 接口去修改自己信息却发现创建了一个新用户也是不合理的
 
-## 序列化数据转换
+### 序列化数据转换
 前后端分离开发时，数据传输事实上是将后端的 pojo 或者一些其他类型的属性序列化为 json，并且传给前端。前端传给后端的数据也是 json，一般情况下，框架以及给我们封装好了转换的规则
 
 框架会将 pojo 对象转换为 json 对象，数组与数组转换为 json 数组，int 类型转换为 int，等等等等，但是还是会遇到一些特殊情况，比如时间类，这时候就需要使用一些关于 json 转换的注解
@@ -200,7 +200,7 @@ import org.springframework.format.annotation.DateTimeFormat;
     private String mobile;
 ```
 
-## 多条件分页查询
+### 多条件分页查询
 SpringMVC 为我们提供了分页功能，使用 Pageable 来使用该功能
 
 Spring data 提供了 @PageableDefault 帮助我们个性化的设置 pageable 的默认配置。例如 @PageableDefault(value = 15, sort = { "id" }, direction = Sort.Direction.DESC) 表示默认情况下我们按照 id 倒序排列，每一页的大小为 15
@@ -213,7 +213,7 @@ public Page<blog> listByPageable(@PageableDefault(value = 15, sort = { "id" }, d
 }  
 ```
 前端访问地址为 www.xxx.com?pagesize=10&pageno=1 即可
-## 自定义分页查询
+### 自定义分页查询
 如果不使用该类，也可以使用其他的框架提供的 pager，千万不要让前端传入原始的 limit 与 offset 了。或者直接写个工具类：
 ```java
 @Getter
@@ -282,7 +282,7 @@ public class PageResult<T> implements Serializable {
 }
 ```
 说实话，JPA 提供的 PageResult 很不好用，返回的值一堆参数前端都用不到，很离谱。推荐自己写一个统一返回
-# spring 中的请求拦截流程
+## spring 中的请求拦截流程
 一个请求被 servlet 接受后，在 spring 组件中会经历哪些拦截呢，我们又会在这些拦截中做什么呢。下面是一些常见的组件，按请求被接受后的时间顺序来划分：
 
 - 进入 Filter：**Filter 是 Java Servlet 规范的一部分**。Filter 是更底层的机制，会拦截所有的请求，过滤器必须运行在 Servlet 容器中，适用于全局性的处理，只需要将 Filter 的 bean 放到 IOC 容器中就会生效。**注意这里的 Filter 是作用于整个 Servlet 容器的，而非单个 servlet**
@@ -294,7 +294,7 @@ public class PageResult<T> implements Serializable {
 - 后置拦截器
 - 进入全局异常捕获器：ControllerAdvice，如果在前面的流程中抛出异常的话，会进入这里面做处理，如果在这里面再抛出异常的话，会按照 spring 默认的异常处理器处理（返回500）
 - Filter 后置处理，最终离开 Filter
-## 拦截器实现
+### 拦截器实现
 Spring 拦截链（Interceptor Chain）是 Spring 框架中实现横切关注点（如事务管理、安全控制、日志记录等）的核心机制，主要通过 **AOP（面向切面编程） 和责任链模式来实现**，拦截器作用在过滤器之后，对接口进行拦截
 
 链式调用通过 MethodInvocation 依次执行拦截器，前置拦截器代码如下，后置拦截器也差不多是这样

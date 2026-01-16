@@ -22,11 +22,11 @@ MP 是非常优秀的持久层辅助框架，如果说 Mybatis 是处理数据�
 此时可以使用 MP 的基础功能，使用其他功能配置其他东西即可
 
 具体方法的使用移步官方文档：https://www.mybatis-plus.com/
-# 实体类
+## 实体类
 MP **它的底层原理大致为根据 PO 实体类尝试反向生成表结构，并且根据这些信息生成 SQL 语句**，因此实体类相当重要
 
 我们经常遇到实体类与表名或者属性不一致的问题，导致 MP 使用错误
-## 别名处理、主键自增 @TableId
+### 别名处理、主键自增 @TableId
 由于MP默认通过ID查询，但是很多时候数据库和POJO都不会把主键命名为id，使用 **@TableId** 这个注解可以让这个问题解决
 
 这个注解有两个属性，value 是数据库主键名（默认的主键叫 id，如果数据库中的主键不叫 id 需要使用 value 显示映射），type 是指定主键自增策略
@@ -67,7 +67,7 @@ public @interface TableId {
 ```
 
 
-## 表名处理 @TableName
+### 表名处理 @TableName
 如果表名和 POJO 名不一样会出现错误，不过使用 TableName 注解就可以解决，可以在实体类上加 **@TableName** 来显示指定需要映射到什么表上，这种情况发生在实体类与数据库表名不一样的时候
 ```java
 public @interface TableName {
@@ -90,7 +90,7 @@ public class ConfigEntity {
 ```xml
 <result column="test_config" jdbcType="VARCHAR" property="testConfig" typeHandler="JsonArrayStringTypeHandler" />
 ```
-## 自动填充、别名处理、类型转换 @TableField
+### 自动填充、别名处理、类型转换 @TableField
 如果属性与不一致也会出现问题，在实体类的属性名上使用 **@TableFiled** 处理不一致问题
 
 通过 MP 自动填充功能，在未设定属性时根据自定义策略自动填充属性并记录到数据库，以下是一个自动填充更新和创建时间的例子
@@ -118,14 +118,14 @@ class MyHandler implements MetaObjectHandler {
     }
 }
 ```
-## 逻辑删除 @TableLogic
+### 逻辑删除 @TableLogic
 同时，还有一个非常重要的业务功能——**逻辑删除**，在被其他业务重度依赖的情况下删除某个数据是非常危险的，需要级联删除其他大量的数据，因此一般使用逻辑删除。该功能使用 **@TableLogic** 实现，在某个属性实现该注解后，所有的删除功能都会被封装为修改功能，所有的查询功能会自动加入是否被逻辑删除的校验
 ```java
     @TableLogic(value = "status", delval = "1")
     private Integer status;
 ```
 删除时直接调用 mybatis-plus 的删除方法即可
-# 通用枚举 @EnumValue
+## 通用枚举 @EnumValue
 在枚举中添加注解 @EnumValue，使用 MP 进行数据库输入输出时会自动将枚举转换为被标记的值，以及自动将被标记的值转换为枚举
 ```java
 public enum GradeEnum {
@@ -142,8 +142,8 @@ public enum GradeEnum {
 mybatis-plus:
     typeEnumsPackage: com.baomidou.springboot.entity.enums
 ```
-# 插件
-## 分页插件
+## 插件
+### 分页插件
 在配置类中添加分页插件，该插件也比较容易理解。MybatisPlusInterceptor 是 MP 的插件主体，你可以使用 addInnerInterceptor 方法插进去一些功能。而 PaginationInnerInterceptor 就是 MP 已经实现的分页处理，传入的值就是什么数据库。依据传入的值不同，分页的底层实现也不同
 ```java
 @Configuration
@@ -170,7 +170,7 @@ public class MyBatisPlusConfig {
 MP 底层使用 limit，并且 page 的设置条件不同与 limit
 
 page 的第一个参数传入需要查询的页数，第二个参数传入查询数量。而 limit 的第一个参数表示从这个数字开始（起始是0），第二个参数传入查询数量
-## 乐观锁（Version）
+### 乐观锁（Version）
 在配置类中增加插件
 ```java
     /**  乐观锁插件  */
@@ -187,7 +187,7 @@ POJO 中的属性添加 Version 注解，这个属性和数据库中对应的字
 @Version
 private Integer version;
 ```
-# 条件构造器
+## 条件构造器
 MP 的扩展与插件实现了 mybatis 的拦截器与插件功能，而条件构造器配合提供的各种方法可以实现动态 sql 功能，使用 wrapper 以实现复杂查询
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ba99a54316ac72c944edff83a60edf49.png)
 首先，QueryWrapper 构造了查询条件，里面的方法包含了几乎所有的 sql 语句，比如 eq、le 等，非常好理解，注意传入条件之前一定要把实体类传进去
@@ -218,7 +218,7 @@ MP 的扩展与插件实现了 mybatis 的拦截器与插件功能，而条件�
         new LambdaQueryWrapper<User>().eq(User::getUserId, "id");
 ```
 MP 本身是不支持多表联查的，一般项目中也不要使用多表联查，根据经验来说，多表联查的性能远低于查单表
-# 代码生成器
+## 代码生成器
 这个是最不实用的一个功能也是最难用的一个功能，完全可以使用 EasyCode 代替，使用代码生成器首先需要导入 maven 依赖
 ```xml
         <dependency>

@@ -6,7 +6,7 @@ categories:
 tags:
   - Excel
 ---
-# Excel 的页面下载操作
+## Excel 的页面下载操作
 在 response 中设置浏览器接受的样式为 application/vnd.ms-excal，即可返回 excal 的下载。然后需要定义一些其他设置
 ```java
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
@@ -29,7 +29,7 @@ tags:
         response.setHeader("Pragma", "public");
         response.setHeader("Cache-Control", "public" );
 ```
-# HSSFCellStyle 
+## HSSFCellStyle 
 用 HSSFWorkbook 代表一个 excal 文件，HSSFSheet 表示文件中的每个 sheet，HSSFRow 代表 sheet 中的每一行，HSSFCell 就表示每一行中的每一格数据了
 ```java
             // 渲染 excel 文件
@@ -78,7 +78,7 @@ cell.setCellStyle(style);// cell 为已有的单元格
 cell.setCellValue("hello world");
 ```
 
-# EasyExcal
+## EasyExcal
 直接使用 HSSFCellStyle 未免太麻烦了一些，阿里为我们提供了更加简单的 Excal 操作，官方文档如下：
 
 https://easyexcel.opensource.alibaba.com/docs/current/
@@ -111,7 +111,7 @@ public class DemoData {
 ```
 
 以下是一些特殊使用
-## 自定义格式转换
+### 自定义格式转换
 有时候我们需要将一些类中自定义的属性放进 excal，这时候我们需要转换器。easyExcal 提供的特殊注解为我们处理了一些常用的类型转换
 ```java
 @Getter
@@ -197,7 +197,7 @@ public class CustomStringStringConverter implements Converter<String> {
 }
 ```
 supportJavaTypeKey 方法指定该 Converter 转换的目标类型是 String，而 easyexcel 在将 excel 单元格内容转换为 java 中的 string 时调用的就是 convertToJavaData 方法
-## 上传
+### 上传
 ```java
     @RequestMapping("/secondKill/uploadConfig.json")
     @ResponseBody
@@ -295,7 +295,7 @@ import javax.validation.groups.Default;
         return result.toString();
     }
 ```
-## 下载
+### 下载
 ```java
         // 查询线索
         List<SalesClue> salesClues = salesClueRouteService.selectByCondition(
@@ -320,7 +320,7 @@ import javax.validation.groups.Default;
         FileOutputStream outputStream = new FileOutputStream(new File(excelFilePath));
         EasyExcel.write(outputStream, DestinationDimensionStopOrder.class).sheet().doWrite(destinationDimensionStopOrder);
 ```
-## 依赖
+### 依赖
 ```xml
             <dependency>
                 <groupId>org.apache.xmlbeans</groupId>
@@ -353,7 +353,7 @@ import javax.validation.groups.Default;
             </dependency>
 ```
 
-## 注意事项
+### 注意事项
 EasyExcel 有很多坑，他封装了很多东西导致了可扩张性不是很好，下面来列一些项目中常见的事项：
 
 1，在监听器中如果不想继续解析数据了，我们只能抛出异常来结束方法。记得在监听器外围做好拦截，否则这个我们可预知的错误会直接抛给用户
