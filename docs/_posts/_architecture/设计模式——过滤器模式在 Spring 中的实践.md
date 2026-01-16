@@ -3,7 +3,7 @@ title: 设计模式——过滤器模式在 Spring 中的实践
 date: 2025-02-28
 sidebar: ture
 categories:
-  - 设计模式
+  - 架构设计
 tags:
   - 设计模式
   - Spring

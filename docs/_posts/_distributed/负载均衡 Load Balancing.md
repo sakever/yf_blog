@@ -3,7 +3,7 @@ title: 负载均衡 Load Balancing
 date: 2023-06-26
 sidebar: ture
 categories:
-  - 分布式系统
+  - 分布式
 tags:
   - 负载均衡
 ---

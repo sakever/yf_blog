@@ -3,7 +3,7 @@ title: Protobuf 通信协议
 date: 2024-05-27
 sidebar: ture
 categories:
-  - 架构设计
+  - 分布式
 tags:
   - 通信协议
 ---

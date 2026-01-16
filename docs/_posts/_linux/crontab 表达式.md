@@ -3,7 +3,7 @@ title: crontab 表达式
 date: 2024-11-08
 sidebar: ture
 categories:
-  - 计算机基础
+  - Linux
 tags:
   - crontab
 ---

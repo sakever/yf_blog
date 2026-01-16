@@ -3,7 +3,7 @@ title: Java Http 访问框架
 date: 2023-04-17
 sidebar: ture
 categories:
-  - 计算机基础
+  - Java
 tags:
   - Http
 ---

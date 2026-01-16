@@ -3,7 +3,7 @@ title: Redis 学习笔记
 date: 2021-09-05
 sidebar: ture
 categories:
-  - Red非关系型数据库is
+  - 非关系型数据库
 tags:
   - Redis
 ---
