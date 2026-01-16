@@ -1,6 +1,6 @@
 module.exports = {
   // 站点标题，显示在浏览器标签页和页面左上角
-  title: '易凡的博客',
+  title: 'sakever 的博客',
   // 站点描述，用于 SEO 与 meta 标签
   description: '记录学习到的知识',
   // 站点部署的基础路径，GitHub Pages 部署时需要修改为仓库名，如 '/yf_blog/'
@@ -31,33 +31,7 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     // 左侧总目录
-    sidebar: {
-      '/_posts/': [
-        {
-          title: '前端',
-          collapsable: false,
-          children: [
-            '_front/GitHub Pages 部署教程',
-            '_front/Vercel 部署教程',
-            '_front/VuePress 博客搭建指南'
-          ]
-        },
-        {
-          title: '数据结构与算法',
-          collapsable: false,
-          children: [
-            '_data_structures_and_algorithms/集合与数据结构学习笔记'
-          ]
-        },
-        {
-          title: '多线程',
-          collapsable: false,
-          children: [
-            '_multithreading/多线程基础学习笔记'
-          ]
-        }
-      ]
-    },
+    sidebar: { mode: 'structuring', collapsable: false},
     // 右侧目录深度
     sidebarDepth: 3,
     // 分类 / 标签页
