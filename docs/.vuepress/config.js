@@ -31,10 +31,10 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     // 左侧总目录
-    // sidebar: 'auto',
+    sidebar: 'structuring',
     // 目录深度
     // sidebarDepth: 3,
-    displayAllHeaders: true,
+    // displayAllHeaders: true,
     // 分类 / 标签页
     category: true,
     tag: true,
