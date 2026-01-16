@@ -27,8 +27,8 @@ module.exports = {
     nav: [
       { text: '首页', link: '/' },
       { text: '博客', link: '/_posts/' },
-      { text: '分类', link: '/categories/' },
-      { text: '标签', link: '/tags/' }
+      { text: '分类', link: '/_posts/categories/' },
+      { text: '标签', link: '/_posts/tags/' }
     ],
     // 左侧总目录
     sidebar: 'structuring',
