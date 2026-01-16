@@ -1,6 +1,6 @@
 ---
 title: GitHub Pages 部署教程
-date: 2024-01-01
+date: 2026-01-01
 categories:
   - 前端
 tags:
@@ -47,7 +47,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: '18'
         
     - name: Install dependencies
       run: npm install
