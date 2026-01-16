@@ -1,6 +1,7 @@
 ---
 title: windows 下 ollama 迁移到 D 盘
 date: 2025-03-01
+sidebar: ture
 categories:
   - 人工智能
 tags:

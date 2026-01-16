@@ -1,6 +1,7 @@
 ---
 title: Hadoop 基础原理
 date: 2025-02-17
+sidebar: ture
 categories:
   - 中间件
 tags:

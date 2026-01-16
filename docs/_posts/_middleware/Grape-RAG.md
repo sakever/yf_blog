@@ -1,6 +1,7 @@
 ---
 title: Grape-RAG
 date: 2025-01-11
+sidebar: ture
 categories:
   - 中间件
 tags:

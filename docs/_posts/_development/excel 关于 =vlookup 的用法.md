@@ -1,6 +1,7 @@
 ---
 title: excel 关于 =vlookup 的用法
 date: 2024-01-18
+sidebar: ture
 categories:
   - 开发工具
 tags:

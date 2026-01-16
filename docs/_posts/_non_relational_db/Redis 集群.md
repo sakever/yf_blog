@@ -1,6 +1,7 @@
 ---
 title: Redis 集群
 date: 2022-10-12
+sidebar: ture
 categories:
   - 非关系型数据库
 tags:

@@ -1,6 +1,7 @@
 ---
 title: JAVA 注解小结
 date: 2022-08-11
+sidebar: ture
 categories:
   - Java
 tags:

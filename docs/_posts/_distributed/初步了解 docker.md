@@ -1,6 +1,7 @@
 ---
 title: 初步了解 docker
 date: 2023-05-16
+sidebar: ture
 categories:
   - 分布式
 tags:

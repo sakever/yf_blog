@@ -1,6 +1,7 @@
 ---
 title: 操作系统 IO 相关知识
 date: 2024-07-08
+sidebar: ture
 categories:
   - 计算机基础
 tags:

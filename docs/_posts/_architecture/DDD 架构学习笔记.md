@@ -1,6 +1,7 @@
 ---
 title: DDD 架构学习笔记
 date: 2023-06-27
+sidebar: ture
 categories:
   - 架构设计
 tags:

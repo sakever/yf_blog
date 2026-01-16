@@ -1,6 +1,7 @@
 ---
 title: vue-admin-template 简单使用
 date: 2022-09-30
+sidebar: ture
 categories:
   - 前端
 tags:
