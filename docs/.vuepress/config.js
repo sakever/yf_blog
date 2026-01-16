@@ -29,8 +29,8 @@ module.exports = {
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    sidebar: { mode: 'structuring', collapsable: false },
-    sidebarOpen: true,
+    sidebar: 'auto',
+    rightMenuBar: false,
     sidebarDepth: 3,
     category: true,
     tag: true,

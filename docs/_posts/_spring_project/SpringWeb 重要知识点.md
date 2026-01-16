@@ -1,7 +1,6 @@
 ---
 title: SpringWeb 重要知识点
 date: 2021-09-05
-sidebar: ture
 categories:
   - Spring 项目
 tags:

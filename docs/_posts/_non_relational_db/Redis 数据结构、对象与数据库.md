@@ -1,7 +1,6 @@
 ---
 title: Redis 数据结构、对象与数据库
 date: 2023-06-03
-sidebar: ture
 categories:
   - 非关系型数据库
 tags:

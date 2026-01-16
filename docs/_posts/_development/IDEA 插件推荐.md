@@ -1,7 +1,6 @@
 ---
 title: IDEA 插件推荐
 date: 2023-06-23
-sidebar: ture
 categories:
   - 开发工具
 tags:

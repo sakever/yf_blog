@@ -1,7 +1,6 @@
 ---
 title: flink 提交流程
 date: 2025-05-27
-sidebar: ture
 categories:
   - 中间件
 tags:

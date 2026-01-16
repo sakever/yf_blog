@@ -1,7 +1,6 @@
 ---
 title: Liteflow 在 SpringBoot 启动时无法注入组件问题 couldn‘t find chain with the id[THEN(NodeComponent)]
 date: 2025-03-27
-sidebar: ture
 categories:
   - 问题记录
 tags:

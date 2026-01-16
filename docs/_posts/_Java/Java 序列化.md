@@ -1,7 +1,6 @@
 ---
 title: Java 序列化
 date: 2024-01-24
-sidebar: ture
 categories:
   - Java
 tags:

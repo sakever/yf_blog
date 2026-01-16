@@ -1,7 +1,6 @@
 ---
 title: CORS 跨域资源共享
 date: 2023-08-22
-sidebar: ture
 categories:
   - 计算机网络
 tags:

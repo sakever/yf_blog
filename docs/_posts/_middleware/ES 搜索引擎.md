@@ -1,7 +1,6 @@
 ---
 title: ES 搜索引擎
 date: 2023-10-18
-sidebar: ture
 categories:
   - 中间件
 tags:

@@ -1,7 +1,6 @@
 ---
 title: Java Stream 的使用
 date: 2023-11-14
-sidebar: ture
 categories:
   - Java
 tags:

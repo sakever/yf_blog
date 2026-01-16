@@ -1,7 +1,6 @@
 ---
 title: Java 常用的规则引擎
 date: 2023-06-05
-sidebar: ture
 categories:
   - 架构设计
 tags:

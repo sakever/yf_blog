@@ -2,7 +2,6 @@
 title: Zookeeper 基础学习
 date: 2021-12-03
 
-sidebar: ture
 categories:
   - 分布式
 tags:

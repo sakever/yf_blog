@@ -2,7 +2,6 @@
 title: Spring AOP 的使用和原理
 date: 2023-02-03
 
-sidebar: ture
 categories:
   - Spring 项目
 tags:

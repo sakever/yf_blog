@@ -1,7 +1,6 @@
 ---
 title: PostgreSQL 更新数据时 HOT优化
 date: 2023-06-13
-sidebar: ture
 categories:
   - 关系型数据库
 tags:

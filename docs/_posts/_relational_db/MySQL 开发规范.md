@@ -1,7 +1,6 @@
 ---
 title: MySQL 开发规范
 date: 2022-12-12
-sidebar: ture
 categories:
   - 关系型数据库
 tags:

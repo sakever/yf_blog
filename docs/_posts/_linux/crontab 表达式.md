@@ -1,7 +1,6 @@
 ---
 title: crontab 表达式
 date: 2024-11-08
-sidebar: ture
 categories:
   - Linux
 tags:
