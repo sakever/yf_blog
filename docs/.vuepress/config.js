@@ -34,7 +34,6 @@ module.exports = {
     // sidebar: 'auto',
     // 目录深度
     // sidebarDepth: 3,
-    mode: 'structuring',
     displayAllHeaders: true,
     // 分类 / 标签页
     category: true,
