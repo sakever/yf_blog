@@ -3,7 +3,7 @@ title: MySQL 的 binglog、redolog、undolog
 date: 2021-09-05
 sidebar: ture
 categories:
-  - MySQL
+  - 关系型数据库
 tags:
   - MySQL
 ---

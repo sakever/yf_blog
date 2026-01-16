@@ -1,7 +1,6 @@
 --- 
 title: Scanner 的各种用法
 date: 2022-07-03
-
 sidebar: ture
 categories:
   - Java

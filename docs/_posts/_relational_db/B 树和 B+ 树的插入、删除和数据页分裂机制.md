@@ -3,7 +3,7 @@ title: B+ 树的插入、删除和数据页分裂机制
 date: 2022-08-03
 sidebar: ture
 categories:
-  - MySQL
+  - 关系型数据库
 tags:
   - B+ 树
 ---
