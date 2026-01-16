@@ -30,11 +30,156 @@ module.exports = {
       { text: '分类', link: '/categories/' },
       { text: '标签', link: '/tags/' }
     ],
-    // 左侧总目录
-    // sidebar: 'structuring',
-    // 目录深度
-    // sidebarDepth: 3,
-    displayAllHeaders: true,
+    // 左侧总目录（整体目录，不随页面展开）
+    sidebar: {
+      '/_posts/': [
+        {
+          title: '前端',
+          collapsable: false,
+          children: [
+            '_front/GitHub Pages 部署教程',
+            '_front/Vercel 部署教程',
+            '_front/VuePress 博客搭建指南',
+            '_front/简单了解前端页面开发'
+          ]
+        },
+        {
+          title: 'Java',
+          collapsable: false,
+          children: [
+            '_Java/java 基础知识',
+            '_Java/Java8 新特性',
+            '_Java/反射学习笔记',
+            '_Java/Servlet 学习笔记',
+            '_Java/String、StringBuffer、StringBuilder',
+            '_Java/Scanner 的各种用法',
+            '_Java/如何使用 lambda 实现集合排序以及为什么 lambda 不能改变外部变量的值',
+            '_Java/Java 中强、软、弱、虚引用',
+            '_Java/java 的常见性能问题分析以及出现场景',
+            '_Java/Guava 常用 API',
+            '_Java/Guava 源码阅读：Multimap 相关',
+            '_Java/CompletableFuture 相关用法',
+            '_Java/CompletableFuture 源码浅要阅读',
+            '_Java/FutureTask 源码阅读',
+            '_Java/泛型相关概念',
+            '_Java/netty 学习笔记'
+          ]
+        },
+        {
+          title: '多线程',
+          collapsable: false,
+          children: [
+            '_multithreading/多线程基础学习笔记',
+            '_multithreading/深入理解 java 多线程安全',
+            '_multithreading/线程池作用、用法以及原理',
+            '_multithreading/如何手写单例',
+            '_multithreading/生产者消费者问题',
+            '_multithreading/简单了解并发集合'
+          ]
+        },
+        {
+          title: '数据结构与算法',
+          collapsable: false,
+          children: [
+            '_data_structures_and_algorithms/集合与数据结构学习笔记',
+            '_data_structures_and_algorithms/算法导论第一部分学习笔记',
+            '_data_structures_and_algorithms/算法导论第二部分排序学习笔记',
+            '_data_structures_and_algorithms/动态规划算法学习笔记',
+            '_data_structures_and_algorithms/基于比较的排序算法的最坏情况下的最优下界为什么是O(nlogn)'
+          ]
+        },
+        {
+          title: '计算机基础',
+          collapsable: false,
+          children: [
+            '_computer/操作系统学习笔记',
+            '_computer/计算机网络学习笔记'
+          ]
+        },
+        {
+          title: 'JVM',
+          collapsable: false,
+          children: [
+            '_jvm/JVM 自动内存管理'
+          ]
+        },
+        {
+          title: 'MySQL',
+          collapsable: false,
+          children: [
+            '_mysql/MySQL 基础语句学习笔记',
+            '_mysql/MySQL 索引与索引优化',
+            '_mysql/MySQL 事务与锁与 MVCC',
+            '_mysql/MySQL 的 binglog、redolog、undolog',
+            '_mysql/B 树和 B+ 树的插入、删除和数据页分裂机制'
+          ]
+        },
+        {
+          title: 'Redis',
+          collapsable: false,
+          children: [
+            '_redis/Redis 学习笔记'
+          ]
+        },
+        {
+          title: 'Spring 项目',
+          collapsable: false,
+          children: [
+            '_spring_project/maven 小结',
+            '_spring_project/Spring 框架基础使用',
+            '_spring_project/SpringBoot 基础使用',
+            '_spring_project/SpringBoot 的原理',
+            '_spring_project/SpringWeb 重要知识点',
+            '_spring_project/MyBatis 框架的使用',
+            '_spring_project/MyBatis 重要知识点总结',
+            '_spring_project/MybatisPlus 的使用'
+          ]
+        },
+        {
+          title: '分布式',
+          collapsable: false,
+          children: [
+            '_distributed/Dubbo 基础概念',
+            '_distributed/Zookeeper 基础学习',
+            '_distributed/分布式一致性算法',
+            '_distributed/详解 Spring Cloud',
+            '_distributed/nginx 学习笔记'
+          ]
+        },
+        {
+          title: '开发工具',
+          collapsable: false,
+          children: [
+            '_development/git 的学习以及使用',
+            '_development/swagger 的使用'
+          ]
+        },
+        {
+          title: 'Linux',
+          collapsable: false,
+          children: [
+            '_linux/Linux 文件系统'
+          ]
+        },
+        {
+          title: '金融',
+          collapsable: false,
+          children: [
+            '_finance/基金与股票'
+          ]
+        },
+        {
+          title: '其他',
+          collapsable: false,
+          children: [
+            '_other/观罗翔讲刑法随笔',
+            '_other/梅花易数学习笔记'
+          ]
+        }
+      ]
+    },
+    // 右侧目录深度（显示当前页面的目录）
+    sidebarDepth: 3,
     // 分类 / 标签页
     category: true,
     tag: true,
