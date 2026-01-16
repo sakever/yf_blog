@@ -1,7 +1,7 @@
 ---
 title: GitHub Pages 部署教程
 date: 2026-01-01
-sidebar: true
+
 categories:
   - 前端
 tags:

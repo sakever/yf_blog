@@ -31,14 +31,13 @@ module.exports = {
       { text: '标签', link: '/tags/' }
     ],
     // 左侧总目录
-    sidebar: [
-      '/_posts/'
-    ],
+    sidebar: 'auto',
     // 目录深度
     sidebarDepth: 3,
+    mode: 'structuring',
+    displayAllHeaders: true,
     // 分类 / 标签页
     category: true,
-    displayAllHeaders: true,
     tag: true,
     archive: true,
     // 其它默认设置

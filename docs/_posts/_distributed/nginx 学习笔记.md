@@ -1,7 +1,7 @@
 --- 
 title: nginx 学习笔记
 date: 2022-04-03
-sidebar: true
+
 categories:
   - 分布式
 tags:
