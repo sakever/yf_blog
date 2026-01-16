@@ -1,6 +1,7 @@
 ---
 title: Linux 文件系统
 date: 2022-07-03
+sidebar: true
 categories:
   - Linux
 tags:

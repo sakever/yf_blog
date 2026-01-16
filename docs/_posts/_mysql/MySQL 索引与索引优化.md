@@ -1,6 +1,7 @@
 ---
 title: MySQL 索引与索引优化
 date: 2021-06-20
+sidebar: true
 categories:
   - MySQL
 tags:
