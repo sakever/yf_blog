@@ -1,7 +1,7 @@
 ---
 title: MySQL 基本的特性
 date: 2021-10-05
-
+sidebar: ture
 categories:
   - MySQL
 tags:

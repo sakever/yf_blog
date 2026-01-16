@@ -2,6 +2,7 @@
 title: Redis 学习笔记
 date: 2021-09-05
 
+sidebar: ture
 categories:
   - Redis
 tags:
