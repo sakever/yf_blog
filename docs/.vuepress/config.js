@@ -31,14 +31,13 @@ const categoryNameMap = {
  * @returns {Object} sidebar 配置对象
  */
 function generateSidebar(postsDir) {
-  const sidebar = {
-    '/_posts/': []
-  }
+  const sidebar = {}
+  const sidebarContent = []
 
   // 读取 _posts 目录
   if (!fs.existsSync(postsDir)) {
     console.warn(`目录不存在: ${postsDir}`)
-    return sidebar
+    return { '/_posts/': [] }
   }
 
   const items = fs.readdirSync(postsDir, { withFileTypes: true })
@@ -60,13 +59,28 @@ function generateSidebar(postsDir) {
       // 获取分类显示名
       const categoryName = categoryNameMap[dirName] || dirName.replace(/^_/, '')
       
-      sidebar['/_posts/'].push({
+      sidebarContent.push({
         title: categoryName,
         collapsable: false,
-        children: files.map(file => `${dirName}/${file}`)
+        children: files.map(file => `/_posts/${dirName}/${file}`)
       })
     }
   })
+
+  // 为所有可能的路径配置相同的 sidebar
+  // 包括根路径和所有子目录路径
+  sidebar['/_posts/'] = sidebarContent
+  dirs.forEach(dirName => {
+    sidebar[`/_posts/${dirName}/`] = sidebarContent
+    // 也添加不带尾部斜杠的路径匹配
+    sidebar[`/_posts/${dirName}`] = sidebarContent
+  })
+
+  // 调试输出（开发时可以看到生成的配置）
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('生成的侧边栏路径:', Object.keys(sidebar))
+    console.log('侧边栏分类数量:', sidebarContent.length)
+  }
 
   return sidebar
 }
@@ -110,6 +124,8 @@ module.exports = {
     sidebar: sidebar,
     // 右侧目录深度（显示当前页面的目录）
     sidebarDepth: 3,
+    // 不在左侧边栏显示当前页面的标题（只显示整体目录）
+    displayAllHeaders: false,
     // 分类 / 标签页
     category: true,
     tag: true,
