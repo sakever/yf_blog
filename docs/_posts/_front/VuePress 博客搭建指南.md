@@ -3,11 +3,8 @@ title: VuePress 博客搭建指南
 date: 2024-01-03
 categories:
   - 前端
-  - 博客
 tags:
   - VuePress
-  - 搭建
-  - 博客
 ---
 # VuePress 博客搭建指南
 
@@ -20,6 +17,8 @@ VuePress 是一个基于 Vue 的静态网站生成器，专为技术文档和博
 - 响应式设计
 - 易于扩展
 - 快速的构建速度
+
+vuepess 教程：https://www.vuepress.cn/guide/
 
 ## 环境准备
 
@@ -79,6 +78,7 @@ module.exports = {
   }
 }
 ```
+你可以选择自己喜欢的主题，比如本博客的主题是 vdoing 主题：https://doc.xugaoyi.com/
 
 ## 运行和构建
 
