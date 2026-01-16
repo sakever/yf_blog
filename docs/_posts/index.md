@@ -1,6 +1,7 @@
 ---
 title: 博客文章列表
 date: 2021-01-04
+sidebar: ture
 ---
 # 博客文章列表
 
