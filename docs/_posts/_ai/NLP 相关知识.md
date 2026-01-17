@@ -1,7 +1,7 @@
 ---
 title: NLP 相关知识
 date: 2024-06-27
-sidebar: ture
+sidebar: true
 categories:
   - 人工智能
 tags:

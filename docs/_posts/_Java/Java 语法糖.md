@@ -1,7 +1,7 @@
 ---
 title: Java 语法糖
 date: 2024-02-04
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

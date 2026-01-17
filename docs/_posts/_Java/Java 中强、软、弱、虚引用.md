@@ -2,7 +2,7 @@
 title: Java 中强、软、弱、虚引用
 date: 2021-11-05
 
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

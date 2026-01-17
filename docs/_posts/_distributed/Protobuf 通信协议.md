@@ -1,7 +1,7 @@
 ---
 title: Protobuf 通信协议
 date: 2024-05-27
-sidebar: ture
+sidebar: true
 categories:
   - 分布式
 tags:

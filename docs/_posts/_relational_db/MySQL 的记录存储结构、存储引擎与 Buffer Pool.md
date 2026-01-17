@@ -1,7 +1,7 @@
 ---
 title: MySQL 的记录存储结构、存储引擎与 Buffer Pool
 date: 2022-11-03
-sidebar: ture
+sidebar: true
 categories:
   - 关系型数据库
 tags:

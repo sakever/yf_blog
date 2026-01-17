@@ -1,7 +1,7 @@
 ---
 title: Python 学习
 date: 2023-03-22
-sidebar: ture
+sidebar: true
 categories:
   - Python
 tags:

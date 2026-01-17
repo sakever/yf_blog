@@ -1,7 +1,7 @@
 ---
 title: DNS、HTTP 与 HTTPS
 date: 2023-05-22
-sidebar: ture
+sidebar: true
 categories:
   - 计算机网络
 tags:

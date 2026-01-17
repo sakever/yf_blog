@@ -1,7 +1,7 @@
 ---
 title: Spring 事务相关
 date: 2023-04-03
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:

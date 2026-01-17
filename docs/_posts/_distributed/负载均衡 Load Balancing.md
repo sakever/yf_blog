@@ -1,7 +1,7 @@
 ---
 title: 负载均衡 Load Balancing
 date: 2023-06-26
-sidebar: ture
+sidebar: true
 categories:
   - 分布式
 tags:

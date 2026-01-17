@@ -1,7 +1,7 @@
 --- 
 title: git 的学习以及使用
 date: 2022-02-03
-sidebar: ture
+sidebar: true
 categories:
   - 开发工具
 tags:

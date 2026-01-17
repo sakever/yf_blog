@@ -1,7 +1,7 @@
 ---
 title: Agent 工程架构
 date: 2025-03-29
-sidebar: ture
+sidebar: true
 categories:
   - 人工智能
 tags:

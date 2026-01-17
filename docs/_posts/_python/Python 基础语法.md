@@ -1,7 +1,7 @@
 ---
 title: Python 基础语法
 date: 2025-02-27
-sidebar: ture
+sidebar: true
 categories:
   - Python
 tags:

@@ -2,7 +2,7 @@
 title: 深入理解 java 多线程安全
 date: 2021-05-05
 
-sidebar: ture
+sidebar: true
 categories:
   - 多线程
 tags:

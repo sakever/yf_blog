@@ -1,7 +1,7 @@
 ---
 title: LLM 相关内容
 date: 2025-11-11
-sidebar: ture
+sidebar: true
 categories:
   - 人工智能
 tags:

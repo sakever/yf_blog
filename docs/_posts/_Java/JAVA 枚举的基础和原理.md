@@ -1,7 +1,7 @@
 ---
 title: JAVA 枚举的基础和原理
 date: 2023-05-03
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

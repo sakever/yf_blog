@@ -1,7 +1,7 @@
 ---
 title: Java 异常
 date: 2022-08-15
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

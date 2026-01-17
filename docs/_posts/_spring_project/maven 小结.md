@@ -2,7 +2,7 @@
 title: maven 小结
 date: 2021-06-16
 
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:

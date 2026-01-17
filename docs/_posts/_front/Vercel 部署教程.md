@@ -2,7 +2,7 @@
 title: Vercel 部署教程
 date: 2026-01-02
 
-sidebar: ture
+sidebar: true
 categories:
   - 前端
 tags:

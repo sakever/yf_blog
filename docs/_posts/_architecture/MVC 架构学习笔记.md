@@ -1,7 +1,7 @@
 ---
 title: MVC 架构学习笔记
 date: 2025-01-02
-sidebar: ture
+sidebar: true
 categories:
   - 架构设计
 tags:

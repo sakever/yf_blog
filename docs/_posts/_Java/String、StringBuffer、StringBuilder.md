@@ -2,7 +2,7 @@
 title: String、StringBuffer、StringBuilder 学习笔记
 date: 2021-05-14
 
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

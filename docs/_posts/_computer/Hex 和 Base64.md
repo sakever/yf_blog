@@ -1,7 +1,7 @@
 ---
 title: Hex 和 Base64 编码
 date: 2024-11-14
-sidebar: ture
+sidebar: true
 categories:
   - 计算机基础
 tags:

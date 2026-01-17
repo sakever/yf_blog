@@ -1,7 +1,7 @@
 ---
 title: PostgreSQL 相关用法
 date: 2022-10-03
-sidebar: ture
+sidebar: true
 categories:
   - 关系型数据库
 tags:

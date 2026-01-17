@@ -1,7 +1,7 @@
 ---
 title: AQS 组件
 date: 2022-08-09
-sidebar: ture
+sidebar: true
 categories:
   - 多线程
 tags:

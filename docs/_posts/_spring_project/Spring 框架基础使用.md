@@ -2,7 +2,7 @@
 title: Spring 框架基础使用
 date: 2021-08-05
 
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:

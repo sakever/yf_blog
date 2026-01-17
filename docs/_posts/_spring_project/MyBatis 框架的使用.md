@@ -2,7 +2,7 @@
 title: MyBatis 框架的使用
 date: 2021-08-16
 
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:

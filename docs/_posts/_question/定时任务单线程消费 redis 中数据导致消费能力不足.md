@@ -1,7 +1,7 @@
 ---
 title: 定时任务单线程消费 redis 中数据导致消费能力不足
 date: 2025-02-27
-sidebar: ture
+sidebar: true
 categories:
   - 问题记录
 tags:

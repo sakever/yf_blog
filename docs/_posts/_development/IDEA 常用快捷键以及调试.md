@@ -1,7 +1,7 @@
 ---
 title: IDEA 常用快捷键以及调试
 date: 2022-02-03
-sidebar: ture
+sidebar: true
 categories:
   - 开发工具
 tags:

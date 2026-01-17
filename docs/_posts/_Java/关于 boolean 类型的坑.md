@@ -1,7 +1,7 @@
 ---
 title: 关于 boolean 类型的坑
 date: 2022-12-25
-sidebar: ture
+sidebar: true
 categories:
   - Java
 tags:

@@ -1,7 +1,7 @@
 ---
 title: ffmpeg 的安装以及实现音频切分功能
 date: 2024-09-17
-sidebar: ture
+sidebar: true
 categories:
   - 计算机基础
 tags:

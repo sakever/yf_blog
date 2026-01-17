@@ -1,7 +1,7 @@
 ---
 title: MySQL 索引与索引优化
 date: 2021-06-20
-sidebar: ture
+sidebar: true
 categories:
   - 关系型数据库
 tags:

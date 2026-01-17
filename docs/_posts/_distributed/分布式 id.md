@@ -1,7 +1,7 @@
 ---
 title: 分布式 id
 date: 2023-11-17
-sidebar: ture
+sidebar: true
 categories:
   - 分布式
 tags:

@@ -1,7 +1,7 @@
 ---
 title: 关于分布式系统 RPC 中高可用功能的实现
 date: 2026-01-07
-sidebar: ture
+sidebar: true
 categories:
   - 架构设计
 tags:

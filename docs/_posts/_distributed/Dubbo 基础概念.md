@@ -2,7 +2,7 @@
 title: Dubbo 基础概念
 date: 2022-01-05
 
-sidebar: ture
+sidebar: true
 categories:
   - 分布式
 tags:

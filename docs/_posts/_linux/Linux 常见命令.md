@@ -1,7 +1,7 @@
 ---
 title: Linux 常见命令
 date: 2024-09-19
-sidebar: ture
+sidebar: true
 categories:
   - Linux
 tags:

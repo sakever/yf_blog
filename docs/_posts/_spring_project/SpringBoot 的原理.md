@@ -2,7 +2,7 @@
 title: SpringBoot 的原理
 date: 2021-10-05
 
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:

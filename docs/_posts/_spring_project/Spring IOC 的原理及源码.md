@@ -2,7 +2,7 @@
 title: Spring IOC 的原理及源码
 date: 2023-03-03
 
-sidebar: ture
+sidebar: true
 categories:
   - Spring 项目
 tags:
