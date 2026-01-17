@@ -2,6 +2,7 @@
 title: java 基础知识
 date: 2022-06-03
 
+sidebar: ture
 categories:
   - Java
 tags:

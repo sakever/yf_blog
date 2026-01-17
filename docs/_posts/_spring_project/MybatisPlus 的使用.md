@@ -2,6 +2,7 @@
 title: MybatisPlus 的使用
 date: 2022-02-03
 
+sidebar: ture
 categories:
   - Spring 项目
 tags:

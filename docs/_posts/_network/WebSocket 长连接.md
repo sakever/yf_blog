@@ -1,6 +1,7 @@
 ---
 title: WebSocket 长连接
 date: 2023-09-01
+sidebar: ture
 categories:
   - 计算机网络
 tags:

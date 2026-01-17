@@ -1,6 +1,7 @@
 ---
 title: 如何编写 Prompt
 date: 2024-12-27
+sidebar: ture
 categories:
   - 人工智能
 tags:

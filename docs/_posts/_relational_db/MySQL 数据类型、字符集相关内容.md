@@ -1,6 +1,7 @@
 ---
 title: MySQL 数据类型、字符集相关内容
 date: 2023-04-03
+sidebar: ture
 categories:
   - 关系型数据库
 tags:

@@ -1,6 +1,7 @@
 ---
 title: 详解 kafka
 date: 2023-03-15
+sidebar: ture
 categories:
   - 中间件
 tags:

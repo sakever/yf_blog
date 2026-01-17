@@ -340,8 +340,6 @@ module.exports = {
     sidebar: sidebar,
     // 右侧目录深度（显示当前页面的目录）
     sidebarDepth: 3,
-    // 不在左侧边栏显示当前页面的标题（只显示整体目录）
-    displayAllHeaders: false,
     // 分类 / 标签页
     category: true,
     tag: true,

@@ -2,6 +2,7 @@
 title: MyBatis 重要知识点总结
 date: 2021-08-05
 
+sidebar: ture
 categories:
   - Spring 项目
 tags:

@@ -1,6 +1,7 @@
 ---
 title: MySQL 事务与锁与 MVCC
 date: 2021-07-16
+sidebar: ture
 categories:
   - 关系型数据库
 tags:

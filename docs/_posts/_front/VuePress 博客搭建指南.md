@@ -2,6 +2,7 @@
 title: VuePress 博客搭建指南
 date: 2026-01-03
 
+sidebar: ture
 categories:
   - 前端
 tags:

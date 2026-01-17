@@ -1,6 +1,7 @@
 ---
 title: Lombok 的常用注解
 date: 2023-01-03
+sidebar: ture
 categories:
   - Spring 项目
 tags:

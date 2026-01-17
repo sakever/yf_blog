@@ -1,6 +1,7 @@
 ---
 title: XML 的使用
 date: 2023-01-23
+sidebar: ture
 categories:
   - 计算机基础
 tags:
