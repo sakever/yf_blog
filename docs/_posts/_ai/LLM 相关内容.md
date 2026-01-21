@@ -215,3 +215,14 @@ DPR，全称为 Dense Passage Retrieval，是一种用于开放域问答系统�
 **微调（Fine-tuning）的本质是监督学习**（Supervised Learning），用标注数据调整模型参数，使其更适配特定任务。我们喂给模型的数据数据是输入输出配对样本。在预训练模型的基础上，用新数据继续训练（通常损失函数是交叉熵）。让 LLM 学会按指令生成答案，而不是单纯补全文本
 
 主流方法为 LoRA，仅训练低秩矩阵。如果想自己微调模型，可以参考  [ollama 使用自己的微调模型](https://blog.csdn.net/spiderwower/article/details/138755776)
+
+## 常用的模型工具
+
+目前市面上已经有很多模型工具，下面列出一些我常用的，比如：
+
+1，OpenAI 的 GPT 系列模型、deepseek、智谱清言：这些模型擅长对话
+2，豆包、gemini：多模态模型，擅长处理文本、图像、音频等多种类型的输入
+3，trae、corsur：AI 编程工具，一般来说 corsur 比 trae 更加强大，但是 trae 免费，corsur 有一定的限额
+4，coze、dify：构建 agent 和工作流的平台。目前都推出了 sole 模式，可以从零到一构建一个项目
+5，claude：高级工程师，一般是命令行模式，要花钱。可以用三方平台中转
+6，秘塔：AI 搜索，学术总结很好用
