@@ -34,7 +34,7 @@ module.exports = {
     // 左侧总目录（所有路径共用）
     sidebar: sidebar,
     // 右侧目录深度（显示当前页面的目录）
-    sidebarDepth: 3,
+    sidebarDepth: 4,
     // 分类 / 标签页
     category: true,
     tag: true,
@@ -50,7 +50,7 @@ module.exports = {
     // 是否显示行号
     lineNumbers: true,
     // 提取哪些级别的标题到侧边栏
-    extractHeaders: ['h1', 'h2', 'h3', 'h4', 'h5']
+    extractHeaders: ['h2', 'h3', 'h4', 'h5']
   },
   // 插件列表
   plugins: [

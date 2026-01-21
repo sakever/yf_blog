@@ -15,7 +15,8 @@ WebSocket 是一种网络传输协议，可在单个 TCP 连接上进行全双�
 在这种情况下，HTML5 定义了 WebSocket 协议，能更好的节省服务器资源和带宽（因为 HTTP 请求可能会包含较长的头部，但真正有效的可能只有小部分），并且能够更实时地进行通讯，该协议在连接期间会一直占用一个端口。Websocket 使用 ws 或 wss 的统一资源标志符（URI），其中 wss 表示使用了 TLS 的 Websocket，ws 与 HTTP 协议有良好的兼容性
 
 WS 协议和 WSS 协议两个均是 WebSocket 协议，两者一个是非安全的，一个是安全的。就好比 HTTP 协议和 HTTPS 协议的差别，非安全的没有证书，安全的如同 HTTPS 一样需要 SSL 证书，证书当然是配置在 ng 上的
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/9f2db7832c31b8e25fd2be3d35a12244.png)
+
+![](image/image-7.png)
 ### 创建过程
 WebSocket 是先通过 http 创建的，随后才使用 WebSocket 的包来传输数据，创建过程如下：
 
