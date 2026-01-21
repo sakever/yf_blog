@@ -242,7 +242,7 @@ const sidebarContent = [
     children: [
       '/_posts/_question/提供可传递的易受攻击的依赖项.md',
       '/_posts/_question/定时任务单线程消费 redis 中数据导致消费能力不足.md',
-      '/_posts/_question/Liteflow 在 SpringBoot 启动时没有加载到组件.md'
+      '/_posts/_question/Liteflow 在 SpringBoot 启动时无法注入组件问题.md'
     ]
   },
   {
