@@ -47,7 +47,7 @@ Nginx 是一个高性能的 HTTP 和反向代理 web 服务器，采用 C 语言
 
 为什么要这么做呢？比如我们现在想要访问谷歌，但是由于某些原因，无法直接访问到谷歌，我们可以通过连接一台代理服务器，代理服务将我们的请求提交到谷歌，然后再将谷歌的响应反馈给我们
 
-上面的例子说的就是 VPN， 是在客户端设置的(并不是在远端的服务器设置)。浏览器先访问 vpn 地址，vpn 地址转发请求，并最后将请求结果原路返回来
+上面的例子说的就是 VPN， 是在客户端设置的（并不是在远端的服务器设置）。浏览器先访问 vpn 地址，vpn 地址转发请求，并最后将请求结果原路返回来
 
 注意，因为此时做的是**代理**（四层以上的操作），此时真实服务器、代理服务器、客户端三者之间是维持着两条独立的 TCP 通道来维持通信的，因此请求的来回都需要经过代理
 ### 反向代理
@@ -79,12 +79,11 @@ ng 可以做限流功能：
 2，ng 可以配置每个转发的 ip 的最大连接数和请求的总数
 
 使用了 ng 后我们还可以使用业务网关，ng 类似一个全局网关，业务网关中通常可以用令牌桶算法做一些限流熔断降级等高可用策略
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e7e2813bfabe422787663df4144147a1.png)
-## 安装
+## nginx 使用
+### 安装
 可以安装在 Windows 系统中，比较简单方便，但是推荐安装在 linux 系统下，功能更强大（windows 无法使用 IO 多路复用功能）
 
-菜鸟教程安装：
-https://www.runoob.com/linux/nginx-install-setup.html
+(菜鸟教程 nginx 安装)[https://www.runoob.com/linux/nginx-install-setup.html]
 
 安装 Nginx 源
 
@@ -110,7 +109,7 @@ sudo /home/q/nginx/sbin/nginx -c /home/q/nginx/conf/nginx.conf -s reload
 ```
 sudo /home/q/nginx/sbin/nginx -c /home/q/nginx/conf/nginx.conf
 ```
-## nginx 配置以及使用
+### nginx 配置以及使用
 下载好 nginx 之后，在 /nginx/conf 的 /nginx.conf 中配置 nginx，主要分以下三个部分
 
 - 全局块：在文件开头的配置可以对 nginx 整体造成影响
@@ -269,7 +268,7 @@ server {
 }
 ```
 
-## ClientAbortException: java.io.IOException: Broken pipe 问题
+### ClientAbortException: java.io.IOException: Broken pipe 问题
  这个问题是在 java 程序中报出的，但是核心是和 ng 有关系：
 
 ng 服务器上出现很多499的错误，出现499错误的原因是客户端先关闭了连接
@@ -285,7 +284,7 @@ proxy_ignore_client_abort：是否开启 proxy 忽略客户端中断。即如果
 参考链接：
 
 https://stackoverflow.com/questions/43825908/org-apache-catalina-connector-clientabortexception-java-io-ioexception-apr-err
-## SSL
+### SSL 证书配置
 想要网站可以使用 https 访问，SSL 证书必不可少，购买证书之后，就是申请绑定域名，申请成功之后，之后配置需要用到 pem 和 key 文件，相应的文件下载在"已签发"这块，点击下载，选择 Nginx 版本下载之后就可以了
 
 - .crt 文件：是证书文件，crt 是 pem 文件的扩展名（有时候没有 crt 只有 pem 的，所以不要惊讶）
@@ -298,7 +297,7 @@ https://stackoverflow.com/questions/43825908/org-apache-catalina-connector-clien
 ```
 failed (SSL: error:02001002:system library:fopen:No such file or directory
 ```
-## ng 的各种命令
+### ng 的各种命令
 - /conf 下是各种配置
 - /sbin 里的 nginx，用于执行各种命令
 
@@ -335,3 +334,5 @@ sudo /home/q/nginx/sbin/nginx -t
 二是所有 worker 都是独立的，不需要加锁，并且其中一个遇到问题其他进程会继续执行，不会互相干扰
 
 worker 的连接数是2（访问静态资源服务器）或者4（访问动态资源时，需要访问额外的服务器）
+
+ng 可以处理一些前端跨域问题，原理是使用 Nginx 转发请求。把跨域的接口写成调本域的接口，然后将这些接口转发到真正的请求地址

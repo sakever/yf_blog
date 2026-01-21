@@ -11,8 +11,8 @@ bannerBg: auto ## auto => 网格纹背景(有bodyBgImg时无背景)，默认 | n
 features: ## 可选的
   - title: 分类
     details: 文章分类，可以快速检索想查询的内容
-    link: /macos_big_sur_partition_folder_icon_186052.png
-    imgUrl: /genericclassification_5659.png
+    link: /categories/
+    imgUrl: /macos_big_sur_partition_folder_icon_186052.png
   - title: 标签
     details: 文章标签，可以快速检索想查询的内容
     link: /tags/
