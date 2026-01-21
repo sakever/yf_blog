@@ -2,7 +2,7 @@
 ## 首页
 home: true
 heroImage: /blogger_icon.ico
-heroText: sakever 的技术博客
+heroText: disgare 的技术博客
 tagline: 技术博客，积跬步以至千里，致敬每个爱学习的你。
 actionText: 访问我的 CSDN 博客
 actionLink: https://blog.csdn.net/sekever
@@ -12,7 +12,7 @@ features: ## 可选的
   - title: 分类
     details: 文章分类，可以快速检索想查询的内容
     link: /categories/
-    imgUrl: /sorting_options-48_45565.png
+    imgUrl: /genericclassification_5659.png
   - title: 标签
     details: 文章标签，可以快速检索想查询的内容
     link: /tags/
@@ -24,7 +24,7 @@ features: ## 可选的
 ## hideRightBar: true ## 是否隐藏右侧边栏 (v1.11.2+)
 ---
 
-## 欢迎来到 sakever 的博客
+## 欢迎来到 disgare 的博客
 
 ### 这是什么
 
@@ -34,7 +34,7 @@ features: ## 可选的
 
 ### 在线阅读
 
-本文档在线阅读地址为：[sakever 的博客](https://sakever.github.io/yf_blog/)，你也可以访问[sakever 的 CSDN 博客](https://blog.csdn.net/sekever)在 CSDN 中进行阅读。本项目在部署前调研过各种方法，比如使用 vercel 部署，不过国内无法访问，需要买个域名，比较麻烦，所以使用了 github pages 部署。
+本文档在线阅读地址为：[disgare 的博客](https://sakever.github.io/yf_blog/)，你也可以访问[disgare 的 CSDN 博客](https://blog.csdn.net/sekever)在 CSDN 中进行阅读。本项目在部署前调研过各种方法，比如使用 vercel 部署，不过国内无法访问，需要买个域名，比较麻烦，所以使用了 github pages 部署。
 
 ### 二次演绎、传播和发行
 

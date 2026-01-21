@@ -2,7 +2,7 @@ const sidebar = require('./sidebar')
 
 module.exports = {
   // 站点标题，显示在浏览器标签页和页面左上角
-  title: 'sakever 的博客',
+  title: 'disgare 的博客',
   // 站点描述，用于 SEO 与 meta 标签
   description: '记录学习到的知识',
   // 站点部署的基础路径，GitHub Pages 部署时需要修改为仓库名，如 '/yf_blog/'

@@ -1,7 +1,7 @@
 {
   "name": "yifan_blog",
   "version": "1.0.0",
-  "description": "sakever 的个人博客",
+  "description": "disgare 的个人博客",
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",
@@ -11,7 +11,7 @@
     "blog",
     "vuepress"
   ],
-  "author": "sakever",
+  "author": "disgare",
   "license": "MIT",
   "devDependencies": {
     "vuepress": "^1.9.7",
