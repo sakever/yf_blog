@@ -34,7 +34,8 @@ const sidebarContent = [
       '/_posts/_architecture/聊聊集群间数据同步、崩溃恢复和持久化.md',
       '/_posts/_architecture/权限系统设计.md',
       '/_posts/_architecture/统一结果返回.md',
-      '/_posts/_architecture/参数校验与异常处理.md'
+      '/_posts/_architecture/参数校验与异常处理.md',
+      '/_posts/_architecture/资深研发进阶.md'
     ]
   },
   {
@@ -240,7 +241,8 @@ const sidebarContent = [
     collapsable: false,
     children: [
       '/_posts/_question/提供可传递的易受攻击的依赖项.md',
-      '/_posts/_question/定时任务单线程消费 redis 中数据导致消费能力不足.md'
+      '/_posts/_question/定时任务单线程消费 redis 中数据导致消费能力不足.md',
+      '/_posts/_question/Liteflow 在 SpringBoot 启动时没有加载到组件.md'
     ]
   },
   {
