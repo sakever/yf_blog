@@ -13,8 +13,7 @@ tags:
 
 - 工作流（workflows）
 - 纯代理（agents）
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c7389369f3a449a68f9df3f13a609260.png)
-
+![](image/image.png)
 ## 目前已有的 Agent 架构
 ### LangChain
 LangChain 作为一个大语言模型开发框架，是 LLM 应用架构的重要一环。那什么是 LLM 应用架构呢？其实就是指基于语言模型的应用程序设计和开发的架构。java 版本叫 LangChain4j。官方文档：https://langchain4j.cn/intro/
@@ -28,20 +27,19 @@ LangChain 为使用聊天模型提供了一个标准接口。聊天模型是语�
 LangChain 还提供了很多其他功能，比如缓存 LLM 返回结果。上面介绍了聊天的角色处理以及如何进行批量处理消息。我们都知道向 openAI 调用接口都是要花钱的，如果用户问同一个问题，对结果进行了缓存，这样就可以减少接口的调用并且也能加快接口返回的速度
 
 下文所说的各个公司 Agent 的构建，很大程度上是模仿了 LangChain 的思路，或者以自己的方式去实现 LangChain。理论上 LangChain 架构覆盖了我们所需要处理的 agent 工程的大部分场景
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/33bfdac217cb42f999089c18195b4ca4.png)
+![](image/image-1.png)
 ### LangGraph
 LangChain 已经可以做工作流和 Agent 了，并且从文档中可以看到支持常见 agent 设计模式、可观测性、容错、记忆、分支、循环、并行等等一系列特性，那还需要 LangGraph 干啥呢
 
 LangGraph 解决了 LangChain Agent 在复杂工作流方面的核心痛点，LangChain 一般适合构建 DAG 无环图，真实的 Agent 需要思考-执行-观察-再思考的循环，可能还需要引入其他 agent 得到，传统的 Chain 是线性的 (DAG)，实现这种 Loop 比较麻烦
 
 LangGraph 提供了显式状态管理（上下文管理）、构建任意复杂的工作流、人机交互、完整的可观测性、状态回溯等等功能，是 chain 的演进
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/76e02018e85b4bf38b10ced6093b5154.png)
+![](image/image-2.png)
 ### LangSmath
 LangSmith 是一个用于构建生产级 LLM 应用程序的平台。它能让您密切监控和评估您的应用程序，从而帮助您快速、自信地交付产品，该平台主要提供：
 
 - 可观测性：在 LangSmith 中分析跟踪，并基于此配置指标、仪表板和警报
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0dc47d61bc914b56931762a1779ac870.png)
-
+![](image/image-3.png)
 - 评估：根据生产流量评估您的应用程序，衡量应用程序性能并获取您数据的人工反馈
 - 提示工程：迭代提示，并支持自动版本控制和协作功能
 ### SpringAI
@@ -57,7 +55,7 @@ LangChain 确实覆盖了我们所需要面对的大部分场景，是一个大�
 Agent 具有哪些能力，具体这些能力都是用来干啥的，以及这些能力都是通过上文中的什么模块去实现的呢
 
 该图为 openAI 对 agent 的定义，包含记忆、工具、计划、行动，对于模型本身，还额外有模型的形象、温度等参数的设定，这些一般会由我们的用户设定，是模型提供的功能，下图没有，因为下图说的是智能体的架构而非 LLM 的架构，但是我们在下文中还是会额外聊一下这个
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34a94e6469844f08b0386c58ad9ab438.png)
+![](image/image-4.png)
 ## 形象（Profile）
 LLM（Large Language Model，大型语言模型）的 Profile 模块通常指的是用于管理和定制模型行为的组件。在不同的 LLM 实现中，Profile 模块的具体名称和功能可能会有所不同，但大体上，它可以被看作是控制和调整模型输出风格、内容偏好、知识范围等方面的配置或设置
 
@@ -431,7 +429,7 @@ ReAct（Reasoning and Acting）框架是一种结合了推理和行动的框架�
 - 迭代优化：重复推理、行动和反馈的过程，逐步优化模型的行为
 
 具体效果如下图所示
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ca110c948836478fbb7045d97ed3f793.png)
+![alt text](image-5.png)
 实现这种效果需要模型支持，可能还需要使用特定提示词
 ```py
 prompt = """
