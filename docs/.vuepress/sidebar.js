@@ -60,7 +60,8 @@ const sidebarContent = [
       '/_posts/_data_structures_and_algorithms/基于比较的排序算法的最坏情况下的最优下界为什么是O(nlogn).md',
       '/_posts/_data_structures_and_algorithms/算法导论第一部分学习笔记.md',
       '/_posts/_data_structures_and_algorithms/算法导论第二部分排序学习笔记.md',
-      '/_posts/_data_structures_and_algorithms/集合与数据结构学习笔记.md'
+      '/_posts/_data_structures_and_algorithms/集合与数据结构学习笔记.md',
+      '/_posts/_data_structures_and_algorithms/面试常见算法总结.md'
     ]
   },
   {
