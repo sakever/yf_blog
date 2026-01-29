@@ -4,8 +4,9 @@
   "description": "disgare 的个人博客",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "gen:sidebar": "node scripts/gen-sidebar.js",
+    "dev": "npm run gen:sidebar && vuepress dev docs",
+    "build": "npm run gen:sidebar && vuepress build docs"
   },
   "keywords": [
     "blog",
