@@ -16,7 +16,7 @@ WebSocket 是一种网络传输协议，可在单个 TCP 连接上进行全双�
 
 WS 协议和 WSS 协议两个均是 WebSocket 协议，两者一个是非安全的，一个是安全的。就好比 HTTP 协议和 HTTPS 协议的差别，非安全的没有证书，安全的如同 HTTPS 一样需要 SSL 证书，证书当然是配置在 ng 上的
 
-![](image/image-7.png)
+![](./image/image-7.png)
 ### 创建过程
 WebSocket 是先通过 http 创建的，随后才使用 WebSocket 的包来传输数据，创建过程如下：
 
