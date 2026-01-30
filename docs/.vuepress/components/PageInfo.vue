@@ -34,10 +34,14 @@ export default {
         if (eachFileWords) {
           try {
             eachFileWords.forEach((itemFile) => {
-              // 使用文件名匹配，因为 filePath 是绝对路径，而 $page.path 是相对路径
-              const fileName = itemFile.filePath.split('\\').pop().split('/').pop().replace('.md', '');
-              const currentPagePath = this.$page.path.replace('.html', '').split('/').pop();
-              if (fileName === currentPagePath) {
+              // 优先用 permalink 匹配；如果没配置 permalink，则退回用标题匹配
+              const samePermalink =
+                itemFile.permalink &&
+                this.$frontmatter.permalink &&
+                itemFile.permalink === this.$frontmatter.permalink;
+              const sameTitle =
+                itemFile.title && itemFile.title === this.$frontmatter.title;
+              if (samePermalink || sameTitle) {
                 // this.addPageWordsCount 和 if 可以调换位置，从而让文章的字数和预阅读时间交换位置
                 this.addPageWordsCount(itemFile.wordsCount);
                 if (readingTime || readingTime == undefined) {
