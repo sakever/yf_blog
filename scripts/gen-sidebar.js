@@ -47,7 +47,6 @@ const ORDER = [
   '_development',
   '_distributed',
   '_front',
-  '_finance',
   '_Java',
   '_jvm',
   '_linux',
@@ -59,7 +58,8 @@ const ORDER = [
   '_python',
   '_question',
   '_relational_db',
-  '_spring_project'
+  '_spring_project',
+  '_finance',
 ];
 
 function isDirectory(p) {

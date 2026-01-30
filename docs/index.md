@@ -8,15 +8,15 @@ actionText: 访问我的 CSDN 博客
 actionLink: https://blog.csdn.net/sekever
 bannerBg: auto ## auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
 
-features: ## 可选的
-  - title: 分类
-    details: 文章分类，可以快速检索想查询的内容
-    link: /categories/
-    imgUrl: /macos_big_sur_partition_folder_icon_186052.png
-  - title: 标签
-    details: 文章标签，可以快速检索想查询的内容
-    link: /tags/
-    imgUrl: /3440908-ecommerce-label-price-shop-shopping-store-tag_107534.png
+# features: ## 可选的
+#   - title: 分类
+#     details: 文章分类，可以快速检索想查询的内容
+#     link: /categories/
+#     imgUrl: /macos_big_sur_partition_folder_icon_186052.png
+#   - title: 标签
+#     details: 文章标签，可以快速检索想查询的内容
+#     link: /tags/
+#     imgUrl: /3440908-ecommerce-label-price-shop-shopping-store-tag_107534.png
 
 ## 文章列表显示方式: detailed 默认，显示详细版文章列表（包括作者、分类、标签、摘要、分页等）| simple => 显示简约版文章列表（仅标题和日期）| none 不显示文章列表
 ## postList: detailed
