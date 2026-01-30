@@ -74,15 +74,17 @@ function readEachFileWords(excludeFiles = [''], cn, en) {
         var len = counter(content);
         // 计算预计的阅读时间
         var readingTime = readTime(len, cn, en);
-        var wordsCount = 0;
-        wordsCount = len[0] + len[1];
+        // 精确字数（不做 k 缩写，用于文章页展示）
+        var exactWords = len[0] + len[1];
+        // 兼容主题原有逻辑的缩写形式，用于归档 / 统计等场景
+        var wordsCount = exactWords;
         if (wordsCount >= 1000) {
             wordsCount = Math.round(wordsCount / 100) / 10 + 'k';
         }
         // fileMatterObj => {content:'剔除frontmatter后的文件内容字符串', data:{<frontmatter对象>}, ...}
         const fileMatterObj = matter(content, {});
         const matterData = fileMatterObj.data;
-        filesListWords.push({ ...item, wordsCount, readingTime, ...matterData });
+        filesListWords.push({ ...item, wordsCount, exactWords, readingTime, ...matterData });
     });
     return filesListWords;
 }

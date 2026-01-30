@@ -43,7 +43,9 @@ export default {
                 itemFile.title && itemFile.title === this.$frontmatter.title;
               if (samePermalink || sameTitle) {
                 // this.addPageWordsCount 和 if 可以调换位置，从而让文章的字数和预阅读时间交换位置
-                this.addPageWordsCount(itemFile.wordsCount);
+                // 优先使用精确字数（exactWords），没有则退回原来的 wordsCount
+                const words = itemFile.exactWords || itemFile.wordsCount;
+                this.addPageWordsCount(words);
                 if (readingTime || readingTime == undefined) {
                   this.addReadTimeCount(itemFile.readingTime);
                 }

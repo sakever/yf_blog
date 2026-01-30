@@ -1,16 +1,15 @@
 ---
 title: Vercel 部署教程
 date: 2026-01-02
-
 sidebar: true
 categories:
   - 前端
 tags:
   - Vercel
 ---
-# Vercel 部署教程
+## Vercel 部署教程
 
-## 什么是 Vercel？
+### 什么是 Vercel？
 
 Vercel 是一个云平台，专注于静态网站和无服务器函数的部署。它具有以下特点：
 
@@ -20,7 +19,7 @@ Vercel 是一个云平台，专注于静态网站和无服务器函数的部署�
 - 支持 Git 集成
 - 免费的基础计划
 
-## 准备工作
+### 准备工作
 
 在开始之前，你需要：
 
@@ -28,9 +27,9 @@ Vercel 是一个云平台，专注于静态网站和无服务器函数的部署�
 2. 一个已构建好的静态网站项目（如 VuePress 博客）
 3. 将项目托管在 Git 仓库中
 
-## 部署方法
+### 部署方法
 
-### 方法一：通过 Vercel CLI 部署
+#### 方法一：通过 Vercel CLI 部署
 
 1. 安装 Vercel CLI
 
@@ -52,7 +51,7 @@ vercel
 
 按照提示完成部署流程。
 
-### 方法二：通过 Git 集成部署
+#### 方法二：通过 Git 集成部署
 
 1. 登录 Vercel 控制台
 2. 点击 "New Project"
@@ -60,7 +59,7 @@ vercel
 4. 配置部署选项
 5. 点击 "Deploy"
 
-## 配置 VuePress 项目
+### 配置 VuePress 项目
 
 对于 VuePress 项目，你需要确保以下配置正确：
 
@@ -76,7 +75,7 @@ vercel
    - Build Command: `npm run build`
    - Output Directory: `docs/.vuepress/dist`
 
-## 自定义域名
+### 自定义域名
 
 如果你有自己的域名，可以在 Vercel 控制台中配置：
 
@@ -85,7 +84,7 @@ vercel
 3. 添加你的域名
 4. 按照提示在域名提供商处添加 DNS 记录
 
-## 部署后的管理
+### 部署后的管理
 
 部署完成后，你可以：
 
@@ -94,10 +93,10 @@ vercel
 - 配置环境变量
 - 设置部署钩子
 
-## 持续集成
+### 持续集成
 
 当你将代码推送到 Git 仓库时，Vercel 会自动重新部署你的网站，实现持续集成。
 
-## 总结
+### 总结
 
 Vercel 是一个非常适合部署静态网站的平台，它提供了简单易用的部署流程和强大的功能。通过本文的指南，你应该已经掌握了如何将你的 VuePress 博客部署到 Vercel 上。
