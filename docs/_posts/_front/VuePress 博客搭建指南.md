@@ -1,16 +1,15 @@
 ---
 title: VuePress 博客搭建指南
 date: 2026-01-03
-
 sidebar: true
 categories:
   - 前端
 tags:
   - VuePress
 ---
-# VuePress 博客搭建指南
+## VuePress 博客搭建指南
 
-## 什么是 VuePress？
+### 什么是 VuePress？
 
 VuePress 是一个基于 Vue 的静态网站生成器，专为技术文档和博客设计。它具有以下特点：
 
@@ -20,34 +19,32 @@ VuePress 是一个基于 Vue 的静态网站生成器，专为技术文档和博
 - 易于扩展
 - 快速的构建速度
 
-vuepess 教程：https://www.vuepress.cn/guide/
-
-## 环境准备
+### 环境准备
 
 在开始之前，你需要安装以下软件：
 
 1. Node.js (版本 >= 8.6)
 2. npm 或 yarn
 
-## 初始化项目
+### 初始化项目
 
 1. 创建一个新的目录作为你的博客项目
 2. 在目录中初始化 npm 项目
 3. 安装 VuePress
 
 ```bash
-# 创建目录
+## 创建目录
 mkdir my-blog
 cd my-blog
 
-# 初始化 npm 项目
+## 初始化 npm 项目
 npm init -y
 
-# 安装 VuePress
+## 安装 VuePress
 npm install -D vuepress
 ```
 
-## 配置项目结构
+### 配置项目结构
 
 VuePress 项目的基本结构如下：
 
@@ -63,7 +60,7 @@ my-blog/
 └── package.json
 ```
 
-## 配置文件
+### 配置文件
 
 在 `docs/.vuepress/config.js` 文件中配置你的博客：
 
@@ -80,9 +77,8 @@ module.exports = {
   }
 }
 ```
-你可以选择自己喜欢的主题，比如本博客的主题是 vdoing 主题：https://doc.xugaoyi.com/
 
-## 运行和构建
+### 运行和构建
 
 在 `package.json` 文件中添加以下脚本：
 
@@ -98,10 +94,10 @@ module.exports = {
 - 运行 `npm run dev` 启动开发服务器
 - 运行 `npm run build` 构建静态网站
 
-## 部署
+### 部署
 
 你可以将构建后的静态文件部署到任何静态网站托管服务，如 Vercel、Netlify、GitHub Pages 等。
 
-## 总结
+### 总结
 
 VuePress 是一个非常适合搭建技术博客的工具，它简单易用且功能强大。通过本文的指南，你应该已经掌握了如何使用 VuePress 搭建一个基本的博客。
