@@ -40,26 +40,26 @@ const TITLE_MAP = {
 
 // 分组顺序（不写则按目录名排序）
 const ORDER = [
-  '_ai',
-  '_architecture',
+  '_network',
   '_computer',
   '_data_structures_and_algorithms',
-  '_development',
-  '_distributed',
-  '_front',
   '_Java',
   '_jvm',
   '_linux',
   '_middleware',
   '_multithreading',
-  '_network',
   '_non_relational_db',
-  '_other',
-  '_python',
-  '_question',
   '_relational_db',
+  '_python',
   '_spring_project',
+  '_distributed',
+  '_architecture',
+  '_ai',
+  '_development',
+  '_front',
+  '_question',
   '_finance',
+  '_other',
 ];
 
 function isDirectory(p) {
