@@ -24,7 +24,7 @@ module.exports = {
     // 禁用 referrer 策略，允许跨域请求发送 referrer 信息
     ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     // 阿里矢量库
-    ['link', { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_3077305_pt8umhrn4k9.css' }]
+    ['link', { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_3077305_pt8umhrn4k9.css' }],
     // 禁用移动端缩放，保证页面布局稳定
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' }]
   ],
