@@ -6,7 +6,9 @@
   "scripts": {
     "gen:sidebar": "node scripts/gen-sidebar.js",
     "dev": "npm run gen:sidebar && vuepress dev docs",
-    "build": "npm run gen:sidebar && vuepress build docs"
+    "build": "npm run gen:sidebar && vuepress build docs",
+    "fix:images": "node scripts/fix-image-paths.js",
+    "fix:images:all": "node scripts/batch-fix-image-paths.js"
   },
   "keywords": [
     "blog",

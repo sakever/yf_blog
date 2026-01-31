@@ -40,7 +40,7 @@ protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/addressbook.proto
 在生成的头文件中，定义了一个 C++ 类 helloworld，一般来说我们还需要添加诸如对消息的成员进行赋值，将消息序列化等等都有相应的方法
 
 Protobuf 的主要优点就是：简单，快。这有测试为证，项目 thrift-protobuf-compare 比较了这些类似的技术，显示了该项目的一项测试结果
-![请添加图片描述](https://i-blog.csdnimg.cn/blog_migrate/daeec9862621cc779392e993bd158cdd.png)
+![image-2026-01-31-21-08-57.png](./image/image-2026-01-31-21-08-57.png)
 ### 定义空入参
 在 Protocol Buffers (Proto) 中，必须定义服务方法的入参类型，如果想定义入参为空，可以使用 google.protobuf.Empty 类型。这是 Protocol Buffers 提供的一个预定义消息类型，表示空值
 ```proto

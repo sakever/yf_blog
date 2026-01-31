@@ -57,7 +57,7 @@ isSuccess.if
 
 ## 调试
 首先说第一组按钮，共8个按钮，从左到右依次如下：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7c49b5c4f6523824f921065395f09f9d.png)
+![image-2026-01-31-21-00-52.png](./image/image-2026-01-31-21-00-52.png)
 
 - Show Execution Point：如果光标在其它页面，点这个按钮回到当前代码运行的地方
 
@@ -75,8 +75,7 @@ isSuccess.if
 
 第二组按钮，共7个按钮，从上到下依次如下：
 
-![](https://i-blog.csdnimg.cn/blog_migrate/a087089ba9285931acc279b7ac0c5b46.png)
-
+![image-2026-01-31-21-01-10.png](./image/image-2026-01-31-21-01-10.png)
 - Rerun 'xxx'：重新运行程序，会关闭服务后重新启动程序
 
 - Resume Program：恢复程序，比如，你在第20行和25行有两个断点，当前运行至第20行，按 F9，则运行到下一个断点(即第25行)，再按 F9，则运行完整个流程，因为后面已经没有断点了

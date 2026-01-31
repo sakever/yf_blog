@@ -1,0 +1,11 @@
+{
+  "pasteImage.path": "./image",
+//   "pasteImage.basePath": "${projectRoot}",
+//   "pasteImage.prefix": "./",
+  "pasteImage.namePrefix": "image-",
+  "pasteImage.insertPattern": "![${imageFileName}](./${imageFilePath})",
+//   "pasteImage.defaultName": "image-",
+  "pasteImage.forceUnixStyleSeparator": true,
+//   "pasteImage.encodePath": false,
+  "pasteImage.showFilePathConfirmInputBox": false
+}
