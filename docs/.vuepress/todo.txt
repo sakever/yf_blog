@@ -3,8 +3,8 @@ todo：
 压力管理
 再通读一下项目和技术
 js、vue选修，至少把代码什么的读懂
+vue、前端js总结
 想再多没有用，把mvp做出来
-vue、前端js总结。。
 
 只要能赚钱都是资产
 1，代码资产-》知识技术和时间
@@ -53,7 +53,6 @@ https://zhuanlan.zhihu.com/p/1997050821771284587
 https://zhuanlan.zhihu.com/p/1933529651847894910
 https://zhuanlan.zhihu.com/p/658048979
 
-直接色情：视频、动画、小说 这些是不能做的 pass
+目标：
 1，asmr （音频？）
 2，ai聊天、生图
-
