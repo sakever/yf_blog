@@ -40,6 +40,10 @@ vmstat 是一个指定周期和采集次数的虚拟内存检测工具，可以�
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5274aaacc3e34d85aae299b10fd305ad.png)
 我们还可以用 jmap 把进程内存使用情况 dump 到文件中，再用 jhat 分析查看
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/805d3c2f2aaf4b64b1d028fd2dd11a98.png)
+
+请注意，堆 dump 是将 JVM 堆的完整快照写入磁盘文件的过程，因此需要 STW（Stop-The-World 事件），即暂停所有应用线程，等待 dump 完成。这会导致应用暂时不可用，因此在生产环境中应该谨慎使用
+
+同时 JVM 也提供了很多优化措施，比如我们可以在 jmap 时只生成直方图提升速度、使用并行线程加速 dump（JDK 11+特性）、使用异步 profiler 等等
 ## 死锁
 死锁会导致耗尽线程资源，占用内存，表现就是内存占用升高，如果是直接 new 线程，会导致 JVM 内存被耗尽，报无法创建线程的错误，这也是体现了使用线程池的好处
 
@@ -169,4 +173,13 @@ java.lang.OutOfMemoryError: Kill process or sacrifice child
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=/var/log/java_heapdump_%p_%t.hprof
 ```
+当 JVM 发生 OOM（OutOfMemoryError）时，JVM 进程本身通常不会直接宕机，但容器可能会被杀掉
+
+JVM 内部的 OOM，比如堆内存 OOM（最常见），抛出 OutOfMemoryError，但JVM 进程本身不会自动退出。后续的内存分配尝试可能会失败，不会直接宕机，但应用程序通常处于不可用状态。理论上可以通过 try-catch 捕获并尝试恢复，但实际上很难，因为堆已满，很难执行有意义的恢复操作
+```java
+// 典型的堆内存溢出
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+```
+OOM Killer 是 Linux 内核在内存耗尽时的紧急制动系统。它通过一个基于内存使用量和可调优先级的评分机制来选择牺牲品。对于系统管理员和开发者，理解其原理并合理设置关键进程的 oom_score_adj，或使用更先进的 cgroups 进行内存隔离，是保证系统稳定性的重要手段
+
 我之前遇到过日志打的太多导致 OOM 了，因为大量日志导致堆外内存溢出
