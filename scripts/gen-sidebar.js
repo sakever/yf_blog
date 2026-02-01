@@ -35,7 +35,8 @@ const TITLE_MAP = {
   _python: 'Python',
   _question: '问题记录',
   _relational_db: '关系型数据库',
-  _spring_project: 'Spring 项目'
+  _spring_project: 'Spring 项目',
+  _project: '项目',
 };
 
 // 分组顺序（不写则按目录名排序）
@@ -57,6 +58,7 @@ const ORDER = [
   '_ai',
   '_development',
   '_front',
+  '_project',
   '_question',
   '_finance',
   '_other',

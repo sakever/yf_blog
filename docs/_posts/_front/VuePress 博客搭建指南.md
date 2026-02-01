@@ -19,13 +19,6 @@ VuePress 是一个基于 Vue 的静态网站生成器，专为技术文档和博
 - 易于扩展
 - 快速的构建速度
 
-### 环境准备
-
-在开始之前，你需要安装以下软件：
-
-1. Node.js (版本 >= 8.6)
-2. npm 或 yarn
-
 ### 初始化项目
 
 1. 创建一个新的目录作为你的博客项目
@@ -57,7 +50,7 @@ my-blog/
 │   ├── _posts/
 │   ├── about/
 │   └── index.md
-└── package.json
+└── vercel.json
 ```
 
 ### 配置文件
@@ -80,12 +73,38 @@ module.exports = {
 
 ### 运行和构建
 
-在 `package.json` 文件中添加以下脚本：
+在 `vercel.json` 文件中添加以下脚本：
 
 ```json
 "scripts": {
-  "dev": "vuepress dev docs",
-  "build": "vuepress build docs"
+  "dev": "vuepress dev docs",      // 启动开发服务器，支持热更新
+  "build": "vuepress build docs"   // 构建静态网站，生成可部署的文件
+}
+```
+下面是另外一个例子：
+```json
+{
+  // 设置静态资源缓存策略：字体文件缓存一年且不可变
+  "headers": [
+    {
+      "source": "/fonts/inter-var-latin.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  // 配置定时任务：每天凌晨 1 点调用 /api/cron/mtvpls 接口
+  "crons": [
+    {
+      "path": "/api/cron/mtvpls",
+      "schedule": "0 1 * * *"
+    }
+  ],
+  // 指定部署区域：香港（hkg1）与新加坡（sin1）
+  "regions": ["hkg1", "sin1"]
 }
 ```
 
@@ -94,9 +113,9 @@ module.exports = {
 - 运行 `npm run dev` 启动开发服务器
 - 运行 `npm run build` 构建静态网站
 
-### 部署
+在 Vercel 上，你可以直接将构建后的静态文件部署到 Vercel 平台。只要有 vercel.json 文件，Vercel 就会自动识别并部署你的博客。
 
-你可以将构建后的静态文件部署到任何静态网站托管服务，如 Vercel、Netlify、GitHub Pages 等。
+一些纯前端项目也可以部署到 Netlify、GitHub Pages、cloudflare pages 上
 
 ### 总结
 
