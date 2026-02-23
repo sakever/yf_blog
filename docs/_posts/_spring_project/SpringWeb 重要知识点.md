@@ -158,13 +158,13 @@ public @interface RequestBody {
 
 @RequestMapping：回应的方法
 
-@GetMapping
+@GetMapping：对应 get 请求
 
-@PostMapping
+@PostMapping：对应 post 请求
 
-@PutMapping
+@PutMapping：对应 put 请求
 
-@DeleteMapping
+@DeleteMapping：对应 delete 请求
 
 这里重点强调一下 post 与 put 的区别，关于使用方面，post适用于增加数据，put适用于修改数据
 
