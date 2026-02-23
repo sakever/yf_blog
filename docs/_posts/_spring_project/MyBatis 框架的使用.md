@@ -295,7 +295,7 @@ public interface TypeHandler<T> {
  </resultMap>
 ```
 这里是一张默认转换器的表格，可以直观的看出哪些数据不需要写转换器
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7b18d02c633246383b3020bab8ccb865.png)
+![在这里插入图片描述](./image/image-5.png)
 
 数据库列字段都是有类型的，不同的数据库有不同的类型。为了表示这些数据类型，Java 源码是采用枚举来定义的
 

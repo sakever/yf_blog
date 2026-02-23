@@ -96,7 +96,7 @@ jmap -dump:format=b,file=heap.bin <pid>
 jmap -histo <pid>|less
 ```
 可得到如下包含对象序号、某个对象示例数、当前对象所占内存的大小、当前对象的全限定名，如下图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8f63bdfce4d846a899262a59a04a6e04.png)
+![在这里插入图片描述](./image/image-10.png)
 3，还可以查看对象数最多的对象，并按降序排序输出：
 ```
 jmap -histo <pid>|sort -k 2 -g -r|less
@@ -235,7 +235,7 @@ printf  "%x" 8247
 2037
 ```
 e、在 1712.txt 文件中定位问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c6e864e805c3891f1952068773e51da8.png)
+![在这里插入图片描述](./image/image-11.png)
 
 执行 jmap，jstack 等命令时可能会出现 Unable to open socket file: target process not responding or HotSpot VM not loaded 问题
 

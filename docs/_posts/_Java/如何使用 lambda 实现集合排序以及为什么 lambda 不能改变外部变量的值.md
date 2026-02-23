@@ -77,7 +77,7 @@ Comparator<Integer> c = (o1, o2) -> {
 };
 ```
 上面的比较器就没有满足可逆性，当o1和o2相等时，o1和o2比较，返回-1，表示o1小于o2；但是当这两个元素交换位置时，o2比o1，结果返回还是-1，表示o2小于o1。这样就有两个元素互换比较，o1<o2并且o2<o1这两个结果相互矛盾，在某些极端情况下会出现异常，下面给出一个例子：
-![请添加图片描述](https://i-blog.csdnimg.cn/blog_migrate/b84663b30f6907a4c803b7915b2de3a8.png)
+![请添加图片描述](./image/image-31.png)
 例子：
 ```java
         Integer[] array =

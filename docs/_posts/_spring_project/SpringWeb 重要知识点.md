@@ -23,7 +23,7 @@ tags:
 6，控制器调用服务层，返回模型（网页的内容）和视图（要跳转的网页）给适配器，适配器发给前端控制器
 7，前端控制器发给视图解析器，视图解析器找到对应的 view，并给它发送 model
 8，网页开始渲染，并返回各用户
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/840889d4c03c1f260008b027bab07030.png)
+![在这里插入图片描述](./image/image-14.png)
 补充一下上图中的核心知识点：
 
 前端控制器设计模式中的一种架构模式，在 Web 应用中扮演着**中央调度员**的角色，它统一处理所有客户端请求，进行集中式管理
@@ -92,7 +92,7 @@ public class HelloController {
     }
 }
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/931dc8c56fbc2bb7ee583af859f30ae2.png)
+![在这里插入图片描述](./image/image-15.png)
 RequestParam 还允许接受日期，只要你定义好了参数的反序列化方式
 ```java
 @GetMapping("testDate")

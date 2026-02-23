@@ -31,10 +31,10 @@ public static CompletableFuture<Void> runAsync(Runnable runnable);
 public static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);
 ```
 supply 族的方法，可以返回异步线程执行之后的结果
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/57c1a3a185f48e72d016f650d8b57305.png)
+![在这里插入图片描述](./image/image-1.png)
 
 run 族的方法不会返回结果，像 Runnable 一样就只是执行线程任务。此时的 get 是拿不到数据的
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e15d526ded5a0129fb391bf2b1939438.png)
+![在这里插入图片描述](./image/image-2.png)
 
 而且一般使用带线程池的方法，如果不这么做的话，该方法就会默认使用系统及公共线程池 ForkJoinPool，而且这些线程都是守护线程。如果将我们普通的用户线程设置成守护线程，当我们的程序主线程结束，JVM 中不存在其余用户线程，那么 CompletableFuture 的守护线程会直接退出，造成任务无法完成的问题
 
@@ -58,20 +58,20 @@ public T    getNow(T valueIfAbsent)
 public T    join()
 ```
 join 和 get 方法都是用来获取 CompletableFuture 异步之后的返回值。get 方法抛出的是经过检查的异常（编译时异常），ExecutionException，InterruptedException 需要用户手动处理
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/58d58ae6a40f4627fbeccc3273ebb2c0.png)
+![在这里插入图片描述](./image/image-3.png)
 join 方法抛出的是 uncheck 异常（即未经检查的异常)，不会强制开发者处理
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/42ecc8f33f49f85d5953692242cf05ea.png)
+![在这里插入图片描述](./image/image-4.png)
 
 ## callback
 这是 CompletableFuture 的灵魂，我们可以用一些方法对得到的 CompletableFuture 进行进一步的处理，也就是所谓的异步回调过程。我们一般使用 thenRun、thenAccept 和 thenApply 来执行回调过程
 
 thenRun 后面跟的是一个无参数、无返回值的方法，即 Runnable
-![这是一个使用 supplyAsync 与 thenAccept 的例子，其他的方法同理。CompletableFuture 要么从 supply 组开始要么从 run 组开始，从 run 组开始就没有下面的组合了](https://i-blog.csdnimg.cn/blog_migrate/f2fb5a05091ef47dd139b9adb07f3830.png)
+![这是一个使用 supplyAsync 与 thenAccept 的例子，其他的方法同理。CompletableFuture 要么从 supply 组开始要么从 run 组开始，从 run 组开始就没有下面的组合了](./image/image-5.png)
 thenAccept 后面跟的是一个有参数、无返回值的方法，称为 Consumer
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b9d5e5c1ae6d66d59d5068d47314aae6.png)
+![在这里插入图片描述](./image/image-6.png)
 
 thenApply 后面跟的是一个有参数、有返回值的方法，称为 Function。而参数接收的是前一个任务，即 supplyAsync（..）这个任务的返回值。因此这里只能用 supplyAsync，不能用 runAsync。因为 runAsync 没有返回值，不能为下一个链式方法传入参数
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6e2d4f63885133b9e4b4a687ad6af73f.png)
+![在这里插入图片描述](./image/image-7.png)
 
 这三个方法还有一些重载。使用 thenApply 这些方法会导致主线程同步阻塞以等待上一个线程返回信息，如果使用了带 async 后缀的方法，会根据情况再创建一个线程来执行 then 中的代码
 ```java
@@ -110,7 +110,7 @@ public <U> CompletableFuture<U> thenComposeAsync(Function<? super T, ? extends C
 该方法可以按顺序链接两个 CompletableFuture 对象，它会将前一个任务的返回结果作为下一个任务的参数，它们之间存在着业务逻辑上的先后顺序
 
 thenCompose 和 thenApply 同样都是接受上一个 CompletableFuture 的结果，但是两个的实现完全不一样，thenApply 转换的是泛型中的类型，并不会生成新的 CompletableFuture。而 thenCompose 用来连接两个 CompletableFuture，是生成一个新的 CompletableFuture
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6970e8578e915297f515eb56b15e961e.png)
+![在这里插入图片描述](./image/image-8.png)
 
 thenCombine 组同样可以组合两个 CompletableFuture 对象，它会在两个任务都执行完成后，把两个任务的结果合并。两个任务是并行执行的，它们之间并没有先后依赖顺序。同时两个任务中只要有一个执行异常，则将该异常信息作为指定任务的执行结果
 ```java

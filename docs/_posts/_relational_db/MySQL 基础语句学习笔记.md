@@ -133,7 +133,7 @@ HAVING		函数名
 ORDER BY	列名
 ```
 **sql 中真实的执行顺序如下：**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b6a64a2d37fe41c69e32f355af9b8baf.png)
+![在这里插入图片描述](./image/image-5.png)
 ### SELECT
 为列起别名：AS，AS可以省略
 
@@ -271,7 +271,7 @@ SELECT employee_id, department_id, salary,
 FROM employees;
 ```
 输出示例如下：
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/dc736f25322b44bc8a099c9de983b41f.png)
+![请添加图片描述](./image/image-6.png)
 
 ## DML 语言：数据的增删改
 DML 是数据的增删改

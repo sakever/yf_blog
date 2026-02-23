@@ -105,9 +105,9 @@ int r1 = y;           | int r2 = x;
 ## 多线程通信
 ### wait 与 sleep 的区别
 **sleep 使用者为线程**，一般用于线程休眠，调用后线程进入**定时等待**状态（这里有图有真相）。线程不会失去任何锁的所有权，也就是 sleep 在代码块上锁的情况下是不会放弃锁对象的
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/32ca4aa8b707d33d34d5d0ccbccc0a23.png)
+![在这里插入图片描述](./image/image-4.png)
 sleep 方法（和有参的 wait）在一段时间后，线程会自动苏醒
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2cec44e84342d20e9b8eacc97f1a45e5.png)
+![在这里插入图片描述](./image/image-5.png)
 **wait 使用对象为同步锁对象**，一般用于线程间通信。wait 会放弃锁对象，线程进入等待状态，使用无参的 wait 线程不会自动苏醒，需要 notify、notifyAll
 ### notify 与 notifyAll 的区别
 notify 唤醒在该对象的监视器上等待的单个线程。如果有任何线程正在等待此对象，则会选择其中一个线程进行唤醒。这种选择是任意的，由执行人员自行决定，notifyAll 唤醒所有等待的线程
@@ -124,7 +124,7 @@ synchronized 有三种使用方法：
 一是**同步代码块**，使用 synchronized 方法锁住一个对象（一般设定一个 Object 对象），被框住的代码块同步，synchronized 不建议锁 String、Integer、Long 等对象
 
 在被 javac 编译为字节码之后，调用 synchronized 的地方，使用了 monitorenter， 结束时使用了 monitorexit 这两个字节码指令作标记
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/25d8825155ecc026608329d16111ba1a.png)
+![在这里插入图片描述](./image/image-6.png)
 
 二是同步方法，用 synchronized 修饰方法，被修饰方法同步，方法被锁时上锁的对象为调用方法的对象
 
@@ -189,10 +189,10 @@ Long 与 String 同理
 
 最开始是无锁状态，此时如果对象被计算过 hash 码就不会变成轻量级锁、偏向锁这些需要占用 MarkWork 的锁，会直接上重量级锁
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/74a6a016f6d455245da2c07de7cbf61b.png)
+![在这里插入图片描述](./image/image-7.png)
 #### 偏向锁
 偏向锁是消耗最小的锁，它的目的是消除数据在无竞争情况下的同步原语（CAS），说人话是**减少只有一个线程执行同步代码块时的性能消耗**，即在没有其他线程竞争的情况下，一个线程获得了锁具体的获取锁的流程如下：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7221d133a4c3afbf900f34b096e647d6.png)
+![在这里插入图片描述](./image/image-8.png)
 
 - 当锁对象第一次被线程获取时，JVM 在对象头（Mark Word）中记录该线程的 ID（偏向线程）（这个操作是 CAS 的，如果其他线程已经对其上锁了，就会升级），并将对象头标记为偏向锁状态
 - 判断 Mark Work 中的线程 ID 是否指向当前线程，如果是，则执行同步代码块
@@ -200,7 +200,7 @@ Long 与 String 同理
 - 使用完之后，线程会将栈帧中的 Displaced Mark Word 放回锁对象的 Mark Word 中
 
 我来讲一下这里的 CAS 操作：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/08f43745d64e58b2c9cd2526b515a201.png)
+![在这里插入图片描述](./image/image-9.png)
 
 CAS 在最开始的时候 V 和 O 的是相等的，N 中的每次线程要进行 CAS 操作时要新放入的值。当要进行 CAS 操作时，要先判断一下 V 和 O，若相等，说明没有 V 中的值还没有被其他线程更改，这时就可以将 N 中的值替换到 V 中。若不相等表明 N 中的值已经被其他的线程所更改，这时直接将 N 中的值返回即可
 
@@ -339,7 +339,7 @@ volatile 有以下特性
 2，在字节码层面，变量池中使用 ACC_VOLATILE 来标识此变量是 volatile 变量。JMM 对 volatile 的实现要求是通过 JMM 定义的8个原子操作拼接而成的（控制主内存与工作内存之间的交互，注意这是定义，其实现还是需要 JVM 的编写者调用操作系统指令实现）。整体来说，需要达到以下三点要求：线程每次使用变量前都必须先从主内存刷新最新的值、线程每次修改变量后都必须立刻同步回主内存中、不会被指令重排序优化
 
 3，操作系统层面，被标记的变量在读写操作时生成内存屏障来维持可见性与有序性。内存屏障是什么呢，我们看一下以下一个例子
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/d7863328657720ac4afcaeba1d4c217c.png)
+![在这里插入图片描述](./image/image-10.png)
 图中的 lock 开头的汇编指令（lock addl$0x0，(%esp)）就是内存屏障，内存屏障又分读写屏障（有 LoadLoad、StoreStore、LoadStore、StoreLoad 这些），它的功能很多比如：**每次修改之后都同步主存储器**、**该写入动作也会引起别的处理器或者别的内核无效化**、**并且内存屏障的两边不能进行指令重排序**，因为我们会在变量两边生成内存读写操作，因为在运行读写操作时之前的操作都完成了，因此有序
 
 内存屏障的实现挺多的：

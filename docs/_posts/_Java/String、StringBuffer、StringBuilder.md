@@ -33,10 +33,10 @@ String a3 = "ab" + "c";
 String a4 = a1 + "c";
 ```
 问以上的语句各生成了几个对象，或者问 a1 和 a2 是否指向同一个地址，下面是答案
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/411ee89e1fe94188a5f42c794a18d160.png)
+![在这里插入图片描述](./image/image-25.png)
 
 这是生成的 class 文件：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/57df9a40d0cda3a67f7e53d25c30bcd9.png)
+![在这里插入图片描述](./image/image-26.png)
 下面来解释一下为什么
 
 ```java
@@ -44,7 +44,7 @@ String a0 = "abc";
 String a1 = "abc";
 ```
 例子中的 a0 和 a1 都会指向在字符串常量池中的地址，这里是语法糖，这种字面量方式创建对象的话编译器会将 abc 放入 class 文件的常量池中，而如果使用 new String 方式创建的话则会强制在堆中创建 String 对象
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9541f6a063ef48cf85a3c9d4c5588c1b.png)
+![在这里插入图片描述](./image/image-27.png)
 
 ```java
 String a3 = "ab" + "c";

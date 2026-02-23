@@ -142,7 +142,7 @@ public class DoX {}
 5，异常通知（异常返回后会执行）
 
 以下是它们的执行顺序
-![执行顺序](https://i-blog.csdnimg.cn/blog_migrate/3a505be14b13e0d9779d883fbb8bffac.png)
+![执行顺序](./image/image-11.png)
 所有增强的后面，都需要加入切入点表达式来让它们知道自己增强了什么，value后面可以加入多个值
 
 切入点表达式：execution(类型+返回类型+方法的全限定名)

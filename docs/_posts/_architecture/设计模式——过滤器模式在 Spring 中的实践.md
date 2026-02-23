@@ -22,7 +22,7 @@ tags:
 - 对象集合（Items/Objects to be filtered）：要被过滤的对象集合。这些对象通常是具有共同属性的实例，例如一组人、一组产品等
 - 客户端（Client）：使用具体过滤器类来筛选对象集合。客户端将对象集合和过滤器结合起来，以获得符合条件的对象
 
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/b2867ab1e3754c96a9805a28a4833554.png)
+![请添加图片描述](./image/image-19.png)
 
 ## 简单实现
 定义实体类

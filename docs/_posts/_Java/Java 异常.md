@@ -9,7 +9,7 @@ tags:
 ---
 Java 异常是 Java 提供的一种识别及响应错误的一致性机制
 ## 异常继承图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eabee8d538bd89af8e8d44886b32bb7e.png)
+![在这里插入图片描述](./image/image-17.png)
 Throwable 实现了 Serializable 接口，它有 Error 与 Exception 两个子类，程序出现错误时，方法就会向外抛异常，它提供了 printStackTrace 等接口用于获取堆栈跟踪数据等信息
 
 Error 类及其子类表示了程序中无法处理的错误。比如著名的 OOM，以及虚拟机栈中可能会出现的 StackOverflowError 等错误。此类错误发生时，JVM 将终止线程或者进程，我们也不应该在业务代码中处理这些错误

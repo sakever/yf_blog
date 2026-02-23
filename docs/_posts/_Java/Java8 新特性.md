@@ -159,7 +159,7 @@ optional.orElseThrow(() -> new IllegalArgumentException("不存在")));
 先来说一下为什么不使用 Date 这个比较老的表示时间的类以及负责转换它的 SimpleDateFormat 。Java 的 java.util.Date 和 java.util.Calendar 类易用性差，不支持时区，而且都不是线程安全的，并且大部分方法都被弃用了
 
 Date 如果不格式化，打印出的日期可读性差，可以使用 SimpleDateFormat 对时间进行格式化，但 SimpleDateFormat 是线程不安全的
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7561a034100f86320a54d10553b7e507.png)
+![在这里插入图片描述](./image/image-24.png)
 原因是因为 SimpleDateFormat 中的 calendar 是共享变量，并且这个共享变量没有做线程安全控制。当多个线程同时使用相同的 SimpleDateFormat 对象调用 format 方法时，多个线程会同时调用 calendar.setTime 方法，可能一个线程刚设置好 time 值另外的一个线程马上把设置的 time 值给修改了，导致返回的格式化时间可能是错误的
 
 Java 8 提供了新的时间 API 的使用方式，主要包括创建、格式化、解析、计算、修改。我们可以看到重点在于这些表示时间的类与其他类相互转换以及对它们表示时间的修改

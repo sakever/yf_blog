@@ -152,7 +152,7 @@ public final class T extends Enum
 内部类之所以也是语法糖，是因为它仅仅是一个编译时的概念，outer.java里面定义了一个内部类inner，一旦编译成功，就会生成两个完全不同的.class文件了，分别是outer.class和outer$inner.class。所以内部类的名字完全可以和它的外部类名字相同
 
 所以知道怎么在 xml 配置中找对应的内部类了吗
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/6ee2ea2ffc9ef15055b6ed190d2648f7.png)
+![在这里插入图片描述](./image/image-23.png)
 
 ## 断言
 断言不是什么厉害的技术，其中也用到了语法糖，如果满足条件则抛出异常

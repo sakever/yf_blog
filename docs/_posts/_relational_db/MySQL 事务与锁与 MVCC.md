@@ -144,19 +144,19 @@ MySQL 用这些优化尽可能的增加程序的性能，注意，这也是 MVCC
 - 等待状态是一样的
 
 MySQL 的页有对应的数据结构、事务有对应的数据结构，那锁的数据结构是什么样子的？下图就是锁的内存结构，简单介绍一下
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/75b3a523fefdfc8a622896cbaee0f7e3.png)
+![在这里插入图片描述](./image/image-2.png)
 
 - 锁所在的事务信息：是一个指针，指向了生成该锁的事务
 - 索引信息：对行级锁来说，需要记录一下加锁的记录属于哪个索引
 - 表锁/行锁信息，如果是表锁，则结构为表信息、其它信息，如果是行锁，则为 spaceID (记录所在的表空间)、Page Number (记录所在的页号)、n_bits (一条记录对应着一个比特)
 - type_mode，一个32比特的数，不同的位数记录了不同的信息。根据位数分为了如下几个信息：
 -- loke_mode (锁模式)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1d690bcbad8d2cecca0ae65df0567122.png)
+![在这里插入图片描述](./image/image-3.png)
 -- lock_type (锁类型，LOCK_TABLE 表示表锁，LOCK_REC 表示行锁)
 -- rec_lock_type (行锁的具体类型，LOCK_ORIDNARY 表示 next-key 锁，LOCK_GAP 表示 gap 锁，LOCK_INSERT_INTENTION 表示插入意向锁，LOCK_REC_NOT_GAP 表示正经记录锁，LOCK_WAIT为1时，表示等待状态，没获得锁)
 - 其它信息：为了更好的管理系统运行过程中生成的各种锁结构而设计了各种哈希表和链表
 - 比特位：如果是行锁结构的话，在该结构末尾还放置了一堆比特位。页面中的每条记录在记录头信息中都包含一个 heap_no 属性，伪记录 Infimum 的 heap_no 值为0，Supremum 的 heap_no 值为1，之后每插入一条记录，heap_no 值就增1。锁结构最后的一堆比特位就对应着一个页面中的记录，一个比特位映射一个 heap_no（这个设计挺奇怪的，为什么不在主键上用区域的模式记录信息。这么记录不是异常占用空间吗，一万条记录一万个比特）
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/06ba4cab0d1aea5e5859f00db687c2e6.png)
+![在这里插入图片描述](./image/image-4.png)
 **MySQL 发生死锁的时候，会找出事务执行过程中插入、更新或者删除的记录条数较少的事务，对这个事务进行回滚**。因此 mysql 处理死锁的方法是释放部分资源
 ## MVCC（多版本并发控制）
 是一种按照时间控制数据具有多个版本来保证安全的协议，这种协议可以有效减少加锁的次数以提高性能

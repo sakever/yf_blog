@@ -29,7 +29,7 @@ NUMERIC(precision)
 postgresql 序列号（SERIAL）类型包括 smallserial（smallint,short）,serial(int) 和 bigserial(bigint,long long int)，不管是 smallserial，serial 还是 bigserial，其范围都是(1,9223372036854775807)，但是序列号类型其实不是真正的类型，当声明一个字段为序列号类型时其实是创建了一个序列，INSERT 时如果没有给该字段赋值会默认获取对应序列的下一个值，因此我们常常用它来作为主键
 
 在创建表时输入这个值，事实上是为主键的默认值设置为 nextval，比如
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4ff1c349a55e807e492ba6989417acda.png)
+![在这里插入图片描述](./image/image-30.png)
 我们可以使用查询语句查出这个值，也可以手动修改它的默认值
 ```sql
 SELECT nextval('crm_user_info_v_id_seq'::regclass);
@@ -220,7 +220,7 @@ postgres=## create index on ts using gin(doc_tsv);
 ```
 
 该 GIN 索引结构如下，黑色方块是 TID 编号，比如0-2代表该单词在第0行的第2个元素中出现过，白色为单词
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/2a82350a9a28c09fdb259fa340158558.png)
+![在这里插入图片描述](./image/image-31.png)
 
 由上可见，sheet、slit、slitter 出现在多行之中，会有多个 TID，这样就会生成一个 TID 列表，并为之生成一棵单独的B-tree，以此增加搜索速度
 
@@ -356,7 +356,7 @@ from user;
 select jsonb_array_elements(user_house) -> 'home'
 from user
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1246b10d3bc7f131657b9084c54e90a3.png)
+![在这里插入图片描述](./image/image-32.png)
 
 更多的函数：
 https://www.sjkjc.com/postgresql-ref/jsonb_array_elements/
@@ -565,7 +565,7 @@ select generate_series(50, 1050), now(), now(), '测试千条性能', generate_s
 
 ### explain analyze
 使用 pg 提供的 explain analyze sql 语句进行性能分析，返回的数据意义如下：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3a1de82512f94da1ca81c9c49f2542e1.png)
+![在这里插入图片描述](./image/image-33.png)
 
 cost=0.00…234.00
 
@@ -581,7 +581,7 @@ rows=10000，表示会返回10000行
 width=74，表示每行平均宽度为74字节
 
 来个复杂的例子：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b484fddefbb0264a904a21d74fea9937.png)
+![在这里插入图片描述](./image/image-34.png)
 
 actual time=0.320..0.320，实际花费的时间
 

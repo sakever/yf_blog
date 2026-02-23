@@ -11,7 +11,7 @@ tags:
 
 记录一下 MyBatis 的底层原理以及相关重要知识点
 ## 大体架构
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/7f07420786696a6381428685cfb7a4e5.png)
+![在这里插入图片描述](./image/image-6.png)
 在接口层中 MyBatis 提供和数据库交互的两种方式：使用传统的 MyBatis 提供的 API 实现简单的增删改查，以及使用 Mapper 接口实现自己写的 sql 语句
 
 数据处理层是 MyBatis 的核心，主要完成三个功能：通过传入参数构建动态 SQL 语句、SQL 语句的执行、封装查询结果集成 List< E >
@@ -21,7 +21,7 @@ tags:
 在 Executor 中执行 sql 并且返回结果，并且将返回的结果转化为我们熟悉的 java 类型
 
 数据处理层的大致过程如下图所示：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f69b3f3be57078b32fe4411a9189c378.png)
+![在这里插入图片描述](./image/image-7.png)
 重点关注一下这四大对象：
 
 （1）SqlSession 对象，该对象中包含了执行 SQL 语句的所有方法。类似于 JDBC 里面的 Connection，在执行时，可以在 MAP 中通过全限定名加接口名称来唯一确定一条 SQL
@@ -269,7 +269,7 @@ Person queryById(@Param("id") Long id, @Param("name") String name);
 mybatis 虽然允许重载，但是功能非常鸡肋，估计在设计的时候也没有考虑到重载的情况，不推荐使用
 
 ### 总结
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eebe0e36b23db75377698bf21837c21e.png)
+![在这里插入图片描述](./image/image-8.png)
 上面中流程就是 MyBatis 内部核心流程，每一步流程的详细说明如下文所述：
 
 （1）读取MyBatis的配置文件。mybatis-config.xml为MyBatis的全局配置文件，用于配置数据库连接信息。

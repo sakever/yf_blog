@@ -190,7 +190,7 @@ private Integer version;
 ```
 ## 条件构造器
 MP 的扩展与插件实现了 mybatis 的拦截器与插件功能，而条件构造器配合提供的各种方法可以实现动态 sql 功能，使用 wrapper 以实现复杂查询
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/ba99a54316ac72c944edff83a60edf49.png)
+![在这里插入图片描述](./image/image-9.png)
 首先，QueryWrapper 构造了查询条件，里面的方法包含了几乎所有的 sql 语句，比如 eq、le 等，非常好理解，注意传入条件之前一定要把实体类传进去
 ```java
         new QueryWrapper<User>().eq("user_id", 1);

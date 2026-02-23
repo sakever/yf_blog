@@ -92,7 +92,7 @@ public abstract class Reference<T> {
 ```
 
 使用 PhantomReference 来让一个引用虚指向一个对象，**我们无法通过一个虚引用来取得一个对象实例**，虚引用的 get 方法始终返回 null，它一般需要配合一个队列来使用
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e6f3a4ad320928fe5d66b569911eafe6.png)
+![在这里插入图片描述](./image/image-11.png)
 
 它的唯一作用就是为了能在这个对象被回收的时候可以收到一个系统通知，一般用来管理堆外内存
 

@@ -67,7 +67,7 @@ protected TypeReference()
     }
 ```
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/c40788e896ff18f573e58327086cc05d.png)
+![在这里插入图片描述](./image/image-9.png)
 
 ### JSON 转换为 map
 如果事先不知道将要解析的确切JSON结构，这种方法是很有用的。 通常，会将JSON对象读入Java Map。 JSON对象中的每个字段都将成为Java Map中的键，值对
