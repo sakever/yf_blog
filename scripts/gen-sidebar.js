@@ -7,12 +7,12 @@ const path = require('path');
  * - 只配置必要的路径映射，大幅减少文件大小
  * - 支持自动扫描目录下的所有 .md 文件
  *
- * 输出到：docs/.vuepress/sidebar.generated.js
+ * 输出到：docs/.vuepress/sidebar.js
  */
 
 const repoRoot = path.resolve(__dirname, '..');
 const postsDir = path.join(repoRoot, 'docs', '_posts');
-const outFile = path.join(repoRoot, 'docs', '.vuepress', 'sidebar.generated.js');
+const outFile = path.join(repoRoot, 'docs', '.vuepress', 'sidebar.js');
 
 // 目录显示名（可按需补充/修改）
 const TITLE_MAP = {
