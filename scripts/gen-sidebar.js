@@ -99,10 +99,9 @@ function buildSidebar() {
       return {
         title: TITLE_MAP[dirName] || dirName.replace(/^_/, ''),
         collapsable: false,
-        // 使用自动侧边栏：深度为 2，自动扫描该目录下的所有 .md 文件
+        // 使用自动侧边栏：设置为目录路径字符串，VuePress 会自动扫描该目录下的所有 .md 文件
         // 这样就不需要硬编码所有文件路径了
-        children: `/_posts/${dirName}/`,
-        sidebarDepth: 2
+        children: `/_posts/${dirName}/`
       };
     })
   };
