@@ -324,7 +324,7 @@ Dubbo 在 ZooKeeper 中的目录结构如下
          /consumer://192.168.1.100/com.example.UserService?application=user-service-consumer&version=1.0.0&group=production&timestamp=1620000000000
 ```
 ### 超时机制
-dubbo 中的超时配置可以陪在接口级别和方法级别，同时消费者和生产者都可以配置
+dubbo 中的超时配置可以配置在接口级别和方法级别，同时消费者和生产者都可以配置
 
 消费者中有 DefaultFuture 尝试接收响应结果，如果阻塞达到超时时间响应结果还是为空，那么消费者会抛出超时异常
 ```java
@@ -385,7 +385,7 @@ public class DefaultFuture implements ResponseFuture {
     }
 }
 ```
-生产者超时机制体现在 TimeoutFilter 过滤器，需要注意生产者超时了只记录一条日志，不会抛出异常或者中断，如果接收到消费者的中断请求，会通过线程中断（Thread.interrupt()）尝试终止正在执行的业务逻辑
+生产者超时机制体现在 TimeoutFilter 过滤器，需要注意生产者超时了只记录一条日志，不会抛出异常或者中断，如果接收到消费者的中断请求，会通过线程中断（Thread.interrupt()）尝试终止正在执行的业务逻辑。但是仅仅只是尝试而已，毕竟要想完全中断业务逻辑是比较困难的，因此 dubbo 的实现时如果服务端超时了则向调用链上层抛出异常，业务逻辑继续执行，后续业务执行完毕也不会给服务端返回
 ```java
 @Activate(group = Constants.PROVIDER)
 public class TimeoutFilter implements Filter {
