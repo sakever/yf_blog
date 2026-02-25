@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * 生成 VuePress(v1) vdoing 主题侧边栏配置：
- * - 扫描 docs/_posts 下的一级目录（如 _ai、_architecture）
- * - 每个目录生成一个分组，children 为该目录下所有 .md（排除 index.md / README.md）
- * - 忽略 image 等资源目录
+ * 生成 VuePress(v1) vdoing 主题侧边栏配置（优雅版）
+ * - 使用 VuePress 的自动侧边栏功能，无需硬编码所有文件路径
+ * - 只配置必要的路径映射，大幅减少文件大小
+ * - 支持自动扫描目录下的所有 .md 文件
  *
  * 输出到：docs/.vuepress/sidebar.generated.js
  */
@@ -88,54 +88,34 @@ function listTopLevelPostDirs() {
   return [...inOrder, ...rest];
 }
 
-function listMarkdownFiles(dirName) {
-  const abs = path.join(postsDir, dirName);
-  if (!isDirectory(abs)) return [];
-  return fs
-    .readdirSync(abs, { withFileTypes: true })
-    .filter((e) => e.isFile())
-    .map((e) => e.name)
-    .filter((n) => n.toLowerCase().endsWith('.md'))
-    .filter((n) => !['index.md', 'readme.md'].includes(n.toLowerCase()))
-    .sort((a, b) => a.localeCompare(b, 'zh-Hans-CN'));
-}
-
-function toVuepressPath(dirName, fileName) {
-  // VuePress 侧边栏需要用 POSIX 路径
-  const p = path.posix.join('/_posts', dirName, fileName);
-  return p;
-}
-
 function buildSidebar() {
   const dirNames = listTopLevelPostDirs();
-  const sidebarContent = dirNames
-    .map((dirName) => {
-      const childrenFiles = listMarkdownFiles(dirName);
-      if (childrenFiles.length === 0) return null;
+
+  // 优雅的侧边栏配置：使用 VuePress 的自动侧边栏功能
+  // 只配置路径映射，让 VuePress 自动扫描目录下的所有 .md 文件
+  const sidebar = {
+    // 全局侧边栏：所有 /_posts/ 下的页面都显示相同的侧边栏
+    '/_posts/': dirNames.map((dirName) => {
       return {
         title: TITLE_MAP[dirName] || dirName.replace(/^_/, ''),
         collapsable: false,
-        children: childrenFiles.map((f) => toVuepressPath(dirName, f))
+        // 使用自动侧边栏：深度为 2，自动扫描该目录下的所有 .md 文件
+        // 这样就不需要硬编码所有文件路径了
+        children: `/_posts/${dirName}/`,
+        sidebarDepth: 2
       };
     })
-    .filter(Boolean);
-
-  const sidebar = {
-    '/_posts/': sidebarContent
   };
-  for (const dirName of dirNames) {
-    sidebar[`/_posts/${dirName}/`] = sidebarContent;
-  }
 
-  return { sidebarContent, sidebar };
+  return { sidebar };
 }
 
-function writeOut({ sidebarContent, sidebar }) {
+function writeOut({ sidebar }) {
   const content =
     '// 此文件由 scripts/gen-sidebar.js 自动生成，请勿手动编辑。\n' +
     '// 若需调整顺序/标题，请修改 scripts/gen-sidebar.js 中的 ORDER / TITLE_MAP。\n' +
+    '// 使用 VuePress 自动侧边栏功能，大幅减少文件大小。\n' +
     '\n' +
-    `const sidebarContent = ${JSON.stringify(sidebarContent, null, 2)}\n\n` +
     `const sidebar = ${JSON.stringify(sidebar, null, 2)}\n\n` +
     'module.exports = sidebar\n';
 
@@ -151,5 +131,3 @@ function main() {
 }
 
 main();
-
-
