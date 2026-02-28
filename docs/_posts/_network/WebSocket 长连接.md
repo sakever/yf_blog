@@ -43,10 +43,16 @@ Sec-WebSocket-Protocol: chat
 java 中实现 webSocket 一般有两种方法，一种是使用 WebSocket 的一个子协议 stomp，另外一个是使用 Socket.IO 协议实现。我们先介绍 stomp 实现方法
 
 WebSocket 协议是一种相当低级的协议。它定义了如何将字节流转换为帧。帧可以包含文本或二进制消息。由于消息本身不提供有关如何路由或处理它的任何其他信息，因此很难在不编写其他代码的情况下实现更复杂的应用程序。幸运的是，WebSocket 规范允许在更高的应用程序级别上使用子协议。STOMP 是其中之一
-
+### STOMP
 STOMP：Simple (or Streaming) Text Orientated Messaging Protocol，即简单文本定向消息协议。它被用于定义常用消息传递的格式，STOMP 可以用于任何可靠的双向流网络协议，如 TCP 和 WebSocket，虽然 STOMP 是一个面向文本的协议，但消息可以是文本或二进制
 
-使用 stomp 模式实现的 webSocket 更加简单便捷，在低链接数的情况下，比 Socket.IO 消耗更少的资源
+它常配合 WebSocket 一起用，让前端和后端像发短信一样互发消息，而不是裸着用 WebSocket 字节流（WebSocket 没有定义在其中传输的消息格式，用户可以乱发消息，为了不让用户乱发消息，我们定义了一个消息格式规范），STOMP 的格式是：
+
+- 命令：CONNECT / SEND / SUBSCRIBE
+- 头：destination、content-type
+- 正文：消息文本
+
+服务器和客户端都按这套「约定」来解析消息
 ### 依赖以及配置类
 ```xml
         <dependency>
