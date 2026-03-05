@@ -9,20 +9,21 @@ tags:
 ---
 主要讲述 SpringWeb 工作原理以及相关注解。**MVC 本身是一种分层的设计模式思想，主要将模型和视图拆分开来便于编码**，传统的 MVC 模型下包架构为 Service 层（处理业务）、Dao 层（数据库操作）、Entity 层（实体类）、Controller 层
 ## 主要组件
-1，前端控制器 DispatcherServlet：MVC 的重点，从用户发送请求到返回视图给用户几乎每个过程都有它，它接受所有的用户请求，**负责接收请求、分发，并给予客户端响应**
-2，处理器映射器 HandlerMapping：从 url 中的信息判断应该交给哪个处理器
-3，处理器适配器 HandlerAdapter：根据 HandlerMapping 的判断结果发送给对应的 Handler，并且**统一不同类型的 Handler 调用方式**，因为项目中每个 controller 出入参定义不一样，对前端控制器的影响在 HandlerAdapter 这一层屏蔽
-4，处理器 Handler：处理请求的真正部分，就是我们写的 Controller
-5，视图转发器 ViewResolver：根据 Handler 返回的逻辑视图，解析并渲染真正的视图，并传递给 DispatcherServlet 响应客户端
+- 1，前端控制器 DispatcherServlet：MVC 的重点，从用户发送请求到返回视图给用户几乎每个过程都有它，它接受所有的用户请求，**负责接收请求、分发，并给予客户端响应**，同时可以做一些全局的逻辑
+- 2，处理器映射器 HandlerMapping：从 url 中的信息判断应该交给哪个处理器
+- 3，处理器适配器 HandlerAdapter：根据 HandlerMapping 的判断结果发送给对应的 Handler，并且**统一不同类型的 Handler 调用方式**，因为项目中每个 controller 出入参定义不一样，对前端控制器的影响在 HandlerAdapter 这一层屏蔽
+- 4，处理器 Handler：处理请求的真正部分，就是我们写的 Controller
+- 5，视图转发器 ViewResolver：根据 Handler 返回的逻辑视图，解析并渲染真正的视图，并传递给 DispatcherServlet 响应客户端
 ## Spring MVC 工作过程
-1，用户的 http 请求传入**前端控制器**，中途会有过滤器 Filter 进行数据过滤，Filter 可以直接作用在前端控制器，代表对项目中所有的接口进行拦截
-2，前端控制器发给处理器映射器
-3，处理器映射器返回执行链
-4，前端控制器发送请求给适配器
-5，适配器发送给控制器
-6，控制器调用服务层，返回模型（网页的内容）和视图（要跳转的网页）给适配器，适配器发给前端控制器
-7，前端控制器发给视图解析器，视图解析器找到对应的 view，并给它发送 model
-8，网页开始渲染，并返回各用户
+- 1，用户的 http 请求传入**前端控制器**，中途会有过滤器 Filter 进行数据过滤，Filter 可以直接作用在前端控制器，代表对项目中所有的接口进行拦截
+- 2，前端控制器发给处理器映射器（HandlerMapping）
+- 3，处理器映射器返回执行链，HandlerExecutionChain，执行链中包含真正的处理器（Handler，通常就是 Controller 方法），以及一组拦截器 HandlerInterceptor
+- 4，前端控制器发送请求给适配器，适配器负责解析参数、调用处理器、处理返回值，相当于对控制器的封装。返回一个 ModelAndView（逻辑视图名 + 模型数据）或者直接写入响应（REST 接口）
+- 5，适配器发送给控制器
+- 6，控制器调用服务层，返回模型（网页的内容）和视图（要跳转的网页）给适配器，适配器发给前端控制器
+- 7，前端控制器发给视图解析器，视图解析器找到对应的 view，并给它发送 model
+- 8，网页开始渲染，并返回各用户
+
 ![在这里插入图片描述](./image/image-14.png)
 补充一下上图中的核心知识点：
 
