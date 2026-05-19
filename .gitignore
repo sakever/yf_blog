@@ -1,6 +1,6 @@
 # 忽略 todo 文件
 docs/.vuepress/todo.txt
-
+docs/.vuepress/todo.md
 # 依赖目录
 node_modules/
 
