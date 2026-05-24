@@ -4,9 +4,9 @@ pageComponent:
   data:
     key: 15.AI
   imgUrl: /blogger_icon.png
-  description: 人工智能与 LLM
+  description: AI 相关技术
 title: AI
-date: 2026-05-18
+date: 2026-05-24
 sidebar: false
 article: false
 comment: false
