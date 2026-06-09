@@ -4,7 +4,7 @@ date: 2024-12-27
 categories:
   - AI
 tags:
-  - 金融
+  - Prompt
 ---
 对于特定的任务来说，没有万能的 Prompt，只有合适的模式
 ## Prompt 大纲
