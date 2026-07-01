@@ -31,8 +31,7 @@ tags:
 </beans>
 ```
 
-3，写出需要构建的类，类中应该有每个变量的set方法，并在beans.xml
-文件中进行添加
+3，写出需要构建的类，类中应该有每个变量的set方法，并在beans.xml文件中进行添加
 ```xml
     <bean id="address" class="com.myself.POJO.Address" name="address2"/>
 
