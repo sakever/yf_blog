@@ -1,5 +1,5 @@
 ﻿---
-title: vibe coding 最佳实践
+title: vibe coding 提示词模板
 date: 2026-02-24
 categories:
   - AI
