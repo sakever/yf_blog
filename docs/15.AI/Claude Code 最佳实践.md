@@ -10,6 +10,7 @@ tags:
 
 Claude Code 是 Anthropic 推出的智能终端助手，特别适合处理大型、复杂的代码库。可以在终端里直接通过对话完成重构、调试、代码生成等任务。但要让 Claude Code 真正高效工作，需要掌握一些配置和用法技巧。本文整理了我使用 Claude Code 过程中的最佳实践，涵盖项目配置、规则管理、Skills 组织和效率优化等方面。
 
+[Claude Code安装配置及接入Deepseek](https://blog.csdn.net/2401_87660168/article/details/160448189)
 [Claude Code 官方文档](https://code.claude.com/docs/zh-CN/overview)
 
 ## CLAUDE.md 很重要
@@ -130,7 +131,7 @@ Superpowers 是一套给 AI 编程工具用的开发流程技能包，它让 AI 
 
 [Superpowers 使用指南](https://www.runoob.com/skills/superpowers-skill.html)
 [Superpowers 中文特供版](https://pi.dev/packages/superpowers-zh)
-
+![](image/image-21.png)
 ### CCH 头问题处理
 
 问题描述为用 Claude Code 接 DeepSeek API，明明代码没怎么变，token 消耗却突然涨了好几倍，一天就把额度用完了。这个情况不是个例。在 GitHub 上，至少有 80 多个相关 issue，核心问题都指向同一个点——Claude CLI 默认添加的 CCH（Claude Code Attribution Header）导致第三方服务的缓存失效。
