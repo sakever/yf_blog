@@ -302,3 +302,10 @@ management:
 Sentinel 的限流精度是秒级，它底层的滑动窗口统计最小粒度是 500ms，聚合出来的是 QPS（每秒查询率），限流算法可以修改，滑动窗口算法、令牌桶算法和漏桶算法
 
 Sentinel 的熔断有三个状态：关闭 -> 打开 -> 半开，半开状态下 Sentinel 会放行 1 个请求去试探下游服务。只要触发了熔断并且下游服务没有真正恢复，熔断器就会一直被试探失败反复重置
+
+## Grafana 配置
+强烈建议在完成以上工作后，Grafana 的配置让 AI 写，直接生成一份 JSON 即可，然后再 Grafana 中一键导入。随后根据 Grafana 中的指标，动态进行熔断、限流等等配置
+
+注意在普罗米修斯中，类似 executor.wait.duration 这种打点名称，会自动转换为下划线形式 executor_wait_duration。同时，关于次数的打点，后面会自动加 total 后缀，比如 rpc_server_failed 会自动转换成 rpc_server_failed_total、关于时间的打点，会自动加 seconds_sum 后缀，比如 rpc_server_duration 会自动转换成 rpc_server_duration_seconds_sum，在配置的时候需要注意
+
+如果不使用三方的 grafana，想自己搭一套，可以参考这篇文章：https://cloud.tencent.com/developer/article/1807679
