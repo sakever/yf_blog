@@ -124,7 +124,7 @@ public class Student {
     }
 ```
 ## AOP
-首先，所有的类都需要交给IOC容器，才可以使用SpringAOP，推荐直接用aspectJ
+首先，所有的类都需要交给 IOC 容器，才可以使用 SpringAOP，推荐直接用 aspectJ
 
 使用注解定义哪个类为增强类，增强类当作切面
 ```java
@@ -133,21 +133,21 @@ public class DoX {}
 ```
 
 增强类大致有这几种增强：
-1，前置通知before
-2，环绕通知around
-3，后置通知after return（有异常不会执行）
-4，最终通知after（有无异常都会执行）
+1，前置通知 before
+2，环绕通知 around
+3，后置通知 after return（有异常不会执行）
+4，最终通知 after（有无异常都会执行）
 5，异常通知（异常返回后会执行）
 
 以下是它们的执行顺序
 ![执行顺序](./image/image-11.png)
-所有增强的后面，都需要加入切入点表达式来让它们知道自己增强了什么，value后面可以加入多个值
+所有增强的后面，都需要加入切入点表达式来让它们知道自己增强了什么，value 后面可以加入多个值
 
 切入点表达式：execution(类型+返回类型+方法的全限定名)
 
-order用来表示增强的优先级
+order 用来表示增强的优先级
 
-Pointcut来设置增强全限定名，这样遇到相同的方法可以直接调用
+Pointcut 来设置增强全限定名，这样遇到相同的方法可以直接调用
 
 ```java
     @Pointcut(value = "execution(* com.myself.helloworld.service.DoSome.say(..))")
@@ -172,15 +172,15 @@ Pointcut来设置增强全限定名，这样遇到相同的方法可以直接调
 此注解后面可以加参数，用来声明事务传播行为、事务隔离级别等
 
 ## WebFlux
-异步非阻塞，使用netty容器，可以处理更多请求，响应式编程，使用了观察者模式
+异步非阻塞，使用 netty 容器，可以处理更多请求，响应式编程，使用了观察者模式
 
 主要使用两个类来实现，Mono（返回一个或者零个数据的数据流），Flux（返回多个数据）
 
 类中的常见方法：
-fromArray（数组）
-fromIterable（集合）
-fromStrean（流）
-just（对象）
+- fromArray（数组）
+- fromIterable（集合）
+- fromStrean（流）
+- just（对象）
 
 操作符：map（对每个数据进行一定操作）、flatmap（对数据操作后生成多个数据）
 ```java
@@ -188,7 +188,7 @@ just（对象）
         return Mono.justOrEmpty(employeeDao.getOne(name));
     }
 
-    public Flux<Employee> all(){
+    public Flux<Employee> all() {
         return Flux.fromIterable(employeeDao.getEmployee());
     }
 ```
