@@ -1,14 +1,15 @@
-﻿---
-pageComponent:
+---
+pageComponent: 
   name: Catalogue
-  data:
+  data: 
     key: 11.Python
   imgUrl: /blogger_icon.png
   description: Python 相关知识
 title: Python
-date: 2026-05-18
+date: 2026-05-18 00:00:00
 sidebar: false
 article: false
 comment: false
 editLink: false
+permalink: /pages/488885/
 ---

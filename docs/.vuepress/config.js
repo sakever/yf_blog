@@ -17,18 +17,9 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '博客', link: '/_posts/' },
+      { text: '博客', link: '/archives/' },
       { text: '分类', link: '/categories/' },
-      { text: '标签', link: '/tags/' },
-      {
-        text: '专栏',
-        items: [
-          { text: 'Java', link: '/04.Java/' },
-          { text: '分布式', link: '/13.分布式/' },
-          { text: '架构设计', link: '/14.架构设计/' },
-          { text: 'AI', link: '/15.AI/' }
-        ]
-      }
+      { text: '标签', link: '/tags/' }
     ],
     sidebar: 'structuring',
     sidebarDepth: 4,
@@ -36,8 +27,6 @@ module.exports = {
     tag: true,
     archive: true,
     lastUpdated: '最后更新',
-    search: true,
-    searchMaxSuggestions: 10,
     rightMenuBar: true,
     pageButton: true,
     blogInfo: {
@@ -58,9 +47,7 @@ module.exports = {
     extractHeaders: ['h2', 'h3', 'h4', 'h5']
   },
   plugins: [
-    ['@vuepress/search', {
-      searchMaxSuggestions: 10
-    }],
+    'vuepress-plugin-fulltext-search',
     {
       name: 'custom-plugins',
       globalUIComponents: ["PageInfo"]

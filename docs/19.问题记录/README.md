@@ -1,14 +1,15 @@
-﻿---
-pageComponent:
+---
+pageComponent: 
   name: Catalogue
-  data:
+  data: 
     key: 19.问题记录
   imgUrl: /blogger_icon.png
   description: 问题排查与记录
 title: 问题记录
-date: 2026-05-18
+date: 2026-05-18 00:00:00
 sidebar: false
 article: false
 comment: false
 editLink: false
+permalink: /pages/954dbf/
 ---

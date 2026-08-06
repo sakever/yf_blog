@@ -25,13 +25,6 @@
       <div class="webinfo-content">{{ totalWords }} 字</div>
     </div>
 
-    <div class="webinfo-item">
-      <div class="webinfo-item-title">最后活动时间：</div>
-      <div class="webinfo-content">
-        {{ lastActiveDate == "刚刚" ? "刚刚" : lastActiveDate + "前" }}
-      </div>
-    </div>
-
     <div v-if="indexView" class="webinfo-item">
       <div class="webinfo-item-title">本站被访问了：</div>
       <div class="webinfo-content">
@@ -113,8 +106,6 @@ export default {
       } else {
         this.totalWords = totalWords;
       }
-      // 最后一次活动时间
-      this.lastActiveDate = timeDiff(this.$lastUpdatePosts[0].lastUpdated);
       this.mountedWebInfo(moutedEvent);
       // 获取访问量和排名
       this.indexView = indexView == undefined ? true : indexView;

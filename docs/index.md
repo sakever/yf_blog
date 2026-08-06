@@ -1,12 +1,12 @@
 ---
 ## 首页
 home: true
-heroImage: /blogger_icon.png
+heroImage: /logo.png
 heroText: disgare 的技术博客
 tagline: 技术博客，积跬步以至千里，致敬每个爱学习的你。
 actionText: 访问我的 CSDN 博客
 actionLink: https://blog.csdn.net/sekever
-bannerBg: auto ## auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
+bannerBg: none ## auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
 
 # features: ## 可选的
 #   - title: 分类

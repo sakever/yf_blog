@@ -1,14 +1,15 @@
-﻿---
-pageComponent:
+---
+pageComponent: 
   name: Catalogue
-  data:
+  data: 
     key: 07.中间件
   imgUrl: /blogger_icon.png
   description: 中间件相关技术
 title: 中间件
-date: 2026-05-18
+date: 2026-05-18 00:00:00
 sidebar: false
 article: false
 comment: false
 editLink: false
+permalink: /pages/556512/
 ---

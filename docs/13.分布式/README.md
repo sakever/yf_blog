@@ -1,14 +1,15 @@
-﻿---
-pageComponent:
+---
+pageComponent: 
   name: Catalogue
-  data:
+  data: 
     key: 13.分布式
   imgUrl: /blogger_icon.png
   description: 分布式系统相关知识
 title: 分布式
-date: 2026-05-18
+date: 2026-05-18 00:00:00
 sidebar: false
 article: false
 comment: false
 editLink: false
+permalink: /pages/87f075/
 ---

@@ -1,14 +1,15 @@
-﻿---
-pageComponent:
+---
+pageComponent: 
   name: Catalogue
-  data:
+  data: 
     key: 10.关系型数据库
   imgUrl: /blogger_icon.png
   description: MySQL、PostgreSQL 等
 title: 关系型数据库
-date: 2026-05-18
+date: 2026-05-18 00:00:00
 sidebar: false
 article: false
 comment: false
 editLink: false
+permalink: /pages/0adf1e/
 ---

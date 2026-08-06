@@ -8,6 +8,13 @@ node_modules/
 dist/
 .vuepress/dist/
 
+# vdoing 主题自动生成的页面(每次启动重新生成，无需提交)
+docs/@pages/
+
+# VuePress 缓存
+docs/.vuepress/.cache/
+docs/.vuepress/.temp/
+
 # 日志文件
 *.log
 npm-debug.log*

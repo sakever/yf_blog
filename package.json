@@ -14,8 +14,10 @@
   "author": "disgare",
   "license": "MIT",
   "devDependencies": {
+    "chalk": "^2.4.2",
+    "gray-matter": "^4.0.3",
     "vuepress": "^1.9.7",
-    "vuepress-theme-vdoing": "^1.12.5",
-    "vuepress-plugin-fulltext-search": "^2.2.1"
+    "vuepress-plugin-fulltext-search": "^2.2.1",
+    "vuepress-theme-vdoing": "^1.12.5"
   }
 }
