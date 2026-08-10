@@ -12,7 +12,9 @@ module.exports = {
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
     ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     ['link', { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_3077305_pt8umhrn4k9.css' }],
-    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' }]
+    ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' }],
+    // Bing Webmaster Tools 站点验证
+    ['meta', { name: 'msvalidate.01', content: 'A9B1FFB4BB2B4B055834970233683721' }]
   ],
   themeConfig: {
     nav: [
@@ -48,6 +50,11 @@ module.exports = {
   },
   plugins: [
     'vuepress-plugin-fulltext-search',
+    // 生成 sitemap.xml，用于 SEO 收录
+    ['vuepress-plugin-sitemap', {
+      hostname: 'https://sakever.github.io',
+      changefreq: 'weekly'
+    }],
     {
       name: 'custom-plugins',
       globalUIComponents: ["PageInfo"]

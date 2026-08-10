@@ -18,6 +18,7 @@
     "gray-matter": "^4.0.3",
     "vuepress": "^1.9.7",
     "vuepress-plugin-fulltext-search": "^2.2.1",
+    "vuepress-plugin-sitemap": "^2.3.1",
     "vuepress-theme-vdoing": "^1.12.5"
   }
 }
