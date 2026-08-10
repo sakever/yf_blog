@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sakever.github.io/yf_blog/sitemap.xml
