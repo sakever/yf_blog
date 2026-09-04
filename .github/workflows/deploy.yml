@@ -39,13 +39,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/.vuepress/dist
         publish_branch: gh-pages
-
-    # 部署后向 IndexNow 提交全量 URL，加速 Bing 收录
-    # 等待 GitHub Pages 同步，确保 key 文件已可访问
-    - name: Wait for GitHub Pages sync
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      run: sleep 60
-
-    - name: Submit URLs to IndexNow
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      run: npm run indexnow
