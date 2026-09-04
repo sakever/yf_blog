@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 // IndexNow key 是公开信息（规范要求以纯文本形式托管在站点上）
-const KEY = '66ca6ee1a169095aa900a7fccd901eb6';
+const KEY = '25c733d689bb49939b5df1150921fd64';
 const HOST = 'sakever.github.io';
 const BASE = 'https://sakever.github.io/yf_blog';
 const KEY_LOCATION = `${BASE}/${KEY}.txt`;
